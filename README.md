@@ -8,7 +8,7 @@
 2. feature/기능명 branch를 만든다.
 3. 구현한 기능을 feature branch에 pull한다.
 4. feature branch를 develop branch에 merge한다.
-5. 문제가 없을 시 main branch에 pull request를 한다.`
+5. 문제가 없을 시 main branch에 pull request를 한다.
 ```
 
 ---
