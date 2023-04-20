@@ -5,13 +5,7 @@ $cancel.addEventListener("click", () => {
 
 const $id = document.getElementById("id");
 const $idCheckView = document.getElementsByClassName("id-check-view");
-$idCheckView.addEventListener("blur", () => {
-  if ($id.value !== $idCheck.value) {
-    $idCheckView[0].style.display = "block";
-  } else {
-    $idCheckView[0].style.display = "none";
-  }
-});
+
 const $pw = document.getElementById("pw");
 const $pwCheckView = document.getElementsByClassName("pw-check-view");
 const $pwCheck = document.getElementById("pw-check");
