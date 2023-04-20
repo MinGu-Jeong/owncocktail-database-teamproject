@@ -4,7 +4,7 @@
 ---
 ## 기능 추가
 ```
-1. develop branch를 clone한다.
+1. main branch를 clone한다.
 2. feature/기능명 branch를 만든다.
 3. 구현한 기능을 feature branch에 pull한다.
 4. feature branch를 develop branch에 merge한다.
