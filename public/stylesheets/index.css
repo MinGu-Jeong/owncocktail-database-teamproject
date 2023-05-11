@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.login-signup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.title-logo {
+  width: 345px;
+  height: 100px;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 100px;
+  align-items: center;
+  width: 1150px;
+  height: 85px;
+  margin-top: 50px;
+  border: 1px solid #000;
+  background: rgba(245, 198, 236);
+}
+#nav-cocktail-receipe {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  background: none;
+
+  color: #000;
+}
+#nav-own-cocktail {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000;
+  border: 0;
+  background: none;
+}
+#nav-ingredient {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  background: none;
+  color: #000;
+}
+.best-cocktail-container {
+  margin-top: 45px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border: 1px solid #000;
+  background-color: #e9e1ff;
+  border-radius: 20px;
+}
+.best-cocktail-button-container,
+.best-own-cocktail-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: #e9e1ff;
+}
+.best-cocktail-button-container > button,
+.best-own-cocktail-button-container > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border: #000 1px solid;
+  border-radius: 50%;
+  gap: 40px;
+  margin-right: 10px;
+  flex-wrap: wrap;
+}
+.best-cocktail-button-circle,
+.best-own-cocktail-button-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #363333;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.login-signup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.best-own-cocktail-container {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border: 1px solid #000;
+  background-color: #e9e1ff;
+  border-radius: 20px;
+}
+#best-cocktail-1-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

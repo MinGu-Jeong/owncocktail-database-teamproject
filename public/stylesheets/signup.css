@@ -1,0 +1,64 @@
+body {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.nav-pills {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-logo {
+  width: 345px;
+  height: 100px;
+}
+nav {
+  margin-top: 20px;
+  margin-bottom: 100px;
+  margin-right: 10px;
+}
+.signup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.btn-outline-secondary {
+  margin-right: 10px;
+}
+.id-check-view,
+.pw-check-view {
+  display: none;
+  color: red;
+}
+#nav-title {
+  display: flex;
+  position: relative;
+  margin-left: 10px;
+  font-weight: bolder;
+}
+.nav-right-item {
+  display: flex;
+  justify-content: center;
+}
+.signup-form {
+  width: 400px;
+  height: 500px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 35%;
+  margin-top: 50px;
+}
+.form-control {
+  width: 300px;
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.col-12 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
