@@ -9,6 +9,26 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+const mysql = require('mysql');
+
+const con = mysql.createConnection({
+  host:'localhost',
+  user: 'root',
+  password: '1234'
+})
+
+con.connect(function(err){
+  if(err) throw err;
+  console.log('Connected');
+  // con.query('USE `MyCocktail`', function(err, result){
+  //   if(err) throw err;
+  //   console.log('use MyCocktail')
+  // })
+  // con.query('SELECT * FROM `recipe`', function(err, result){
+  //   if (err) throw err;
+  //   console.log(result)
+  // })
+})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
