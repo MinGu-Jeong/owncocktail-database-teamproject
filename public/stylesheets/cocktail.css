@@ -1,0 +1,59 @@
+.title-logo {
+  width: 345px;
+  height: 100px;
+}
+nav {
+  width: 100%;
+  height: 50px;
+  margin-top: 50px;
+  border: 1px solid #000;
+}
+.receipe-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.cocktail-img {
+  width: 250px;
+  height: 300px;
+  border: 1px solid black;
+}
+.cocktail-ingredient-card-container {
+  width: 1250px;
+  height: 320px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.cocktail-ingredient-card {
+  width: 250px;
+  height: 300px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  flex-shrink: 0;
+}
+.cocktail-receipe-container {
+  width: 100%;
+  height: 100%;
+  margin-left: 100px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  font-size: 20px;
+}
