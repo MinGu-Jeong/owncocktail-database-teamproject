@@ -3,32 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
 
-const mysql = require('mysql');
-
-const con = mysql.createConnection({
-  host:'localhost',
-  user: 'root',
-  password: '1234'
-})
-
-con.connect(function(err){
-  if(err) throw err;
-  console.log('Connected');
-  // con.query('USE `MyCocktail`', function(err, result){
-  //   if(err) throw err;
-  //   console.log('use MyCocktail')
-  // })
-  // con.query('SELECT * FROM `recipe`', function(err, result){
-  //   if (err) throw err;
-  //   console.log(result)
-  // })
-})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -37,10 +13,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static())
+// app.use(express.static());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -50,7 +26,6 @@ app.use(function(req, res, next) {
 
 app.get('/', function(req, res){
   res.render('index.html')
-  //res.sendFile(__dirname + '/views/index.html')
 });
 
 // error handler
