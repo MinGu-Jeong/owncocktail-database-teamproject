@@ -21,8 +21,7 @@ con.connect(function(err){
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-
-  con.query("SELECT * FROM member", (err, result) =>{
+  con.query("SELECT * FROM `member` WHERE `member_id` = " + req.params.id, (err, result) =>{
     if(err){
       reject(err);
       return;
