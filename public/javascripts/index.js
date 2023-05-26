@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
   myButton.addEventListener('click', function() {
     // 클릭 이벤트 발생 시 실행되는 코드
 
-    fetch('http://localhost:3000/users')
+    fetch('/users')
     .then(response => response.json())
     .then(data => {
     // 받아온 사용자 목록을 처리하는 코드 작성
-    console.log(data);
+      console.log(data);
     })
     .catch(error => {
       console.error(error);
