@@ -103,13 +103,13 @@ nav {
 }
 .best-cocktail-button-circle,
 .best-own-cocktail-button-circle {
+  display: flex;
   width: 150px;
   height: 150px;
   border-radius: 50%;
   background-color: #363333;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
 }
 .login-signup {
   display: flex;

@@ -1,7 +1,7 @@
 const $titleLogo = document.querySelector(".title-logo");
 
 $titleLogo.addEventListener("click", () => {
-  window.location.href = "index.html";
+  window.location.href = "./index.html";
 });
 
 // HTML 파일이 로드된 후 실행되는 함수
