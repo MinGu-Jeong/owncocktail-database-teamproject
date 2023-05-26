@@ -34,24 +34,23 @@
     </nav>
     <form action="" class="signup-form">
       <div class="mb-3">
+        <label for="name" class="form-label">이름</label>
+        <input type="text" class="form-control" id="name" placeholder="이름" />
+      </div>
+      <div class="mb-3">
         <label for="id" class="form-label">아이디</label>
-        <input
-          type="text"
-          class="form-control"
-          id="id"
-          placeholder="아이디를 입력해주세요"
-        />
+        <input type="text" class="form-control" id="id" placeholder="아이디" />
       </div>
       <div class="id-check-view">
         <p>이미 사용중인 아이디입니다.</p>
       </div>
       <div class="mb-3">
-        <label for="id" class="form-label">비밀번호</label>
+        <label for="pw" class="form-label">비밀번호</label>
         <input
           type="password"
           class="form-control"
           id="pw"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호"
         />
       </div>
       <div class="mb-3">
@@ -66,7 +65,25 @@
       <div class="pw-check-view">
         <p>비밀번호가 일치하지 않습니다</p>
       </div>
-
+      <div class="mb-3">
+        <label for="birthdate" class="form-label">생년월일</label>
+        <input
+          type="date"
+          class="form-control"
+          id="birthdate"
+          placeholder="생일"
+          value="2000-06-01"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">이메일</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="이메일"
+        />
+      </div>
       <div class="mb-3">
         <label for="phone-number" class="form-label">전화번호</label>
         <input
