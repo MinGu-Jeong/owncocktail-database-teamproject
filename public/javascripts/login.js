@@ -14,8 +14,14 @@ loginButton.addEventListener("click", () => {
   fetch("/users?${params}")
   .then(response => response.json())
   .then(data => {
-  // 받아온 사용자 목록을 처리하는 코드 작성
-    console.log(data);
+   // 받아온 사용자 목록을 처리하는 코드 작성
+   // 테스트용 비번 맞는지 틀리는지 확인하는 코드
+    // if(pwValue == data[0]['passwd']) { console.log("true"); }
+    // else{
+    //   console.log("false");
+    // }
+    // 검색 후 받아온 데이터 보는거
+    console.log(data[0]);
   })
   .catch(error => {
     console.error(error);
@@ -29,3 +35,4 @@ const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
+
