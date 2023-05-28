@@ -1,6 +1,7 @@
 .title-logo {
   width: 345px;
   height: 100px;
+  cursor: pointer;
 }
 nav {
   width: 100%;
@@ -18,13 +19,34 @@ nav {
   flex-direction: column;
   gap: 20px;
 }
+.cocktail-title {
+  font-size: 32px;
+}
 .cocktail-img {
-  width: 250px;
-  height: 300px;
+  width: 230px;
+  height: 235px;
   border: 1px solid black;
 }
+.recommend {
+  border: 3px solid black;
+  border-radius: 10px;
+  width: 210px;
+  height: 95px;
+  background-color: #977bac;
+  color: white;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50px;
+  right: 100px;
+}
+.cocktail-ingredient {
+  font-size: 32px;
+}
 .cocktail-ingredient-card-container {
-  width: 1250px;
+  width: 1300px;
   height: 320px;
   display: flex;
   position: relative;
@@ -36,8 +58,8 @@ nav {
   white-space: nowrap;
 }
 .cocktail-ingredient-card {
-  width: 250px;
-  height: 300px;
+  width: 230px;
+  height: 235px;
   display: flex;
   position: relative;
   justify-content: center;
@@ -56,4 +78,38 @@ nav {
   align-items: flex-start;
   flex-direction: column;
   font-size: 20px;
+}
+#comment-input {
+  width: 1050px;
+  height: 60px;
+  border: 3px solid black;
+  font-size: 32px;
+}
+#comment-button {
+  width: 100px;
+  height: 60px;
+  border: 3px solid black;
+  font-size: 32px;
+  background-color: #977bac;
+  color: white;
+  cursor: pointer;
+}
+.comment-card-container {
+  display: flex;
+  flex-direction: column;
+}
+.comment-card {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+}
+.comment-content {
+  border: 1px solid black;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+.positive {
+  border-radius: 10px;
+  background-color: #9c97b6;
+  padding: 2px 10px;
 }
