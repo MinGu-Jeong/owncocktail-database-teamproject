@@ -18,6 +18,7 @@ header {
 .title-logo {
   width: 345px;
   height: 100px;
+  cursor: pointer;
 }
 nav {
   display: flex;
