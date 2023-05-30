@@ -110,7 +110,7 @@ input:focus {
   background: #ffffff;
   border: 3.5px solid #000000;
   border-radius: 10px;
-  font-size: 30px;
+  font-size: 35px;
   font-family: "Inter";
   font-style: normal;
 }
@@ -131,13 +131,13 @@ input:focus {
 
   color: #000000;
 }
-#item1 {
+.item {
   margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: #ffffff;
   padding: 0 20px 0 20px;
   height: 70px;

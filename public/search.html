@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="head-nav">
-      <img src="logo.png" class="logo-img" />
+      <img src="./images/title-logo.png" class="logo-img" />
       <div class="menu">
         <img id="menu-img" />
         <button class="menu-btn" id="nav-cocktail-recipe">칵테일 레시피</button>
@@ -19,8 +19,12 @@
         <button class="menu-btn" id="nav-ingredient">재료</button>
       </div>
       <div class="sigin">
-        <button id="signin">로그인</button>
-        <button id="signup">회원가입</button>
+        <button id="signin" onclick="location.href='./login.html'">
+          로그인
+        </button>
+        <button id="signup" onclick="location.href='./signup.html'">
+          회원가입
+        </button>
       </div>
     </div>
     <div class="search-box">
@@ -28,7 +32,7 @@
     </div>
     <div class="result-box">
       <div id="result-text">검색결과</div>
-      <div id="item1">
+      <div id="item1" class="item">
         <div id="item-box">
           <p>이미지 자리</p>
           <p id="item-name">잭콕</p>
