@@ -1,4 +1,4 @@
-DROP DATABASE `MyCocktail`;
+DROP DATABASE `MyCocktail`; # db 있는지 없는지 확인한 뒤에 있으면 그대로 쓰고 없으면 지우고 실행하기!!
 CREATE DATABASE `MyCocktail`;
 
 USE `MyCocktail`;
