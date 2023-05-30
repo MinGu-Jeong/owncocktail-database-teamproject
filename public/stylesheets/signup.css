@@ -10,6 +10,7 @@ body {
 .title-logo {
   width: 345px;
   height: 100px;
+  cursor: pointer;
 }
 nav {
   margin-top: 20px;
@@ -61,4 +62,8 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#signup-button,
+#cancel-button {
+  margin-bottom: 30px;
 }
