@@ -63,3 +63,7 @@ nav {
   justify-content: center;
   align-items: center;
 }
+#signup-button,
+#cancel-button {
+  margin-bottom: 30px;
+}
