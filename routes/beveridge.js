@@ -21,9 +21,7 @@ con.connect(function(err){
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-  con.query(`SELECT * FROM member WHERE member_id = ${req.params.id}`, (err, result) =>{
-    res.json(result)
-  })
+    
 })
 
 router.post('/', (req, res) => {

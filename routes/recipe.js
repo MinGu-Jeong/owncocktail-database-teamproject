@@ -21,7 +21,7 @@ con.connect(function(err){
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-  con.query(`SELECT * FROM member WHERE member_id = ${req.params.id}`, (err, result) =>{
+  con.query(`SELECT * FROM Recipe WHERE recipe_id LIKE '%${req.params.recipe_id}%'`, (err, result) =>{
     res.json(result)
   })
 })
