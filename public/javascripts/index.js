@@ -5,23 +5,23 @@ $titleLogo.addEventListener("click", () => {
 });
 
 // HTML 파일이 로드된 후 실행되는 함수
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   // 버튼 요소 선택
-  var myButton = document.getElementById('getUsersButton');
+  var myButton = document.getElementById("getUsersButton");
 
   // 버튼 클릭 이벤트 처리
-  myButton.addEventListener('click', function() {
+  myButton.addEventListener("click", function () {
     // 클릭 이벤트 발생 시 실행되는 코드
 
-    fetch('/users')
-    .then(response => response.json())
-    .then(data => {
-    // 받아온 사용자 목록을 처리하는 코드 작성
-      console.log(data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
+    fetch("/users")
+      .then((response) => response.json())
+      .then((data) => {
+        // 받아온 사용자 목록을 처리하는 코드 작성
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
     /*
     fetch에서 매개변수 사용하려면?
@@ -40,6 +40,16 @@ document.addEventListener('DOMContentLoaded', function() {
     이렇게 '/users'와 같은 엔드포인트 뒤에 '?${params}' 추가!    
 
     */
-
   });
+});
+
+const $loginButton = document.getElementById("login-button");
+const $signupButton = document.getElementById("signup-button");
+
+$loginButton.addEventListener("click", () => {
+  window.location.href = "./login.html";
+});
+
+$signupButton.addEventListener("click", () => {
+  window.location.href = "./signup.html";
 });

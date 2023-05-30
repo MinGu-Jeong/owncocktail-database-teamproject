@@ -2,7 +2,10 @@
   margin: 0;
   padding: 0;
 }
-
+.body {
+  background-color: #230649;
+  min-height: 100vh;
+}
 header {
   display: flex;
   justify-content: space-between;
@@ -10,10 +13,9 @@ header {
 }
 .login-signup {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  align-items: center;
+  gap: 10px;
 }
 .title-logo {
   width: 345px;
@@ -29,7 +31,35 @@ nav {
   height: 85px;
   margin-top: 50px;
   border: 1px solid #000;
-  background: rgba(245, 198, 236);
+  background: #9183a4;
+}
+#login-button {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  border: 0;
+  border-radius: 5px;
+  background: #a098b7;
+}
+#signup-button {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  border: 0;
+  border-radius: 5px;
+  background: #a098b7;
 }
 #nav-cocktail-receipe {
   font-family: "Inter";
@@ -43,7 +73,7 @@ nav {
   border: 0;
   background: none;
 
-  color: #000;
+  color: white;
 }
 #nav-own-cocktail {
   font-family: "Inter";
@@ -55,7 +85,7 @@ nav {
   align-items: center;
   text-align: center;
 
-  color: #000;
+  color: white;
   border: 0;
   background: none;
 }
@@ -70,7 +100,7 @@ nav {
   text-align: center;
   border: 0;
   background: none;
-  color: #000;
+  color: white;
 }
 .best-cocktail-container {
   margin-top: 45px;
@@ -78,7 +108,7 @@ nav {
   margin-right: 30px;
   border: 1px solid #000;
   background-color: #e9e1ff;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 .best-cocktail-button-container,
 .best-own-cocktail-button-container {
@@ -88,6 +118,7 @@ nav {
   margin-bottom: 10px;
   padding: 20px;
   background-color: #e9e1ff;
+  flex-wrap: wrap;
 }
 .best-cocktail-button-container > button,
 .best-own-cocktail-button-container > button {
@@ -112,6 +143,7 @@ nav {
   justify-content: center;
   align-items: center;
 }
+
 .login-signup {
   display: flex;
   align-items: center;
@@ -124,7 +156,7 @@ nav {
   margin-right: 30px;
   border: 1px solid #000;
   background-color: #e9e1ff;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 #best-cocktail-1-img {
   display: flex;
