@@ -19,6 +19,7 @@ nav {
 .title-logo {
   width: 345px;
   height: 100px;
+  cursor: pointer;
 }
 .col-12 {
   margin-top: 50px;

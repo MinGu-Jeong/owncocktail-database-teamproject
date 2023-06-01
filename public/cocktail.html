@@ -10,12 +10,13 @@
   <body>
     <header>
       <div class="title-logo">
-        <img src="./img/title-logo.png" width="345px" height="150px" />
+        <img src="./images/title-logo.png" width="345px" height="150px" />
       </div>
     </header>
     <nav></nav>
     <content class="receipe-container">
       <h2 class="cocktail-title">칵테일 이름</h2>
+      <div class="recommend">추천 150</div>
       <div class="cocktail-img"></div>
       <h2 class="cocktail-ingredient">재료</h2>
       <div class="cocktail-ingredient-card-container">
@@ -34,6 +35,25 @@
           <li>순서2</li>
           <li>순서3</li>
         </ol>
+      </div>
+      <h2 class="comment">댓글</h2>
+      <div class="comment-container">
+        <input type="text" id="comment-input" />
+        <button id="comment-button">등록</button>
+        <div class="comment-card-container">
+          <div class="comment-card">
+            <span class="comment-content">사용자1 : 내용</span>
+            <button class="positive">좋아요</button>
+          </div>
+          <div class="comment-card">
+            <span class="comment-content">사용자2 : 내용</span>
+            <button class="positive">좋아요</button>
+          </div>
+          <div class="comment-card">
+            <span class="comment-content">사용자3 : 내용</span>
+            <button class="positive">좋아요</button>
+          </div>
+        </div>
       </div>
     </content>
     <script src="./javascripts/cocktail.js"></script>
