@@ -2,6 +2,7 @@ body {
   margin-left: 10px;
   margin-right: 10px;
   background: #230649;
+  overflow: hidden;
 }
 .nav-pills {
   display: flex;
@@ -18,11 +19,53 @@ nav {
   margin-bottom: 100px;
   margin-right: 10px;
 }
+.nav-right-item {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
 .signup-button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
+}
+#login-button-top {
+  width: 80px;
+  height: 50px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  cursor: pointer;
+
+  background: #9183a4;
+  color: #83338a;
+  border-radius: 10px;
+}
+#signup-button-top {
+  width: 100px;
+  height: 50px;
+  background: #c199c5;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  color: #83338a;
+  cursor: pointer;
+  border-radius: 10px;
+}
+#login-button-top:hover {
+  background-color: #c199c5;
 }
 .btn-outline-secondary {
   margin-right: 10px;
@@ -40,6 +83,22 @@ nav {
 }
 .nav-link {
   color: white;
+}
+.id-form {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 160px;
+}
+#id-check {
+  width: 140px;
+  height: 30px;
+  border: 0;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+#id-check:hover {
+  background-color: gainsboro;
 }
 .btn-outline-primary,
 .btn-outline-danger {

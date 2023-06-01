@@ -15,6 +15,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 30px;
+  margin-top: 30px;
   gap: 10px;
 }
 .title-logo {
@@ -34,6 +36,8 @@ nav {
   background: #9183a4;
 }
 #login-button {
+  width: 60px;
+  height: 30px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -41,13 +45,19 @@ nav {
   line-height: 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: #ffffff;
   border: 0;
   border-radius: 5px;
   background: #a098b7;
 }
+#login-button:hover {
+  background-color: #c199c5;
+}
 #signup-button {
+  width: 80px;
+  height: 30px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -55,11 +65,15 @@ nav {
   line-height: 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: #ffffff;
   border: 0;
   border-radius: 5px;
   background: #a098b7;
+}
+#signup-button:hover {
+  background-color: #c199c5;
 }
 #nav-cocktail-receipe {
   font-family: "Inter";

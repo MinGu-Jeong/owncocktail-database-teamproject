@@ -7,6 +7,7 @@ nav {
   margin-top: 20px;
   margin-bottom: 100px;
   margin-right: 10px;
+  margin-left: -40px;
 }
 .nav-right-item {
   display: flex;
@@ -84,6 +85,9 @@ nav {
   cursor: pointer;
   border-radius: 10px;
 }
+#signup-button-top:hover {
+  background-color: #c199c5;
+}
 .form-control {
   width: 400px;
   height: 70px;
@@ -105,4 +109,8 @@ nav {
   color: #83338a;
   font-weight: 700;
   font-size: 20px;
+}
+#login-button:hover {
+  background-color: #9183a4;
+  color: white;
 }
