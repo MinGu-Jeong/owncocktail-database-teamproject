@@ -24,6 +24,7 @@ body {
 .logo-img {
   width: 206px;
   height: 110px;
+  cursor: pointer;
 }
 .menu-btn {
   border: 0;
