@@ -65,6 +65,37 @@ $phoneNumber.addEventListener("keydown", (e) => {
   }
 });
 
+const $check_phone_view = document.getElementsByClassName("phone-check-view")
+$phoneNumber.addEventListener("keyup", (e) => {
+  fetch('/users/phoneCheck', {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      tel: $phoneNumber.value,
+    }),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.message)
+    if(data.message){
+      console.log("전화번호 사용 가능!")
+      // alert("아이디 사용 가능!")
+      $check_phone_view[0].style.display = "none"
+    }else{
+      console.log("전화번호 사용 불가능!")
+      // alert("아이디 사용 불가능!")
+      $check_phone_view[0].style.display = "block"
+    }
+  })
+  .catch((error) =>{
+    console.log(error);
+  });
+})
+
+
+
 const $testBox = document.getElementById("test-box");
 const signupBTN =document.getElementById("signup-button");
 signupBTN.addEventListener("click",()=>{
@@ -95,14 +126,6 @@ signupBTN.addEventListener("click",()=>{
   })})
   .then(response => response.json())
   .then(data => {
-   // 받아온 사용자 목록을 처리하는 코드 작성
-   // 테스트용 비번 맞는지 틀리는지 확인하는 코드
-    // if(pwValue == data[0]['passwd']) { console.log("true"); }
-    // else{
-    //   console.log("false");
-    // }
-    // 검색 후 받아온 데이터 보는거
-    // console.log(data[0]);
     console.log(data)
     alert(data.message)
   })
@@ -141,4 +164,34 @@ $idCheck.addEventListener("click", (e) => {
   });
 });
 
-
+const $check_id = document.getElementById("id");
+const $check_id_view = document.getElementsByClassName("id-check-view")
+$check_id.addEventListener("keyup", (e) =>{
+  const idVal = decodeURIComponent(document.querySelector("#id").value);
+  fetch("/users/idCheck", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id: idVal,
+    }),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.message)
+    if(data.message){
+      console.log("아이디 사용 가능!")
+      $check_id_view[0].style.display = "none"
+      // alert("아이디 사용 가능!")
+    }else{
+      console.log("아이디 사용 불가능!")
+      $check_id_view[0].style.display = "block"
+      // alert("아이디 사용 불가능!")
+    }
+  })
+  .catch((error) =>{
+    console.log(error);
+  });
+  
+})

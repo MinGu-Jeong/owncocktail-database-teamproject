@@ -47,14 +47,28 @@ router.post('/idCheck', (req, res) => {
   })
 })
 
+router.post('/phoneCheck', (req, res) => {
+  con.query(`SELECT * FROM member WHERE tel = \'${req.body.tel}\'`, (err, result) =>{
+    if(result.length == 0){
+      res.json({message: true})
+    }else{
+      res.json({message: false})
+    }
+  })
+})
+
 router.post('/', (req, res) => {
-  con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\'`, (err, result) =>{
+  con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\' or tel = \'${req.body.phone}\';`, (err, result) =>{
     if (result.length == 0){
       con.query(`INSERT INTO member VALUES(\'${req.body.name}\', \'${req.body.phone}\', \'${req.body.id}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`)
       res.json({message:'가입 성공'})
     }else{
       res.status(400);
-      res.json({message: '중복된 id입니다'});
+      if (result[0].tel === req.body.phone){
+        res.json({message: '해당 전화번호로 등록된 계정이 있습니다.'})
+      }else if(result[0].member_id == req.body.id){
+        res.json({message: '중복된 id입니다'});
+      }
     }
   })
 })
