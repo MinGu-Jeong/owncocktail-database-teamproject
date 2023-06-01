@@ -102,12 +102,25 @@ nav {
   background: none;
   color: white;
 }
+#nav-search {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  background: none;
+  color: white;
+}
 .best-cocktail-container {
   margin-top: 45px;
   margin-left: 30px;
   margin-right: 30px;
   border: 1px solid #000;
-  background-color: #e9e1ff;
+  background-color: #9183a4;
   border-radius: 10px;
 }
 .best-cocktail-button-container,
@@ -117,7 +130,7 @@ nav {
   gap: 150px;
   margin-bottom: 10px;
   padding: 20px;
-  background-color: #e9e1ff;
+  background-color: #9183a4;
   flex-wrap: wrap;
 }
 .best-cocktail-button-container > button,
@@ -149,13 +162,42 @@ nav {
   align-items: center;
   justify-content: space-between;
 }
-
+#best-cocktail-title {
+  margin-left: 20px;
+  display: inline-block;
+  background-color: #dbd3dd;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px 15px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  text-align: center;
+}
+#best-own-cocktail-title {
+  margin-left: 20px;
+  display: inline-block;
+  background-color: #dbd3dd;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px 15px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  text-align: center;
+}
 .best-own-cocktail-container {
   margin-top: 30px;
   margin-left: 30px;
   margin-right: 30px;
   border: 1px solid #000;
-  background-color: #e9e1ff;
+  background-color: #9183a4;
   border-radius: 10px;
 }
 #best-cocktail-1-img {
