@@ -37,6 +37,16 @@ router.post('/login', (req, res) =>{
   })
 })
 
+router.post('/idCheck', (req, res) => {
+  con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\'`, (err, result) =>{
+    if(result.length == 0){
+      res.json({message: true}) // 아이디 사용 가능
+    }else{
+      res.json({message: false}) // 아이디 사용 불가능
+    }
+  })
+})
+
 router.post('/', (req, res) => {
   con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\'`, (err, result) =>{
     if (result.length == 0){

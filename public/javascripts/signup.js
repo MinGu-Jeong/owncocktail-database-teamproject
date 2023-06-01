@@ -112,5 +112,33 @@ signupBTN.addEventListener("click",()=>{
   
 })
 
+const $idCheck = document.getElementById("id-check");
+$idCheck.addEventListener("click", (e) => {
+  e.preventDefault();
+  const idVal = decodeURIComponent(document.querySelector("#id").value);
+  fetch("/users/idCheck", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id: idVal,
+    }),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.message)
+    if(data.message){
+      console.log("아이디 사용 가능!")
+      alert("아이디 사용 가능!")
+    }else{
+      console.log("아이디 사용 불가능!")
+      alert("아이디 사용 불가능!")
+    }
+  })
+  .catch((error) =>{
+    console.log(error);
+  });
+});
 
 
