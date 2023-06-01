@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  
+  con.query(`INSERT INTO member VALUES(\'${req.body.name}\', \'${req.body.phone}\', \'${req.body.id}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`)
 })
 
 router.put('/', (req, res) => {

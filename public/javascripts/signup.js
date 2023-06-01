@@ -62,3 +62,49 @@ const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
+
+
+
+const $testBox = document.getElementById("test-box");
+const signupBTN =document.getElementById("signup-button");
+signupBTN.addEventListener("click",()=>{
+
+  const idval = decodeURIComponent(document.querySelector("#id").value);
+  const pwval = decodeURIComponent(document.querySelector("#pw").value);
+  const nameval = decodeURIComponent(document.querySelector("#name").value);
+  const birthdateval = decodeURIComponent(document.querySelector("#birthdate").value);
+  const emailval = decodeURIComponent(document.querySelector("#email").value);
+  const phoneval = decodeURIComponent(document.querySelector("#phone-number").value);
+
+  fetch('/users', {
+    method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    id: idval,
+    passwd: pwval,
+    name: nameval,
+    birthdate: birthdateval,
+    email: emailval,
+    phone: phoneval
+  })})
+  .then(response => response.json())
+  .then(data => {
+   // 받아온 사용자 목록을 처리하는 코드 작성
+   // 테스트용 비번 맞는지 틀리는지 확인하는 코드
+    // if(pwValue == data[0]['passwd']) { console.log("true"); }
+    // else{
+    //   console.log("false");
+    // }
+    // 검색 후 받아온 데이터 보는거
+    console.log(data[0]);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+  
+})
+
+
+
