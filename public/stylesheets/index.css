@@ -15,6 +15,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 30px;
+  margin-top: 30px;
   gap: 10px;
 }
 .title-logo {
@@ -34,6 +36,8 @@ nav {
   background: #9183a4;
 }
 #login-button {
+  width: 60px;
+  height: 30px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -41,13 +45,19 @@ nav {
   line-height: 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: #ffffff;
   border: 0;
   border-radius: 5px;
   background: #a098b7;
 }
+#login-button:hover {
+  background-color: #c199c5;
+}
 #signup-button {
+  width: 80px;
+  height: 30px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -55,11 +65,15 @@ nav {
   line-height: 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: #ffffff;
   border: 0;
   border-radius: 5px;
   background: #a098b7;
+}
+#signup-button:hover {
+  background-color: #c199c5;
 }
 #nav-cocktail-receipe {
   font-family: "Inter";
@@ -138,25 +152,34 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
-  border: #000 1px solid;
-  border-radius: 50%;
+  width: 220px;
+  height: 220px;
+  border: 0;
+  border-radius: 20px;
   gap: 40px;
   margin-right: 10px;
+  flex-direction: column;
   flex-wrap: wrap;
+  color: white;
 }
-.best-cocktail-button-circle,
-.best-own-cocktail-button-circle {
+.best-cocktail-image,
+.best-own-cocktail-image {
   display: flex;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  width: 160px;
+  height: 130px;
+  border-radius: 10px;
   background-color: #363333;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
 }
-
+.cocktail-summary {
+  margin-top: -40px;
+}
+.cocktail-name {
+  margin-top: -40px;
+  font-size: 20px;
+}
 .login-signup {
   display: flex;
   align-items: center;
