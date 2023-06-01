@@ -13,8 +13,9 @@ $signupButtonTop.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
 
-const loginButton = document.getElementById("login-buuton");
-loginButton.addEventListener("click", () => {
+const loginButton = document.getElementById("login-button");
+loginButton.addEventListener("click", (e) => {
+  e.preventDefault();
   const idValue = document.querySelector("#id").value;
   const pwValue = document.querySelector("#pw").value;
   if (idValue === "" || pwValue === "") {
@@ -38,12 +39,20 @@ loginButton.addEventListener("click", () => {
     이렇게 '/users'와 같은 엔드포인트 뒤에 '?${params}' 추가!    
     */
 
-  const params = new URLSearchParams({
-    id: idValue,
-    pw: pwValue,
-  });
+  // const params = new URLSearchParams({
+  //   id: idValue,
+  //   pw: pwValue,
+  // });
 
-  fetch(`/users?${params}`)
+  fetch('/users/login', {
+    method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    id: idValue,
+    passwd: pwValue,
+  })})
     .then((response) => response.json())
     .then((data) => {
       // 받아온 사용자 목록을 처리하는 코드 작성
@@ -53,7 +62,9 @@ loginButton.addEventListener("click", () => {
       //   console.log("false");
       // }
       // 검색 후 받아온 데이터 보는거
-      console.log(data[0]);
+      // console.log(data[0]);
+      console.log(data)
+      alert(data.message)
     })
     .catch((error) => {
       console.error(error);

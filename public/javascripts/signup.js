@@ -67,8 +67,8 @@ $titleLogo.addEventListener("click", () => {
 
 const $testBox = document.getElementById("test-box");
 const signupBTN =document.getElementById("signup-button");
-signupBTN.addEventListener("click",()=>{
-
+signupBTN.addEventListener("click",(e)=>{
+  e.preventDefault();
   const idval = decodeURIComponent(document.querySelector("#id").value);
   const pwval = decodeURIComponent(document.querySelector("#pw").value);
   const nameval = decodeURIComponent(document.querySelector("#name").value);
@@ -98,7 +98,10 @@ signupBTN.addEventListener("click",()=>{
     //   console.log("false");
     // }
     // 검색 후 받아온 데이터 보는거
-    console.log(data[0]);
+    alert(data.message)
+    if(data.message == '가입 성공'){
+      location.href = "login.html";
+    }
   })
   .catch(error => {
     console.error(error);
