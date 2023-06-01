@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>search</title>
-    <link rel="stylesheet" href="./stylesheets/search.css" />
+    <title>ingredient</title>
+    <link rel="stylesheet" href="./stylesheets/ingredient.css" />
   </head>
   <body>
     <div class="head-nav">
@@ -20,7 +20,7 @@
         <button class="menu-btn" id="nav-search">검색</button>
       </div>
       <div class="sigin">
-        <button id="signin" onclick="location.href='./login.html'">
+        <button id="signin" onsclick="location.href='./login.html'">
           로그인
         </button>
         <button id="signup" onclick="location.href='./signup.html'">
@@ -28,20 +28,17 @@
         </button>
       </div>
     </div>
-    <div class="search-box">
-      <img src="./images/돋보기.png" id="search-img" />
-      <input id="search-input" placeholder="검색할 칵테일 이름을 검색하시오" />
-    </div>
-    <div class="result-box">
-      <div id="result-text">검색결과</div>
-      <div id="item1" class="item">
-        <div id="item-box">
-          <p>이미지 자리</p>
-          <p id="item-name">잭콕</p>
-          <p id="recomand">추천수 150</p>
+    <div class="ingredient-container">
+      <div id="ingredient-text-box"><p id="ingredient-text">재료</p></div>
+      <div class="dropdown">
+        <button class="list-button" onclick="toggleDropdown()">인기순</button>
+        <div id="dropdown-content" class="dropdown-content">
+          <div class="list-button" onclick="changeSort('popular')">인기순</div>
+          <div class="list-button" onclick="changeSort('name')">이름순</div>
+          <div class="list-button" onclick="changeSort('comment')">댓글순</div>
         </div>
-        <button id="go-cocktail">바로가기</button>
       </div>
     </div>
+    <script src="ingredient.js"></script>
   </body>
 </html>
