@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ingredient</title>
+    <link rel="stylesheet" href="./stylesheets/ingredient.css" />
+  </head>
+  <body>
+    <div class="head-nav">
+      <img
+        src="./images/title-logo.png"
+        class="logo-img"
+        onclick="location.href='./index.html'"
+        style="cursor: pointer"
+      />
+      <div class="menu">
+        <img src="./images/menu.png" id="menu-img" />
+        <button class="menu-btn" id="nav-cocktail-recipe">칵테일 레시피</button>
+        <button class="menu-btn" id="nav-my-cocktail-recipe">
+          나만의 칵테일
+        </button>
+        <button class="menu-btn" id="nav-ingredient">재료</button>
+        <button class="menu-btn" id="nav-search">검색</button>
+      </div>
+      <div class="sigin">
+        <button id="signin" onclick="location.href='./login.html'">
+          로그인
+        </button>
+        <button id="signup" onclick="location.href='./signup.html'">
+          회원가입
+        </button>
+      </div>
+    </div>
+    <div class="ingredient-container">
+      <div id="ingredient-text-box"><p id="ingredient-text">재료</p></div>
+      <div class="dropdown">
+        <button class="list-button" onclick="toggleDropdown()">인기순</button>
+        <div id="dropdown-content" class="dropdown-content">
+          <div class="list-button" onclick="changeSort('popular')">인기순</div>
+          <div class="list-button" onclick="changeSort('name')">이름순</div>
+          <div class="list-button" onclick="changeSort('comment')">댓글순</div>
+        </div>
+      </div>
+    </div>
+    <script src="ingredient.js"></script>
+  </body>
+</html>
