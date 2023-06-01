@@ -152,25 +152,34 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
-  border: #000 1px solid;
-  border-radius: 50%;
+  width: 220px;
+  height: 220px;
+  border: 0;
+  border-radius: 20px;
   gap: 40px;
   margin-right: 10px;
+  flex-direction: column;
   flex-wrap: wrap;
+  color: white;
 }
-.best-cocktail-button-circle,
-.best-own-cocktail-button-circle {
+.best-cocktail-image,
+.best-own-cocktail-image {
   display: flex;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  width: 160px;
+  height: 130px;
+  border-radius: 10px;
   background-color: #363333;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
 }
-
+.cocktail-summary {
+  margin-top: -40px;
+}
+.cocktail-name {
+  margin-top: -40px;
+  font-size: 20px;
+}
 .login-signup {
   display: flex;
   align-items: center;
