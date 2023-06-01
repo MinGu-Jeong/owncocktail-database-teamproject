@@ -67,8 +67,8 @@ $phoneNumber.addEventListener("keydown", (e) => {
 
 const $testBox = document.getElementById("test-box");
 const signupBTN =document.getElementById("signup-button");
-signupBTN.addEventListener("click",(e)=>{
-  e.preventDefault();
+signupBTN.addEventListener("click",()=>{
+
   const idval = decodeURIComponent(document.querySelector("#id").value);
   const pwval = decodeURIComponent(document.querySelector("#pw").value);
   const nameval = decodeURIComponent(document.querySelector("#name").value);
@@ -102,23 +102,13 @@ signupBTN.addEventListener("click",(e)=>{
     //   console.log("false");
     // }
     // 검색 후 받아온 데이터 보는거
-    alert(data.message)
-    if(data.message == '가입 성공'){
-      location.href = "login.html";
-    }
+    console.log(data[0]);
   })
-    .then((response) => response.json())
-    .then((data) => {
-      // 받아온 사용자 목록을 처리하는 코드 작성
-      // 테스트용 비번 맞는지 틀리는지 확인하는 코드
-      // if(pwValue == data[0]['passwd']) { console.log("true"); }
-      // else{
-      //   console.log("false");
-      // }
-      // 검색 후 받아온 데이터 보는거
-      console.log(data[0]);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-});
+  .catch(error => {
+    console.error(error);
+  });
+  
+})
+
+
+
