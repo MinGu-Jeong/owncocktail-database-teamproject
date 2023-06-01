@@ -102,7 +102,9 @@ signupBTN.addEventListener("click",()=>{
     //   console.log("false");
     // }
     // 검색 후 받아온 데이터 보는거
-    console.log(data[0]);
+    // console.log(data[0]);
+    console.log(data)
+    alert(data.message)
   })
   .catch(error => {
     console.error(error);
