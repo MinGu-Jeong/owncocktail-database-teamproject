@@ -26,6 +26,7 @@ router.get('/', (req, res) => {
   })
 })
 
+// 로그인 api
 router.post('/login', (req, res) =>{
   con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\'`, (err, result) =>{
     if(result.length == 0 || result[0].passwd != req.body.passwd){
@@ -37,6 +38,7 @@ router.post('/login', (req, res) =>{
   })
 })
 
+// id중복 확인 api
 router.post('/idCheck', (req, res) => {
   con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\'`, (err, result) =>{
     if(result.length == 0){
@@ -47,6 +49,7 @@ router.post('/idCheck', (req, res) => {
   })
 })
 
+// 전화번호 중복 확인 api
 router.post('/phoneCheck', (req, res) => {
   con.query(`SELECT * FROM member WHERE tel = \'${req.body.tel}\'`, (err, result) =>{
     if(result.length == 0){
@@ -57,6 +60,7 @@ router.post('/phoneCheck', (req, res) => {
   })
 })
 
+// 회원가입(추가) api
 router.post('/', (req, res) => {
   con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\' or tel = \'${req.body.phone}\';`, (err, result) =>{
     if (result.length == 0){

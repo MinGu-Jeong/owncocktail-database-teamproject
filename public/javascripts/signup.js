@@ -1,20 +1,22 @@
+// 로고 클릭 이벤트: index.html로 이동
 const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
 
+// 로그인 버튼 클릭 이벤트: login.html로 이동
 const $loginButtonTop = document.querySelector("#login-button-top");
 $loginButtonTop.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
 
+// 회원가입 버튼 클릭 이벤트: signup.html로 이동
 const $signupButtonTop = document.querySelector("#signup-button-top");
 $signupButtonTop.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
-const $id = document.getElementById("id");
-const $idCheckView = document.getElementsByClassName("id-check-view");
 
+// 비밀번호 입력, 비번 일치 확인
 const $pw = document.getElementById("pw");
 const $pwCheckView = document.getElementsByClassName("pw-check-view");
 const $pwCheck = document.getElementById("pw-check");
@@ -36,6 +38,7 @@ document.addEventListener(
   true
 );
 
+// 전화번호 입력
 const $phoneNumber = document.getElementById("phone-number");
 $phoneNumber.addEventListener("keydown", (e) => {
   if (e.key != "Backspace") {
@@ -65,6 +68,7 @@ $phoneNumber.addEventListener("keydown", (e) => {
   }
 });
 
+// 전화번호 중복 확인
 const $check_phone_view = document.getElementsByClassName("phone-check-view")
 $phoneNumber.addEventListener("keyup", (e) => {
   fetch('/users/phoneCheck', {
@@ -96,7 +100,7 @@ $phoneNumber.addEventListener("keyup", (e) => {
 
 
 
-const $testBox = document.getElementById("test-box");
+// 회원가입 버튼 클릭 이벤트: 회원가입 api호출
 const signupBTN =document.getElementById("signup-button");
 signupBTN.addEventListener("click",()=>{
 
@@ -135,6 +139,7 @@ signupBTN.addEventListener("click",()=>{
   
 })
 
+// 아이디 중복 확인 버튼 클릭 이벤트: 아이디 중복 체크
 const $idCheck = document.getElementById("id-check");
 $idCheck.addEventListener("click", (e) => {
   e.preventDefault();
@@ -164,6 +169,7 @@ $idCheck.addEventListener("click", (e) => {
   });
 });
 
+// 아이디 중복 확인 이벤트: 아이디 중복 체크
 const $check_id = document.getElementById("id");
 const $check_id_view = document.getElementsByClassName("id-check-view")
 $check_id.addEventListener("keyup", (e) =>{
