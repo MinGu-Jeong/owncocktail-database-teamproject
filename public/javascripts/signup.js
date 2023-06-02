@@ -1,13 +1,16 @@
+// 로고 클릭 이벤트: index.html로 이동
 const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
 
+// 로그인 버튼 클릭 이벤트: login.html로 이동
 const $loginButtonTop = document.querySelector("#login-button-top");
 $loginButtonTop.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
 
+// 회원가입 버튼 클릭 이벤트: signup.html로 이동
 const $signupButtonTop = document.querySelector("#signup-button-top");
 $signupButtonTop.addEventListener("click", () => {
   window.location.href = "./signup.html";
@@ -16,6 +19,7 @@ const $id = document.getElementById("id");
 const $idCheck = document.getElementById("id-check");
 const $idCheckView = document.getElementsByClassName("id-check-view");
 
+// 비밀번호 입력, 비번 일치 확인
 const $pw = document.getElementById("pw");
 const $pwCheckView = document.getElementsByClassName("pw-check-view");
 const $signupButton = document.getElementById("signup-button");
@@ -41,6 +45,7 @@ document.addEventListener(
   true
 );
 
+// 전화번호 입력
 const $phoneNumber = document.getElementById("phone-number");
 $phoneNumber.addEventListener("keydown", (e) => {
   if (e.key != "Backspace") {
@@ -70,7 +75,37 @@ $phoneNumber.addEventListener("keydown", (e) => {
   }
 });
 
-const $testBox = document.getElementById("test-box");
+// 전화번호 중복 확인
+const $check_phone_view = document.getElementsByClassName("phone-check-view");
+$phoneNumber.addEventListener("keyup", (e) => {
+  fetch("/users/phoneCheck", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      tel: $phoneNumber.value,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+      if (data.message) {
+        console.log("전화번호 사용 가능!");
+        // alert("아이디 사용 가능!")
+        $check_phone_view[0].style.display = "none";
+      } else {
+        console.log("전화번호 사용 불가능!");
+        // alert("아이디 사용 불가능!")
+        $check_phone_view[0].style.display = "block";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+// 회원가입 버튼 클릭 이벤트: 회원가입 api호출
 const signupBTN = document.getElementById("signup-button");
 signupBTN.addEventListener("click", () => {
   const idval = decodeURIComponent(document.querySelector("#id").value);
@@ -100,20 +135,75 @@ signupBTN.addEventListener("click", () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      // 받아온 사용자 목록을 처리하는 코드 작성
-      // 테스트용 비번 맞는지 틀리는지 확인하는 코드
-      // if(pwValue == data[0]['passwd']) { console.log("true"); }
-      // else{
-      //   console.log("false");
-      // }
-      // 검색 후 받아온 데이터 보는거
-      console.log(data[0]);
+      console.log(data);
+      alert(data.message);
     })
     .catch((error) => {
       console.error(error);
     });
 });
 
+// 아이디 중복 확인 버튼 클릭 이벤트: 아이디 중복 체크
+const $idCheck = document.getElementById("id-check");
+$idCheck.addEventListener("click", (e) => {
+  e.preventDefault();
+  const idVal = decodeURIComponent(document.querySelector("#id").value);
+  fetch("/users/idCheck", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id: idVal,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+      if (data.message) {
+        console.log("아이디 사용 가능!");
+        alert("아이디 사용 가능!");
+      } else {
+        console.log("아이디 사용 불가능!");
+        alert("아이디 사용 불가능!");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+// 아이디 중복 확인 이벤트: 아이디 중복 체크
+const $check_id = document.getElementById("id");
+const $check_id_view = document.getElementsByClassName("id-check-view");
+$check_id.addEventListener("keyup", (e) => {
+  const idVal = decodeURIComponent(document.querySelector("#id").value);
+  fetch("/users/idCheck", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id: idVal,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+      if (data.message) {
+        console.log("아이디 사용 가능!");
+        $check_id_view[0].style.display = "none";
+        // alert("아이디 사용 가능!")
+      } else {
+        console.log("아이디 사용 불가능!");
+        $check_id_view[0].style.display = "block";
+        // alert("아이디 사용 불가능!")
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 //id 중복체크
 // $idCheck.addEventListener("click", () => {
 //   fetch("/users")

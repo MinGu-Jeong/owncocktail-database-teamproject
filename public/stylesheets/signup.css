@@ -70,7 +70,8 @@ nav {
   margin-right: 10px;
 }
 .id-check-view,
-.pw-check-view {
+.pw-check-view,
+.phone-check-view {
   display: none;
   color: red;
 }
