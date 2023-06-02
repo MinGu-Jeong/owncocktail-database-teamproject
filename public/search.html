@@ -8,30 +8,25 @@
     <link rel="stylesheet" href="./stylesheets/search.css" />
   </head>
   <body>
-    <div class="head-nav">
-      <div class="title-logo" onclick="location.href='./index.html'">
-        <img src="./images/title-logo.png" class="logo-img" />
+    <header>
+      <div class="title-logo">
+        <img src="./images/title-logo.png" width="200px" />
       </div>
-      <div class="menu">
-        <img src="./images/menu.png" id="menu-img" />
-        <button class="menu-btn" id="nav-cocktail-recipe">칵테일 레시피</button>
-        <button class="menu-btn" id="nav-my-cocktail-recipe">
-          나만의 칵테일
-        </button>
-        <button class="menu-btn" id="nav-ingredient">재료</button>
-        <button
-          class="menu-btn"
-          id="nav-search"
-          onclick="location.href='./search.html'"
-        >
-          검색
-        </button>
+      <nav>
+        <button id="nav-cocktail-receipe">칵테일 레시피</button>
+        <button id="nav-own-cocktail">나만의 칵테일</button>
+        <button id="nav-ingredient">재료</button>
+        <button id="nav-search">검색</button>
+      </nav>
+      <div class="login-signup">
+        <button id="login-button">로그인</button>
+        <button id="signup-button">회원가입</button>
       </div>
       <div class="sigin">
-        <button id="signin" onclick="location.href='./login.html'">
+        <button id="login-button" onclick="location.href='./login.html'">
           로그인
         </button>
-        <button id="signup" onclick="location.href='./signup.html'">
+        <button id="signup-button" onclick="location.href='./signup.html'">
           회원가입
         </button>
       </div>
@@ -51,6 +46,6 @@
         <button id="go-cocktail">바로가기</button>
       </div>
     </div>
-    <script src="./search.js"></script>
+    <script src="./javascripts/search.js"></script>
   </body>
 </html>
