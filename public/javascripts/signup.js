@@ -29,10 +29,14 @@ const $pwCheck = document.getElementById("pw-check");
 $pwCheck.addEventListener("blur", () => {
   if ($pw.value !== $pwCheck.value) {
     $pwCheckView[0].style.display = "block";
-    $signupButton.disabled = true;
+    if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+      $signupButton.disabled = true;
+    }
   } else {
     $pwCheckView[0].style.display = "none";
-    $signupButton.disabled = false;
+    if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+      $signupButton.disabled = false;
+    }
   }
 });
 
@@ -96,12 +100,16 @@ $phoneNumber.addEventListener("keyup", (e) => {
         console.log("전화번호 사용 가능!");
         // alert("아이디 사용 가능!")
         $check_phone_view[0].style.display = "none";
-        $signupButton.disabled = false;
+        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+          $signupButton.disabled = false;
+        }
       } else {
         console.log("전화번호 사용 불가능!");
         // alert("아이디 사용 불가능!")
         $check_phone_view[0].style.display = "block";
-        $signupButton.disabled = true;
+        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+          $signupButton.disabled = true;
+        }
       }
     })
     .catch((error) => {
@@ -196,12 +204,16 @@ $check_id.addEventListener("keyup", (e) => {
       if (data.message) {
         console.log("아이디 사용 가능!");
         $check_id_view[0].style.display = "none";
-        $signupButton.disabled = false;
+        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+          $signupButton.disabled = false;
+        }
         // alert("아이디 사용 가능!")
       } else {
         console.log("아이디 사용 불가능!");
         $check_id_view[0].style.display = "block";
-        $signupButton.disabled = true;
+        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+          $signupButton.disabled = true;
+        }
         // alert("아이디 사용 불가능!")
       }
     })
