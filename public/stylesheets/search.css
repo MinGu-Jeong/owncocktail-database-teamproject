@@ -1,34 +1,78 @@
 body {
   background: #230649;
 }
-.head-nav {
+header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 42px;
 }
-.menu {
+.login-signup {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 949px;
-  height: 100px;
-  left: 2206px;
-  top: 4119px;
-  background: rgba(245, 198, 236, 0.5);
-  gap: 30px;
+  margin-right: 30px;
+  margin-top: 30px;
+  gap: 10px;
 }
-#menu-img {
+.title-logo {
+  width: 345px;
   height: 100px;
-  margin-right: 40px;
-}
-.logo-img {
-  width: 206px;
-  height: 110px;
   cursor: pointer;
 }
-.menu-btn {
+nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 100px;
+  align-items: center;
+  width: 1150px;
+  height: 85px;
+  margin-top: 50px;
+  margin-right: 30px;
   border: 0;
-  background: 0;
+  border-radius: 10px;
+  background: #9183a4;
+}
+#login-button {
+  width: 60px;
+  height: 30px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  border: 0;
+  border-radius: 5px;
+  background: #a098b7;
+}
+#login-button:hover {
+  background-color: #c199c5;
+}
+#signup-button {
+  width: 80px;
+  height: 30px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  border: 0;
+  border-radius: 5px;
+  background: #a098b7;
+}
+#signup-button:hover {
+  background-color: #c199c5;
+}
+#nav-cocktail-receipe {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -36,36 +80,51 @@ body {
   line-height: 44px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #ffffff;
+  text-align: center;
+  border: 0;
+  background: none;
+
+  color: white;
 }
-#signin {
+#nav-own-cocktail {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
-  line-height: 24px;
+  font-size: 36px;
+  line-height: 44px;
   display: flex;
   align-items: center;
   text-align: center;
-  color: #ffffff;
+
+  color: white;
   border: 0;
-  border-radius: 5px;
-  background: #a098b7;
+  background: none;
 }
-#signup {
+#nav-ingredient {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
-  line-height: 24px;
+  font-size: 36px;
+  line-height: 44px;
   display: flex;
   align-items: center;
   text-align: center;
-  color: #ffffff;
   border: 0;
-  border-radius: 5px;
-  background: #a098b7;
+  background: none;
+  color: white;
+}
+#nav-search {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  background: none;
+  color: white;
 }
 .search-box {
   margin-top: 42px;
