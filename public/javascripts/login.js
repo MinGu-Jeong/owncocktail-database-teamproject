@@ -13,16 +13,7 @@ $signupButtonTop.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
 
-const loginButton = document.getElementById("login-button");
-loginButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  const idValue = document.querySelector("#id").value;
-  const pwValue = document.querySelector("#pw").value;
-  if (idValue === "" || pwValue === "") {
-    alert("id, pw를 입력해주세요");
-  }
-
-  /*
+/*
     fetch에서 매개변수 사용하려면?
 
     params는 URLSearchParams라는 새 변수를 만들어서 이렇게 선언해주면 된다.
@@ -39,21 +30,35 @@ loginButton.addEventListener("click", (e) => {
     이렇게 '/users'와 같은 엔드포인트 뒤에 '?${params}' 추가!    
     */
 
-  // const params = new URLSearchParams({
-  //   id: idValue,
-  //   pw: pwValue,
-  // });
+// const params = new URLSearchParams({
+//   id: idValue,
+//   pw: pwValue,
+// });
+const loginButton = document.getElementById("login-button");
+loginButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  const idValue = document.querySelector("#id").value;
+  const pwValue = document.querySelector("#pw").value;
+  if (idValue === "" || pwValue === "") {
+    alert("id, pw를 입력해주세요");
+  }
 
-  fetch('/users/login', {
-    method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    id: idValue,
-    passwd: pwValue,
-  })})
-    .then((response) => response.json())
+  fetch("/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: idValue,
+      passwd: pwValue,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
     .then((data) => {
       // 받아온 사용자 목록을 처리하는 코드 작성
       // 테스트용 비번 맞는지 틀리는지 확인하는 코드
@@ -63,10 +68,21 @@ loginButton.addEventListener("click", (e) => {
       // }
       // 검색 후 받아온 데이터 보는거
       // console.log(data[0]);
-      console.log(data)
-      alert(data.message)
+      console.log(data);
+      alert(data.message);
+
+      // 로그인 성공시 세션스토리지에 사용자 정보 저장
+      if (data.message === "로그인 성공") {
+        sessionStorage.setItem("user", JSON.stringify(data.user));
+        console.log("로그인 성공");
+      } else {
+        console.log("로그인 실패");
+      }
     })
     .catch((error) => {
-      console.error(error);
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
     });
 });
