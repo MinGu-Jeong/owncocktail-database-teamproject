@@ -177,7 +177,6 @@ $idCheck.addEventListener("click", (e) => {
 });
 
 // 아이디 중복 확인 이벤트: 아이디 중복 체크
-const $check_id = document.getElementById("id");
 const $check_id_view = document.getElementsByClassName("id-check-view");
 $check_id.addEventListener("keyup", (e) => {
   const idVal = decodeURIComponent(document.querySelector("#id").value);
