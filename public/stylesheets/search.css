@@ -22,7 +22,7 @@ header {
 nav {
   display: flex;
   justify-content: space-around;
-  gap: 100px;
+  gap: 50px;
   align-items: center;
   width: 1150px;
   height: 85px;
@@ -48,6 +48,7 @@ nav {
   border: 0;
   border-radius: 5px;
   background: #a098b7;
+  cursor: pointer;
 }
 #login-button:hover {
   background-color: #c199c5;
@@ -68,6 +69,7 @@ nav {
   border: 0;
   border-radius: 5px;
   background: #a098b7;
+  cursor: pointer;
 }
 #signup-button:hover {
   background-color: #c199c5;
@@ -83,8 +85,16 @@ nav {
   text-align: center;
   border: 0;
   background: none;
-
   color: white;
+  cursor: pointer;
+}
+#nav-cocktail-receipe:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
 }
 #nav-own-cocktail {
   font-family: "Inter";
@@ -95,10 +105,17 @@ nav {
   display: flex;
   align-items: center;
   text-align: center;
-
   color: white;
   border: 0;
   background: none;
+  cursor: pointer;
+}
+#nav-own-cocktail:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
 }
 #nav-ingredient {
   font-family: "Inter";
@@ -112,8 +129,20 @@ nav {
   border: 0;
   background: none;
   color: white;
+  cursor: pointer;
+}
+#nav-ingredient:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
 }
 #nav-search {
+  background-color: #c199c5;
+  color: #83338a;
+  padding: 10px;
+  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -123,8 +152,10 @@ nav {
   align-items: center;
   text-align: center;
   border: 0;
-  background: none;
-  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
+  cursor: pointer;
 }
 .search-box {
   margin-top: 42px;
