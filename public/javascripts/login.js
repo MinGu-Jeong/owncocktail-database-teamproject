@@ -74,6 +74,7 @@ loginButton.addEventListener("click", (e) => {
       // 로그인 성공시 세션스토리지에 사용자 정보 저장
       if (data.message === "로그인 성공") {
         sessionStorage.setItem("user", JSON.stringify(data.user));
+        wondow.location.href = "./index.html"
         console.log("로그인 성공");
       } else {
         console.log("로그인 실패");
