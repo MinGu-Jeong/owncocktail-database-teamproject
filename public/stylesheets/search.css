@@ -49,12 +49,7 @@ nav {
   border-radius: 5px;
   background: #a098b7;
 }
-#login-button:hover {
-  background-color: #c199c5;
-}
-#signup-button {
-  width: 80px;
-  height: 30px;
+#signup {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
