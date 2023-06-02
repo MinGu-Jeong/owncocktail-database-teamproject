@@ -61,7 +61,7 @@ router.post('/phoneCheck', (req, res) => {
 })
 
 // 회원가입(추가) api
-router.post('/', (req, res) => {
+router.post('/signup', (req, res) => {
   con.query(`SELECT * FROM member WHERE member_id = \'${req.body.id}\' or tel = \'${req.body.phone}\';`, (err, result) =>{
     if (result.length == 0){
       con.query(`INSERT INTO member VALUES(\'${req.body.name}\', \'${req.body.phone}\', \'${req.body.id}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`)

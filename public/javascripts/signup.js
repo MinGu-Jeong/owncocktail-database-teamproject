@@ -29,10 +29,14 @@ const $pwCheck = document.getElementById("pw-check");
 $pwCheck.addEventListener("blur", () => {
   if ($pw.value !== $pwCheck.value) {
     $pwCheckView[0].style.display = "block";
-    $signupButton.disabled = true;
+    if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+      $signupButton.disabled = true;
+    }
   } else {
     $pwCheckView[0].style.display = "none";
-    $signupButton.disabled = false;
+    if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+      $signupButton.disabled = false;
+    }
   }
 });
 
@@ -96,12 +100,16 @@ $phoneNumber.addEventListener("keyup", (e) => {
         console.log("전화번호 사용 가능!");
         // alert("아이디 사용 가능!")
         $check_phone_view[0].style.display = "none";
-        $signupButton.disabled = false;
+        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+          $signupButton.disabled = false;
+        }
       } else {
         console.log("전화번호 사용 불가능!");
         // alert("아이디 사용 불가능!")
         $check_phone_view[0].style.display = "block";
-        $signupButton.disabled = true;
+        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+          $signupButton.disabled = true;
+        }
       }
     })
     .catch((error) => {
@@ -115,15 +123,11 @@ signupBTN.addEventListener("click", () => {
   const idval = decodeURIComponent(document.querySelector("#id").value);
   const pwval = decodeURIComponent(document.querySelector("#pw").value);
   const nameval = decodeURIComponent(document.querySelector("#name").value);
-  const birthdateval = decodeURIComponent(
-    document.querySelector("#birthdate").value
-  );
+  const birthdateval = decodeURIComponent(document.querySelector("#birthdate").value);
   const emailval = decodeURIComponent(document.querySelector("#email").value);
-  const phoneval = decodeURIComponent(
-    document.querySelector("#phone-number").value
-  );
+  const phoneval = decodeURIComponent(document.querySelector("#phone-number").value);
 
-  fetch("/users", {
+  fetch("/users/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -148,33 +152,33 @@ signupBTN.addEventListener("click", () => {
 });
 
 // 아이디 중복 확인 버튼 클릭 이벤트: 아이디 중복 체크
-$idCheck.addEventListener("click", (e) => {
-  e.preventDefault();
-  const idVal = decodeURIComponent(document.querySelector("#id").value);
-  fetch("/users/idCheck", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      id: idVal,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.message);
-      if (data.message) {
-        console.log("아이디 사용 가능!");
-        alert("아이디 사용 가능!");
-      } else {
-        console.log("아이디 사용 불가능!");
-        alert("아이디 사용 불가능!");
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
+// $idCheck.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   const idVal = decodeURIComponent(document.querySelector("#id").value);
+//   fetch("/users/idCheck", {
+//     method: "POST",
+//     headers: {
+//       "Content-type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       id: idVal,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data.message);
+//       if (data.message) {
+//         console.log("아이디 사용 가능!");
+//         alert("아이디 사용 가능!");
+//       } else {
+//         console.log("아이디 사용 불가능!");
+//         alert("아이디 사용 불가능!");
+//       }
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// });
 
 // 아이디 중복 확인 이벤트: 아이디 중복 체크
 const $check_id_view = document.getElementsByClassName("id-check-view");
@@ -195,12 +199,16 @@ $check_id.addEventListener("keyup", (e) => {
       if (data.message) {
         console.log("아이디 사용 가능!");
         $check_id_view[0].style.display = "none";
-        $signupButton.disabled = false;
+        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+          $signupButton.disabled = false;
+        }
         // alert("아이디 사용 가능!")
       } else {
         console.log("아이디 사용 불가능!");
         $check_id_view[0].style.display = "block";
-        $signupButton.disabled = true;
+        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+          $signupButton.disabled = true;
+        }
         // alert("아이디 사용 불가능!")
       }
     })
