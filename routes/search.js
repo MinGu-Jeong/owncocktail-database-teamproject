@@ -29,7 +29,11 @@ router.post('/', (req, res) => {
 })
 
 router.post('/recipe_search', (req, res) => {
-  con.query(`SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` JOIN \`My_Board\``, (err, result) =>{
+  let target = `%`
+  for (const buf of req.body.search_target){
+    target = `${target}${buf}%`
+  }
+  con.query(`SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` JOIN \`My_Board\` WHERE \`title\` LIKE \'${target}\'`, (err, result) =>{
     res.json(result)
   })
 })
@@ -44,6 +48,16 @@ router.delete('/', (req, res) => {
 
 // con.query(`SELECT \`title\`, \`good_cnt\` FROM \`Default_Board\` JOIN \`My_Board\``, (err, result) =>{
 //     console.log(result);
+// })
+
+// const test = "조병하"
+// let t = '%'
+// for (const buf of test){
+//   t = `${t}${buf}%`
+// }
+// console.log(t)
+// con.query(`SELECT * FROM \`member\` WHERE \`member_name\` LIKE \'${test}\';`, (err, result) => {
+//   console.log(result)
 // })
 
 module.exports = router;
