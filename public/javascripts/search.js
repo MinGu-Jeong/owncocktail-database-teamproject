@@ -22,6 +22,7 @@ $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
 
+//로그인 성공 시 기능
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
