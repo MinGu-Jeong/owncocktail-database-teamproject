@@ -46,7 +46,9 @@ body: JSON.stringify({
 
 router.post('/my', (req, res) => {
     con.query(`
-    `)
+    `, (err, result) => {
+        console.log(result);
+    })
 })
 
 router.put('/', (req, res) => {
