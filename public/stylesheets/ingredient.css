@@ -33,7 +33,7 @@ nav {
   background: #9183a4;
 }
 #login-button {
-  width: 60px;
+  width: 80px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -54,7 +54,7 @@ nav {
   background-color: #c199c5;
 }
 #signup-button {
-  width: 80px;
+  width: 100px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
