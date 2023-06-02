@@ -24,8 +24,12 @@ router.get('/', (req, res) => {
     
 })
 
-router.post('/', (req, res) => {
+router.post('/default', (req, res) => {
   
+})
+
+router.post('/my', (req, res) => {
+    
 })
 
 router.put('/', (req, res) => {
@@ -35,5 +39,10 @@ router.put('/', (req, res) => {
 router.delete('/', (req, res) => {
   
 })
+
+// const test = "민서형이\n원하는것"
+// console.log(test)
+// let result_test = test.split("\n")
+// console.log(result_test)
 
 module.exports = router;
