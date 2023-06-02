@@ -2,7 +2,6 @@ body {
   margin-left: 10px;
   margin-right: 10px;
   background: #230649;
-  overflow: hidden;
 }
 .nav-pills {
   display: flex;

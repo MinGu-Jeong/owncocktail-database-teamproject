@@ -13,16 +13,21 @@ $signupButtonTop.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
 const $id = document.getElementById("id");
+const $idCheck = document.getElementById("id-check");
 const $idCheckView = document.getElementsByClassName("id-check-view");
 
 const $pw = document.getElementById("pw");
 const $pwCheckView = document.getElementsByClassName("pw-check-view");
+const $signupButton = document.getElementById("signup-button");
 const $pwCheck = document.getElementById("pw-check");
+
 $pwCheck.addEventListener("blur", () => {
   if ($pw.value !== $pwCheck.value) {
     $pwCheckView[0].style.display = "block";
+    $signupButton.disabled = true;
   } else {
     $pwCheckView[0].style.display = "none";
+    $signupButton.disabled = false;
   }
 });
 
@@ -108,3 +113,10 @@ signupBTN.addEventListener("click", () => {
       console.error(error);
     });
 });
+
+//id 중복체크
+// $idCheck.addEventListener("click", () => {
+//   fetch("/users")
+//     .then((response) => response.json())
+//     .then((data) => {
+//     })
