@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 })
 
 router.post('/recipe_search', (req, res) => {
-  con.query(`SELECT \`title\`, \`good_cnt\` FROM \`Default_Board\` JOIN \`My_Board\``, (err, result) =>{
+  con.query(`SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` JOIN \`My_Board\``, (err, result) =>{
     res.json(result)
   })
 })
