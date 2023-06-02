@@ -25,6 +25,7 @@ const $pwCheckView = document.getElementsByClassName("pw-check-view");
 const $signupButton = document.getElementById("signup-button");
 const $pwCheck = document.getElementById("pw-check");
 
+// 비밀번호 일치 확인
 $pwCheck.addEventListener("blur", () => {
   if ($pw.value !== $pwCheck.value) {
     $pwCheckView[0].style.display = "block";
@@ -35,6 +36,7 @@ $pwCheck.addEventListener("blur", () => {
   }
 });
 
+//엔터키 눌러도 제출 안되게 방지
 document.addEventListener(
   "keydown",
   (e) => {
