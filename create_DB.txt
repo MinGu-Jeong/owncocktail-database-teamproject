@@ -1,4 +1,4 @@
-DROP DATABASE `MyCocktail`; # db 있는지 없는지 확인한 뒤에 있으면 그대로 쓰고 없으면 지우고 실행하기!!
+DROP DATABASE `MyCocktail`;
 CREATE DATABASE `MyCocktail`;
 
 USE `MyCocktail`;
@@ -127,7 +127,9 @@ CREATE TABLE `frequency`(
     PRIMARY KEY(`name`)
 )DEFAULT CHARSET = utf8;
 
-INSERT INTO `member` VALUE('조병하', '010-8725-4687', 'idididid', 'pwpwpwpw', '2002-07-16', 'emailemail');
+INSERT INTO `member` VALUE('조병하', '010-8725-4687', 'xmaaks', 'jakecake0716', '2002-07-16', 'xmaaks@koreatech.ac.kr');
+INSERT INTO `member` VALUE('관리자', '010-6412-6344', 'admin', 'admin123', '1998-08-30', 'mingu830@gmail.com');
+
 insert into Recipe(recipe_id, ingredient, ratio) values
 ("상그리아(무알콜)","상그리아 시럽,포도 주스,오렌지 주스,레몬 주스","0.2,0.2,0.4,0.2"),
 ("달콤한 스프리츠","화이트 와인,Aperol,탄산수","0.4,0.3,0.3"),
