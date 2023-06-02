@@ -33,7 +33,7 @@ router.post('/recipe_search', (req, res) => {
   for (const buf of req.body.search_target){
     target = `${target}${buf}%`
   }
-  con.query(`SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` JOIN \`My_Board\` WHERE \`title\` LIKE \'${target}\'`, (err, result) =>{
+  con.query(`SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` NATURAL JOIN \`My_Board\` WHERE \`title\` LIKE \'${target}\'`, (err, result) =>{
     res.json(result)
   })
 })
