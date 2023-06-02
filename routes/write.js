@@ -28,8 +28,25 @@ router.post('/default', (req, res) => {
   
 })
 
+/*
+body: JSON.stringify({
+	board_title: "게시글 제목",
+	member_id: "게시글 작성자 아이디",
+	board_write_time: "게시글 작성 시간",
+	board_img_url: {"이미지 이름(재료종류 ex: base, garnish, ... 등등)": "게시글 이미지 url", ....},
+	board_text: "게시글 내용",
+	board_snack: ["안주1", "안주2", ...],
+	tool: ["사용도구1", "사용도구2", ...],
+	base: "이름\n용량"
+	garnish: ["이름1", "이름2", ...]
+	beveridge: "이름\n용량"
+	syrup: "이름\n용량"	
+})
+*/
+
 router.post('/my', (req, res) => {
-    
+    con.query(`
+    `)
 })
 
 router.put('/', (req, res) => {
