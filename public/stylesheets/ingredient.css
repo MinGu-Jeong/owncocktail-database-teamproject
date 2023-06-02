@@ -22,11 +22,11 @@ header {
 nav {
   display: flex;
   justify-content: space-around;
-  gap: 100px;
+  gap: 50px;
   align-items: center;
   width: 1150px;
   height: 85px;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-right: 30px;
   border: 0;
   border-radius: 10px;
@@ -48,6 +48,7 @@ nav {
   border: 0;
   border-radius: 5px;
   background: #a098b7;
+  cursor: pointer;
 }
 #login-button:hover {
   background-color: #c199c5;
@@ -68,6 +69,7 @@ nav {
   border: 0;
   border-radius: 5px;
   background: #a098b7;
+  cursor: pointer;
 }
 #signup-button:hover {
   background-color: #c199c5;
@@ -83,8 +85,16 @@ nav {
   text-align: center;
   border: 0;
   background: none;
-
   color: white;
+  cursor: pointer;
+}
+#nav-cocktail-receipe:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
 }
 #nav-own-cocktail {
   font-family: "Inter";
@@ -99,8 +109,21 @@ nav {
   color: white;
   border: 0;
   background: none;
+  cursor: pointer;
+}
+#nav-own-cocktail:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
 }
 #nav-ingredient {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -110,8 +133,7 @@ nav {
   align-items: center;
   text-align: center;
   border: 0;
-  background: none;
-  color: white;
+  cursor: pointer;
 }
 #nav-search {
   font-family: "Inter";
@@ -125,8 +147,17 @@ nav {
   border: 0;
   background: none;
   color: white;
+  cursor: pointer;
+}
+#nav-search:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
 }
 .ingredient-container {
+  margin-top: 40px;
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
@@ -156,31 +187,4 @@ nav {
   text-align: center;
 
   color: #000000;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  display: none;
-  min-width: 207px;
-  z-index: 1;
-}
-
-.dropdown-content .list-button {
-  width: 100%;
-}
-
-.dropdown-content .list-button:hover {
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.dropdown.active .dropdown-content {
-  display: block;
 }
