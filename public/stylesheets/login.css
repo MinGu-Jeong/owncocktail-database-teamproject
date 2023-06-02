@@ -1,0 +1,116 @@
+body {
+  margin-left: 10px;
+  margin-right: 10px;
+  background: #230649;
+}
+nav {
+  margin-top: 20px;
+  margin-bottom: 100px;
+  margin-right: 10px;
+  margin-left: -40px;
+}
+.nav-right-item {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.nav-pills {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-logo {
+  width: 345px;
+  height: 100px;
+  cursor: pointer;
+}
+
+#nav-title {
+  display: flex;
+  margin-left: 10px;
+  font-weight: bolder;
+}
+
+.login-form {
+  width: 400px;
+  height: 500px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 35%;
+  margin-top: 50px;
+  color: white;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 44px;
+}
+.login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#login-button-top {
+  width: 80px;
+  height: 50px;
+  background: #c199c5;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  cursor: pointer;
+  color: #83338a;
+  border-radius: 10px;
+}
+#signup-button-top {
+  width: 100px;
+  height: 50px;
+  background: #9183a4;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  align-items: center;
+  text-align: center;
+  border: 0;
+  color: #83338a;
+  cursor: pointer;
+  border-radius: 10px;
+}
+#signup-button-top:hover {
+  background-color: #c199c5;
+}
+.form-control {
+  width: 400px;
+  height: 70px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#login-button {
+  margin-top: 10px;
+  width: 100px;
+  height: 50px;
+  background-color: white;
+  border: 5px solid #83338a;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #83338a;
+  font-weight: 700;
+  font-size: 20px;
+}
+#login-button:hover {
+  background-color: #9183a4;
+  color: white;
+}

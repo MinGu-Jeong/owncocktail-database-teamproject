@@ -1,0 +1,180 @@
+DROP DATABASE `MyCocktail`;
+CREATE DATABASE `MyCocktail`;
+
+USE `MyCocktail`;
+
+CREATE TABLE `Recipe`(
+   `recipe_id` VARCHAR(50) NOT NULL,
+    `ingredient` VARCHAR(2048) NOT NULL,
+    `ratio` VARCHAR(2048) NOT NULL,
+    # `img` VARCHAR(128) NOT NULL,
+    PRIMARY KEY(`recipe_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `member`(
+   `member_name` VARCHAR(10) NOT NULL,
+    `tel` VARCHAR(20) UNIQUE,
+    `member_id` VARCHAR(20),
+    `passwd` VARCHAR(1024) NOT NULL,
+    `birth` DATE NOT NULL,
+    `email` VARCHAR(50) UNIQUE,
+    PRIMARY KEY(`member_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `Default_Board`(
+   `board_id` INT AUTO_INCREMENT,
+   `title` VARCHAR(50),
+    `recipe_id` VARCHAR(50) NOT NULL,
+    `member_id` VARCHAR(20),
+    `write_time` DATETIME NOT NULL,
+    `img_url` VARCHAR(255),
+    `text` VARCHAR(4096) NOT NULL,
+    `good_cnt` INT DEFAULT 0,
+    `snack` VARCHAR(255),
+    `tool` VARCHAR(1024),
+    PRIMARY KEY(`board_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`recipe_id`) REFERENCES `Recipe`(`recipe_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `Default_Board_Comment`(
+   `comment_id` INT AUTO_INCREMENT,
+    `text` VARCHAR(2048) NOT NULL,
+    `member_id` VARCHAR(20) NOT NULL,
+    `datetime` DATETIME,
+    `good_cnt` INT DEFAULT 0,
+    `board_id` INT,
+    PRIMARY KEY(`comment_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`board_id`) REFERENCES `Default_Board`(`board_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `My_Board`(
+   `board_id` INT AUTO_INCREMENT,
+   `title` VARCHAR(50),
+    `recipe_id` VARCHAR(50) NOT NULL,
+    `member_id` VARCHAR(20),
+    `write_time` DATETIME NOT NULL,
+    `img_url` VARCHAR(255),
+    `text` VARCHAR(4096) NOT NULL,
+    `good_cnt` INT DEFAULT 0,
+    `snack` VARCHAR(255),
+    `tool` VARCHAR(1024),
+    PRIMARY KEY(`board_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`recipe_id`) REFERENCES `Recipe`(`recipe_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `My_Board_Comment`(
+   `comment_id` INT AUTO_INCREMENT,
+    `text` VARCHAR(2048) NOT NULL,
+    `member_id` VARCHAR(20) NOT NULL,
+    `datetime` DATETIME,
+    `good_cnt` INT DEFAULT 0,
+    `board_id` INT,
+    PRIMARY KEY(`comment_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`board_id`) REFERENCES `My_Board`(`board_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `snack`(
+   `snack_id` INT,
+    `snack_name` VARCHAR(255) NOT NULL,
+    `recipe_id` VARCHAR(50),
+    PRIMARY KEY(`snack_id`),
+    FOREIGN KEY(`recipe_id`) REFERENCES `recipe`(`recipe_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `base`(
+   `base_id` INT AUTO_INCREMENT,
+    `base_name` VARCHAR(255) NOT NULL,
+    `price` INT NOT NULL,
+    PRIMARY KEY(`liquor_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `garnish`(
+   `garnish_id` INT AUTO_INCREMENT,
+    `garnish_name` VARCHAR(255) NOT NULL,
+    `price` INT NOT NULL,
+    PRIMARY KEY(`garnish_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `beveridge`(
+   `beveridge_id` INT AUTO_INCREMENT,
+    `beveridge_name` VARCHAR(255) NOT NULL,
+    `price` INT NOT NULL,
+    PRIMARY KEY(`beveridge_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `syrup`(
+   `syrup_id` INT AUTO_INCREMENT,
+    `syrup_name` VARCHAR(255) NOT NULL,
+    `price` INT NOT NULL,
+    PRIMARY KEY(`syrup_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `tools`(
+   `tool_id` INT AUTO_INCREMENT,
+    `tool_name` VARCHAR(255) NOT NULL,
+    `price` INT NOT NULL,
+    PRIMARY KEY(`tool_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `frequency`(
+	`name` VARCHAR(255) NOT NULL,
+    `count` INT NOT NULL,
+    `type` VARCHAR(255) NOT NULL,
+    PRIMARY KEY(`name`)
+)DEFAULT CHARSET = utf8;
+
+INSERT INTO `member` VALUE('조병하', '010-8725-4687', 'xmaaks', 'jakecake0716', '2002-07-16', 'xmaaks@koreatech.ac.kr');
+INSERT INTO `member` VALUE('관리자', '010-6412-6344', 'admin', 'admin123', '1998-08-30', 'mingu830@gmail.com');
+
+insert into Recipe(recipe_id, ingredient, ratio) values
+("상그리아(무알콜)","상그리아 시럽,포도 주스,오렌지 주스,레몬 주스","0.2,0.2,0.4,0.2"),
+("달콤한 스프리츠","화이트 와인,Aperol,탄산수","0.4,0.3,0.3"),
+("벨리니","복숭아 퓌레,프로세코","0.2,0.8"),
+("비시클레타","카마리,화이트 와인,탄산수","0.4,0.3,0.3"),
+("그레이하운드","진,자몽 주스","0.3,0.7"),
+("홀스넥","코냑,진저에일","0.3,0.7"),
+("키르","크렘드 카시스,알리고테 와인","0.1,0.9"),
+("스크류 드라이버","보드카,오렌지 주스","0.3,0.7"),
+("테킬라선라이즈","테킬라,오렌지 주스,석류 시럼","0.3,0.5,0.2"),
+("아이리쉬 밤","기네스,베일리스,위스키","0.8,0.1,0.1"),
+("깔루아 밀크","깔루아,우유","0.25,0.75"),
+("갓 파더","스카치 위스키,아마레토","0.7,0.3"),
+("올림픽","브랜디,오렌지 큐라소,오렌지 주스","0.5,0.25,0.25"),
+("허니문","애플 브랜디,베네딕틴","0.37,0.37,0.18,0.08"),
+("핑크레이디","드라이 진,크레나딘 시럽,우유","0.3,0.1,0.6"),
+("피나콜라다","럼,파인애플 주스,코코넛 크림","0.25,0.5,0.25"),
+("블랙러시안","보드카,깔루아","0.7,0.3"),
+("블루 마가리타","데낄라,블루 퀴라소,레몬주스","0.4,0.2,0.3"),
+("메리 픽포드","화이트 럼,파인애플 주스,마라스키노 룩사르도,그레나딘 시럽","0.45,0.45,0.07,0.03"),
+("트리니다드 사워","앙고스투라 비터,오르쟈 시럽,레몬 주스,라이 위스키","0.4,0.26,0.2,0.14"),
+("터퍼러리","부쉬밀,샤르트뢰즈,이탈리안 베르무트","0.3,0.3,0.4"),
+("존 콜린스","진,레몬 주스,심플 시럽,탄산수","0.3,0.2,0.1,0.4"),
+("골드 드림","갈리아노,트리플 섹,오렌지 주스,크림","0.28,0.28,0.28,0.16"),
+("콥스 리바이버 No.1","브랜디,칼바도스,이탈리안 베르무트","0.5,0.25,0.25"),
+("에스프레소 마티니","보드카,커피 리큐르,에스프레소,설탕 시럽","0.3,0.3,0.3,0.1"),
+("몬토니","드라이 진,베르무트","0.8,0.2"),
+("오렌지 마티니","보드카,오렌지 리큐르,오렌지 주스","0.5,0.25,0.25"),
+("스프라이트 세븐","세븐업,스프라이트,라임 주스","0.3,0.6,0.1"),
+("피나 콜라다","화이트 럼,파인애플 주스,코코넛 크림","0.25,0.5,0.25"),
+("블루 하와이","화이트 럼,블루 큐라소,파인애플 주스,코코넛 크림,레몬 주스","0.25,0.15,0.3,0.15,0.15"),
+("페니실린","블렌디드 스카치 위스키,허니 진저 시럽,레몬 주스,싱글 몰트 아일라 위스키","0.6,0.15,0.15,0.1"),
+("아메리카노","캄파리,스위트 베르무트,탄산수","0.34,0.33,0.33"),
+("불바디에","버번 위스키,캄파리,스위트 베르무트","0.4,0.3,0.3"),
+("B-52","깔루아,베일리스,그랑 마르니에","0.34,0.33,0.33"),
+("진도","진도홍주,크렘 드 멘트,청포도 주스,라즈베리 시럽","0.37,0.18,0.27,0.18"),
+("브램블","진,레몬 주스,설탕 시럽,블랙베리 크림 리큐르","0.5,0.25,0.1,0.15"),
+("베스퍼","진,보드카,애피리티프 와인","0.6,0.27,0.13"),
+("마이타이","자메이카 럼,마르티니크 골드 럼,라임 주스,오렌지 큐라스,오르쟈 시럽,심플 시럽","0.23,0.23,0.23,0.11,0.11,0.09"),
+("그래스호스","크렘 드 멘트 그린,크렘 드 멘트 화이트,크림","0.34,0.33,0.33"),
+("프렌치 75","진,레몬 주스,설탕 시럽,샴페인","0.25,0.13,0.12,0.5");
+/*
+출처
+https://sopia888.tistory.com/3884
+https://www.1001cocktails.com/
+https://www.diffordsguide.com/
+https://iba-world.com/category/iba-cocktails/
+*/

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>search</title>
+    <link rel="stylesheet" href="./stylesheets/search.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title-logo">
+        <img src="./images/title-logo.png" width="200px" />
+      </div>
+      <nav>
+        <button id="nav-cocktail-receipe">칵테일 레시피</button>
+        <button id="nav-own-cocktail">나만의 칵테일</button>
+        <button id="nav-ingredient">재료</button>
+        <button id="nav-search">검색</button>
+      </nav>
+      <div class="login-signup">
+        <button id="login-button">로그인</button>
+        <button id="signup-button">회원가입</button>
+      </div>
+      <div class="sigin">
+        <button id="login-button" onclick="location.href='./login.html'">
+          로그인
+        </button>
+        <button id="signup-button" onclick="location.href='./signup.html'">
+          회원가입
+        </button>
+      </div>
+    </div>
+    <div class="search-box">
+      <img src="./images/돋보기.png" id="search-img" />
+      <input id="search-input" placeholder="검색할 칵테일 이름을 검색하시오" />
+    </div>
+    <div class="result-box">
+      <div id="result-text">검색결과</div>
+      <div id="item1" class="item">
+        <div id="item-box">
+          <p>이미지 자리</p>
+          <p id="item-name">잭콕</p>
+          <p id="recomand">추천수 150</p>
+        </div>
+        <button id="go-cocktail">바로가기</button>
+      </div>
+    </div>
+    <script src="./javascripts/search.js"></script>
+  </body>
+</html>
