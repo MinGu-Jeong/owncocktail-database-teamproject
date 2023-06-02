@@ -94,10 +94,12 @@ $phoneNumber.addEventListener("keyup", (e) => {
         console.log("전화번호 사용 가능!");
         // alert("아이디 사용 가능!")
         $check_phone_view[0].style.display = "none";
+        $signupButton.disabled = false;
       } else {
         console.log("전화번호 사용 불가능!");
         // alert("아이디 사용 불가능!")
         $check_phone_view[0].style.display = "block";
+        $signupButton.disabled = true;
       }
     })
     .catch((error) => {
@@ -144,7 +146,6 @@ signupBTN.addEventListener("click", () => {
 });
 
 // 아이디 중복 확인 버튼 클릭 이벤트: 아이디 중복 체크
-const $idCheck = document.getElementById("id-check");
 $idCheck.addEventListener("click", (e) => {
   e.preventDefault();
   const idVal = decodeURIComponent(document.querySelector("#id").value);
@@ -193,10 +194,12 @@ $check_id.addEventListener("keyup", (e) => {
       if (data.message) {
         console.log("아이디 사용 가능!");
         $check_id_view[0].style.display = "none";
+        $signupButton.disabled = false;
         // alert("아이디 사용 가능!")
       } else {
         console.log("아이디 사용 불가능!");
         $check_id_view[0].style.display = "block";
+        $signupButton.disabled = true;
         // alert("아이디 사용 불가능!")
       }
     })
@@ -204,9 +207,3 @@ $check_id.addEventListener("keyup", (e) => {
       console.log(error);
     });
 });
-//id 중복체크
-// $idCheck.addEventListener("click", () => {
-//   fetch("/users")
-//     .then((response) => response.json())
-//     .then((data) => {
-//     })
