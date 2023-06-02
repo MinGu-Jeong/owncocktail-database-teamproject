@@ -85,9 +85,9 @@ CREATE TABLE `snack`(
     FOREIGN KEY(`recipe_id`) REFERENCES `recipe`(`recipe_id`)
 )DEFAULT CHARSET = utf8;
 
-CREATE TABLE `liquor`(
-   `liquor_id` INT AUTO_INCREMENT,
-    `liquor_name` VARCHAR(255) NOT NULL,
+CREATE TABLE `base`(
+   `base_id` INT AUTO_INCREMENT,
+    `base_name` VARCHAR(255) NOT NULL,
     `price` INT NOT NULL,
     PRIMARY KEY(`liquor_id`)
 )DEFAULT CHARSET = utf8;
