@@ -73,7 +73,7 @@ loginButton.addEventListener("click", (e) => {
       // 로그인 성공시 세션스토리지에 사용자 정보 저장
       if (data.message === "로그인 성공") {
         sessionStorage.setItem("user", JSON.stringify(data.user));
-        console.log("로그인 성공");
+        window.href = "./index.html";
       } else {
         alert("아이디 또는 비밀번호가 일치하지 않습니다.");
       }
