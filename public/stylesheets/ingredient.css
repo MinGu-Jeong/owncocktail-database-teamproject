@@ -15,7 +15,8 @@ header {
   gap: 10px;
 }
 .title-logo {
-  width: 345px;
+  margin-top: -60px;
+  width: 300px;
   height: 100px;
   cursor: pointer;
 }
@@ -33,7 +34,7 @@ nav {
   background: #9183a4;
 }
 #login-button {
-  width: 80px;
+  width: 75px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -54,7 +55,7 @@ nav {
   background-color: #c199c5;
 }
 #signup-button {
-  width: 100px;
+  width: 90px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
