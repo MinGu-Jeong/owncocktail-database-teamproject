@@ -1,13 +1,32 @@
-const $titleLogo = document.querySelector(".title-logo");
+const $loginButton = document.getElementById("login-button");
+const $signupButton = document.getElementById("signup-button");
+const $receipeButton = document.getElementById("nav-cocktail-receipe");
+const $ingredientButton = document.getElementById("nav-ingredient");
+const $searchButton = document.getElementById("nav-search");
 
-$titleLogo.addEventListener("click", () => {
-  window.location.href = "./index.html";
+$loginButton.addEventListener("click", () => {
+  window.location.href = "./login.html";
+});
+
+$signupButton.addEventListener("click", () => {
+  window.location.href = "./signup.html";
+});
+
+$ingredientButton.addEventListener("click", () => {
+  window.location.href = "./ingredient.html";
+});
+$searchButton.addEventListener("click", () => {
+  window.location.href = "./search.html";
 });
 
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
 
+  const $titleLogo = document.querySelector(".title-logo");
+  $titleLogo.addEventListener("click", () => {
+    window.location.href = "./index.html";
+  });
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {

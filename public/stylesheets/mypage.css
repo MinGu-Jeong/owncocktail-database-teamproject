@@ -1,14 +1,13 @@
-body {
+* {
+  margin: 0;
+  padding: 0;
+}
+.body {
   background-color: #230649;
   min-height: 110vh;
-  overflow-x: hidden;
-  color: white;
-}
-.title-logo {
-  margin-top: -60px;
-  width: 300px;
-  height: 100px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 header {
   display: flex;
@@ -22,6 +21,12 @@ header {
   margin-right: 30px;
   margin-top: 25px;
   gap: 10px;
+}
+.title-logo {
+  margin-top: -60px;
+  width: 300px;
+  height: 100px;
+  cursor: pointer;
 }
 nav {
   display: flex;
@@ -164,109 +169,97 @@ nav > button {
   padding: 10px;
   margin: -10px;
 }
-.receipe-container {
-  width: 100%;
-  height: 100%;
-  margin-top: 50px;
+.content-container {
+  width: 1350px;
+  height: 700px;
+  display: grid;
+  margin-top: 100px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+  border-radius: 10px;
+}
+.content-container > div {
+  background-color: #9183a4;
+  border-radius: 10px;
+}
+.left-top-container {
   display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
+}
+.nickname {
+  display: flex;
+  width: 400px;
+  height: 160px;
+  background-color: #dbd3dd;
+  border-radius: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+}
+.right-top-container {
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.change-pw-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
 }
-.cocktail-title {
-  font-size: 32px;
-}
-.cocktail-img {
-  width: 230px;
-  height: 235px;
-  border: 1px solid black;
-}
-.recommend {
-  border: 3px solid black;
-  border-radius: 10px;
-  width: 210px;
-  height: 95px;
-  background-color: #977bac;
-  color: white;
-  font-size: 36px;
+.change-pw {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 50px;
-  right: 100px;
-}
-.cocktail-ingredient {
-  font-size: 32px;
-}
-.cocktail-ingredient-card-container {
-  width: 1300px;
-  height: 320px;
-  display: flex;
-  position: relative;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 20px;
-  overflow-x: scroll;
-  white-space: nowrap;
-}
-.cocktail-ingredient-card {
-  width: 230px;
-  height: 235px;
-  display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  border: 1px solid black;
-  flex-shrink: 0;
+  width: 250px;
+  height: 100px;
+  background-color: #dbd3dd;
+  border-radius: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #000000;
 }
-.cocktail-receipe-container {
-  width: 100%;
-  height: 100%;
-  margin-left: 100px;
+.change-info {
   display: flex;
-  position: relative;
   justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  font-size: 20px;
-}
-#comment-input {
-  width: 1050px;
-  height: 60px;
-  border: 3px solid black;
-  font-size: 32px;
-}
-#comment-button {
-  width: 100px;
-  height: 60px;
-  border: 3px solid black;
-  font-size: 32px;
-  background-color: #977bac;
-  color: white;
-  cursor: pointer;
-}
-.comment-card-container {
-  display: flex;
-  flex-direction: column;
-}
-.comment-card {
-  margin-top: 10px;
-  display: flex;
-  gap: 20px;
-}
-.comment-content {
-  border: 1px solid black;
-  padding: 2px 10px;
+  align-items: center;
+  width: 250px;
+  height: 100px;
+  background-color: #dbd3dd;
   border-radius: 10px;
-  background-color: #d9d9d9;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #000000;
 }
-.positive {
+.withdrawal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 200px;
+  height: 100px;
+  background-color: #dbd3dd;
   border-radius: 10px;
-  background-color: #9c97b6;
-  padding: 2px 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #83338a;
 }
