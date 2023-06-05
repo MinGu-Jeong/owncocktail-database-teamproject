@@ -102,7 +102,6 @@ window.onload = () => {
     var dropbtn_click = document.querySelector(".dropbtn_click");
     var dropbtn = document.querySelector(".dropbtn");
 
-    //dropbtn_icon.innerText = " ";
     console.log(value);
     dropbtn_content.innerText = value;
     dropbtn_content.style.color = "#252525";
