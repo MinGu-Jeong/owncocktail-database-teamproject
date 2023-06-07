@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
   
 })
 
-router.post('/recipe_search', (req, res) => {
+router.post('/board_search', (req, res) => {
   let target = `%`
   for (const buf of req.body.search_target){
     target = `${target}${buf}%`
