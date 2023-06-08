@@ -35,7 +35,7 @@ window.onload = function () {
     $loginButtonTop.onclick = function () {
       // 로그아웃 로직 실행
       sessionStorage.removeItem("user"); // 세션스토리지에서 사용자 정보 삭제
-      window.location.reload(); // 페이지 새로고침
+      window.location.href = "./index.html"; // 메인 페이지로 이동
     };
 
     $signupButtonTop.textContent = "마이페이지";

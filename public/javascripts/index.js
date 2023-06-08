@@ -96,3 +96,23 @@ window.onload = function () {
     };
   }
 };
+
+//best-cocktail-button-container 내부의 버튼 클릭시 cocktail.html로 이동
+const $bestCocktailButtonContainer = document.querySelector(
+  ".best-cocktail-button-container"
+);
+const $bestOwnCocktailButtonContainer = document.querySelector(
+  ".best-own-cocktail-button-container"
+);
+$bestCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailName = cocktailButton.children[1].textContent;
+  window.location.href = "./cocktail.html?id=" + cocktailName;
+});
+$bestOwnCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailName = cocktailButton.children[1].textContent;
+  window.location.href = "./cocktail.html?id=" + cocktailName;
+});
