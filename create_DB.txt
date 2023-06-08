@@ -76,6 +76,13 @@ CREATE TABLE `ingredient`(
     PRIMARY KEY(`ingredient_id`)
 )DEFAULT CHARSET = utf8;
 
+CREATE TABLE `Good_Check`(
+    `num` INT AUTO_INCREMENT,
+    `member_id` VARCHAR(20) NOT NULL,
+    `target_id` INT NOT NULL,
+    PRIMARY KEY(`num`)
+)DEFAULT CHARSET = utf8;
+
 INSERT INTO `member` VALUE('조병하', '010-8725-4687', 'xmaaks', 'jakecake0716', '2002-07-16', 'xmaaks@koreatech.ac.kr');
 INSERT INTO `member` VALUE('관리자', '010-6412-6344', 'admin', 'admin123', '1998-08-30', 'mingu830@gmail.com');
 
