@@ -37,3 +37,9 @@ window.onload = function () {
     };
   }
 };
+
+// 칵테일 id 가져오기
+let searchParams = new URLSearchParams(window.location.search);
+const cocktailId = searchParams.get("id");
+//console.log(searchParams.get("id"));
+//console.log(window.location);

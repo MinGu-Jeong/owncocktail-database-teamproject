@@ -194,6 +194,7 @@ nav > button {
   width: 400px;
   height: 160px;
   background-color: #dbd3dd;
+  border: 5px solid black;
   border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
@@ -224,6 +225,7 @@ nav > button {
   width: 250px;
   height: 100px;
   background-color: #dbd3dd;
+  border: 5px solid black;
   border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
@@ -240,6 +242,7 @@ nav > button {
   width: 250px;
   height: 100px;
   background-color: #dbd3dd;
+  border: 5px solid black;
   border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
@@ -257,6 +260,7 @@ nav > button {
   width: 200px;
   height: 100px;
   background-color: #dbd3dd;
+  border: 5px solid black;
   border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
@@ -282,6 +286,7 @@ nav > button {
   width: 450px;
   height: 300px;
   background-color: #dbd3dd;
+  border: 5px solid black;
   border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
@@ -305,6 +310,7 @@ nav > button {
   width: 450px;
   height: 300px;
   background-color: #dbd3dd;
+  border: 5px solid black;
   border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
