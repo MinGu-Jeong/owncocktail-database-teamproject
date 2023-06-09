@@ -33,10 +33,14 @@ $receipeButton.addEventListener("click", () => {
 $newReceipeButton.addEventListener("click", () => {
   window.location.href = "./new-receipe.html";
 });
+
+var pageCount = 1;
+var allPage = 20;
+
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-  console.log("로그인 확인test");
+  const $pagetext = document.querySelector("#page-text");
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
@@ -88,6 +92,26 @@ window.onload = function () {
     dropbtn_content.style.color = "#252525";
     dropbtn.style.borderColor = "#3992a8";
   }
+
+  // default_board 게시글 수 카운트
+  fetch("/search/default_board_count", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      allPage=Math.floor(data[0].max_id / 8 + 1);
+      const maxId = data[0].max_id || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
+      $pagetext.textContent = `1 / ${Math.floor(maxId / 8 + 1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
+    })
+    .catch((error) => {
+      console.error;
+    });
+
 };
 var dropbtn_icon = document.querySelector(".dropbtn_icon");
 var dropbtn_content = document.querySelector(".dropbtn_content");
@@ -111,8 +135,7 @@ window.onclick = (e) => {
 const $pageText = document.getElementById("page-text");
 const $pageLeftButton = document.getElementById("left-button");
 const $pageRightButton = document.getElementById("right-button");
-var pageCount = 1;
-var allPage = 20;
+
 $pageLeftButton.addEventListener("click", () => {
   if (pageCount > 1) {
     pageCount -= 1;

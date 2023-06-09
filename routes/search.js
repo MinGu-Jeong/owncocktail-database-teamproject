@@ -30,12 +30,8 @@ router.post("/random_default", (req, res) => {
 
   const randomValue = Math.random();
   const id = Math.floor(randomValue * total) + 1;
-  con.query(
-    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`,
-    (err, result) => {
-      res.json(result);
-    }
-  );
+  res.json({result: id})
+
 });
 
 router.post("/random_my", (req, res) => {
@@ -54,12 +50,7 @@ router.post("/random_my", (req, res) => {
 
   const randomValue = Math.random();
   const id = Math.floor(randomValue * total) + 1;
-  con.query(
-    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`myboard_id\` = ${id}`,
-    (err, result) => {
-      res.json(result);
-    }
-  );
+  res.json({result: id})
 });
 
 router.post("/search_recipe", (req, res) => {
@@ -192,6 +183,16 @@ router.post("/board_search", (req, res) => {
   );
 });
 
+//myboard 게시글 수 정보 반환
+router.post("/myboard_count", (req, res) => {
+  con.query(
+    `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`, 
+  (err, result) => {
+      if (err) throw err;
+      res.json(result);
+  });
+  });
+  
 router.post("/my_board_search", (req, res) => {
   let target = `%`;
   for (const buf of req.body.search_target) {
@@ -204,6 +205,16 @@ router.post("/my_board_search", (req, res) => {
     }
   );
 });
+
+//default_board 게시글 수 정보 반환
+router.post("/default_board_count", (req, res) => {
+  con.query(
+    `SELECT MAX(board_id) AS max_id FROM default_board`, 
+  (err, result) => {
+      if (err) throw err;
+      res.json(result);
+  });
+  });
 
 router.post("/default_board_search", (req, res) => {
   let target = `%`;
