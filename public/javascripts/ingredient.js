@@ -3,23 +3,25 @@ const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
-const $titleLogo = document.querySelector(".title-logo");
-$titleLogo.addEventListener("click", () => {
-  window.location.href = "./index.html";
-});
+const $mycocktailmain = document.getElementById("nav-own-cocktail");
+
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
+
 $signupButton.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
+
 $ingredientButton.addEventListener("click", () => {
   window.location.href = "./ingredient.html";
 });
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
-
+$mycocktailmain.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
 function toggleDropdown() {
   var dropdownContent = document.getElementById("dropdown-content");
   dropdownContent.classList.toggle("active");
@@ -77,6 +79,10 @@ window.onload = function () {
     };
   }
 };
+var dropbtn_icon = document.querySelector(".dropbtn_icon");
+var dropbtn_content = document.querySelector(".dropbtn_content");
+var dropbtn_click = document.querySelector(".dropbtn_click");
+var dropbtn = document.querySelector(".dropbtn");
 
 window.onload = () => {
   document.querySelector(".dropbtn_click").onclick = () => {
@@ -97,11 +103,6 @@ window.onload = () => {
   }
 
   function showMenu(value) {
-    var dropbtn_icon = document.querySelector(".dropbtn_icon");
-    var dropbtn_content = document.querySelector(".dropbtn_content");
-    var dropbtn_click = document.querySelector(".dropbtn_click");
-    var dropbtn = document.querySelector(".dropbtn");
-
     console.log(value);
     dropbtn_content.innerText = value;
     dropbtn_content.style.color = "#252525";
@@ -112,11 +113,6 @@ window.onload = () => {
 window.onclick = (e) => {
   if (!e.target.matches(".dropbtn_click")) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
-
-    var dropbtn_icon = document.querySelector(".dropbtn_icon");
-    var dropbtn_content = document.querySelector(".dropbtn_content");
-    var dropbtn_click = document.querySelector(".dropbtn_click");
-    var dropbtn = document.querySelector(".dropbtn");
 
     var i;
     for (i = 0; i < dropdowns.length; i++) {

@@ -25,8 +25,6 @@ $mycocktailmain.addEventListener("click", () => {
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
-
-//로그인 성공 시 기능
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
