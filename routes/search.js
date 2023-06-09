@@ -143,7 +143,15 @@ router.post("/board_search", (req, res) => {
     target = `${target}${buf}%`;
   }
   con.query(
-    `SELECT \`recipe_name\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` NATURAL JOIN \`My_Board\` WHERE \`recipe_name\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`,
+    `SELECT recipe_name, member_id, board_id, myboard_id, write_time, text, good_cnt, snack, tool
+    FROM (
+      SELECT recipe_name, member_id, board_id, NULL AS myboard_id, write_time, text, good_cnt, snack, tool
+      FROM Default_Board
+      UNION ALL
+      SELECT recipe_name, member_id, NULL AS board_id, myboard_id, write_time, text, good_cnt, snack, tool
+      FROM My_Board
+    ) AS combined_boards    
+    WHERE recipe_name LIKE '${target}'`,
     (err, result) => {
       res.json(result);
     }
@@ -156,7 +164,7 @@ router.post("/my_board_search", (req, res) => {
     target = `${target}${buf}%`;
   }
   con.query(
-    `SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`My_Board\` WHERE \`title\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`,
+    `SELECT \`recipe_name\`, \`good_cnt\`, \`myboard_id\` FROM \`My_Board\` WHERE \`recipe_name\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`,
     (err, result) => {
       res.json(result);
     }
@@ -169,7 +177,7 @@ router.post("/default_board_search", (req, res) => {
     target = `${target}${buf}%`;
   }
   con.query(
-    `SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` WHERE \`title\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`,
+    `SELECT \`recipe_name\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` WHERE \`recipe_name\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`,
     (err, result) => {
       res.json(result);
     }
