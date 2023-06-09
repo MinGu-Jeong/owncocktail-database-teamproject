@@ -14,21 +14,78 @@ con.connect(function(err){
   console.log('Connected');
 })
 
-// 엔드포인트 설정
-// 아마 fetch에서 배개변수 넘겨주면 req에 들어가는듯?
-// -> "req.query.변수이름"으로 접근 가능 -> 파이썬의 딕셔너리처럼 인덱스 번호 접근이 아니라 변수 이름으로!!
-// C++에서는 아마 해시맵? 일듯?
-
-/* GET users listing. */
-router.get('/', (req, res) => {
-    
+router.post('/random', (req, res) => {
+  let total
+  con.query(`SELECT COUNT(*) AS total FROM \`Default_Board\``, (err, result) =>{
+    if(err){
+      console.log(err)
+    }else{
+      total = result[0].total
+      console.log(total)
+    }
+  })
+  const randomValue = Math.random()
+  const id = Math.floor(randomValue * total) + 1
+  con.query(`SELECT \`title\`, \`recipe_nam\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`, (err, result) => {
+    res.json(result)
+  })
 })
 
-router.post('/', (req, res) => {
-  
+router.post('/my_board', (req, res) => {
+  con.query(`SELECT \`title\`, \`recipe_nam\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`board_id\` = ${req.body.board_id}`, (err, result) => {
+    res.json(result)
+  })
 })
 
-router.post('/recipe_search', (req, res) => {
+router.post('/default_board', (req, res) => {
+  con.query(`SELECT \`title\`, \`recipe_nam\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${req.body.board_id}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post('/ingredient_board', (req, res) => {
+  con.query(`DISTINCT SELECT \`recipe_name\` FROM \`Recipe\` WHERE \`ingredient\` = '${req.body.name}'`, (err, result) =>{
+    res.json(result)
+  })
+})
+
+router.post('/popular_default_board', (req, res) => {
+  con.query(`SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`good_cnt\` LIMIT ${(req.body.page - 1) * req.body.num + 1}, ${req.body.num}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post('/name_default_board', (res, req) => {
+  con.query(`SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`title\` LIMIT ${(req.body.page - 1) * req.body.num + 1}, ${req.body.num}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post('/popular_my_board', (res, req) => {
+  con.query(`SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` LIMIT ${(req.body.page - 1) * req.body.num + 1}, ${req.body.num}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post('/name_my_board', (res, req) => {
+  con.query(`SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`title\` LIMIT ${(req.body.page - 1) * req.body.num + 1}, ${req.body.num}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post('/popular_ingredient', (res, req) => {
+  con.query(`SELECT \`name\` FROM \`ingredient\` ORDER BY \`count\` LIMIT ${(req.body.page - 1) * req.body.num + 1}, ${req.body.num}`, (err, result) =>{
+    res.json(result)
+  })
+})
+
+router.post('/name_ingredient', (res, req) => {
+  con.query(`SELECT \`name\` FROM \`ingredient\` ORDER BY \`name\` LIMIT ${(req.body.page - 1) * req.body.num + 1}, ${req.body.num}`, (err, result) =>{
+    res.json(result)
+  })
+})
+
+router.post('/board_search', (req, res) => {
   let target = `%`
   for (const buf of req.body.search_target){
     target = `${target}${buf}%`
@@ -38,26 +95,24 @@ router.post('/recipe_search', (req, res) => {
   })
 })
 
-router.put('/', (req, res) => {
-
+router.post('/my_board_search', (req, res) => {
+  let target = `%`
+  for (const buf of req.body.search_target){
+    target = `${target}${buf}%`
+  }
+  con.query(`SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`My_Board\` WHERE \`title\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`, (err, result) =>{
+    res.json(result)
+  })
 })
 
-router.delete('/', (req, res) => {
-  
+router.post('/default_board_search', (req, res) => {
+  let target = `%`
+  for (const buf of req.body.search_target){
+    target = `${target}${buf}%`
+  }
+  con.query(`SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` WHERE \`title\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`, (err, result) =>{
+    res.json(result)
+  })
 })
-
-// con.query(`SELECT \`title\`, \`good_cnt\` FROM \`Default_Board\` JOIN \`My_Board\``, (err, result) =>{
-//     console.log(result);
-// })
-
-// const test = "조병하"
-// let t = '%'
-// for (const buf of test){
-//   t = `${t}${buf}%`
-// }
-// console.log(t)
-// con.query(`SELECT * FROM \`member\` WHERE \`member_name\` LIKE \'${test}\';`, (err, result) => {
-//   console.log(result)
-// })
 
 module.exports = router;
