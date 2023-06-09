@@ -84,9 +84,13 @@ window.onload = function () {
 };
 
 const $changePasswordButton = document.querySelector(".change-pw");
-const user = JSON.parse(sessionStorage.getItem("user"));
 $changePasswordButton.addEventListener("click", () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
   let changePassword = prompt("변경할 비밀번호를 입력해주세요.");
+  //비밀번호 변경 취소했을 때
+  if (changePassword === null) {
+    return;
+  }
 
   fetch("/users/passwd_update", {
     method: "POST",
@@ -113,4 +117,46 @@ $changePasswordButton.addEventListener("click", () => {
         error
       );
     });
+ 
 });
+
+const $deletemember = document.querySelector(".withdrawal");
+$deletemember.addEventListener("click", () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
+  const confirmation = window.confirm("정말 삭제하시겠습니까?");
+  
+  if (confirmation) { 
+    fetch("/users/deletemember", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        member_id: user.id,
+      }),
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+
+      sessionStorage.clear();
+      window.location.href = 'index.html';
+    
+    })
+    .catch((error) => {
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
+    });
+  } else { 
+  }
+});
+
+
