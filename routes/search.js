@@ -34,9 +34,13 @@ router.post("/random", (req, res) => {
   })
 })
 
-router.post("/search_reecipe", (req, res) =>{
-  con.query(`SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${req.body.recipe_name}';`, (err, result) =>{
-    res.json(result);
+router.post("/search_recipe", (req, res) =>{
+  let recipe_name
+  con.query(`SELECT \`recipe_name\` FROM \`Default_Board\` WHERE \`board_id\` = ${req.body.board_id}`, (err, result) => {
+    recipe_name = result[0].recipe_name
+    con.query(`SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${recipe_name}';`, (err, result) =>{
+      res.json(result);
+    })
   })
 })
 
