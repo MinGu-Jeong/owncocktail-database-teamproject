@@ -136,7 +136,9 @@ window.onload = function () {
       $cocktailName4.textContent = data[3].recipe_name;
     })
     .catch((error) => {
-      console.error(error);
+
+      console.error;
+
     });
   //나만의 칵테일 4개 불러오기
   fetch("/search/popular_my_board", {
@@ -158,7 +160,7 @@ window.onload = function () {
       $ownCocktailName4.textContent = data[3].recipe_name;
     })
     .catch((error) => {
-      console.error(error);
+      console.error;
     });
 };
 
