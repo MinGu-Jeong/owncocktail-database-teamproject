@@ -66,7 +66,7 @@ router.post("/ingredient_board", (req, res) => {
 
 router.post("/popular_default_board", (req, res) => {
   con.query(
-    `SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`good_cnt\` LIMIT ${
+    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`good_cnt\` LIMIT ${
       (req.body.page - 1) * req.body.num + 1
     }, ${req.body.num}`,
     (err, result) => {
