@@ -63,6 +63,11 @@ window.onload = function () {
 
   if (user && user.isLogin) {
     // 로그인이 된 상태
+    console.log(user);
+    if (user.id == "admin") {
+      console.log("test");
+      $newReceipeButton.style.display = "block";
+    }
     $loginButtonTop.textContent = "로그아웃";
     $loginButtonTop.onclick = function () {
       // 로그아웃 로직 실행
@@ -103,12 +108,75 @@ window.onload = function () {
     v.classList.toggle("show");
     dropbtn.style.borderColor = "rgb(94, 94, 94)";
   }
-
+  const $cocktailName1 = document.querySelector("#cocktail-name1");
+  const $cocktailName2 = document.querySelector("#cocktail-name2");
+  const $cocktailName3 = document.querySelector("#cocktail-name3");
+  const $cocktailName4 = document.querySelector("#cocktail-name4");
+  const $cocktailName5 = document.querySelector("#cocktail-name5");
+  const $cocktailName6 = document.querySelector("#cocktail-name6");
+  const $cocktailName7 = document.querySelector("#cocktail-name7");
+  const $cocktailName8 = document.querySelector("#cocktail-name8");
+  const $cocktailId1 = document.querySelector("#cocktail-id1");
+  const $cocktailId2 = document.querySelector("#cocktail-id2");
+  const $cocktailId3 = document.querySelector("#cocktail-id3");
+  const $cocktailId4 = document.querySelector("#cocktail-id4");
+  const $cocktailId5 = document.querySelector("#cocktail-id5");
+  const $cocktailId6 = document.querySelector("#cocktail-id6");
+  const $cocktailId7 = document.querySelector("#cocktail-id7");
+  const $cocktailId8 = document.querySelector("#cocktail-id8");
+  function draw(path) {
+    fetch(`/search/${path}_default_board`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        page: 1,
+        num: 8,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        $cocktailName1.textContent = data[0].recipe_name;
+        $cocktailName2.textContent = data[1].recipe_name;
+        $cocktailName3.textContent = data[2].recipe_name;
+        $cocktailName4.textContent = data[3].recipe_name;
+        $cocktailName5.textContent = data[4].recipe_name;
+        $cocktailName6.textContent = data[5].recipe_name;
+        $cocktailName7.textContent = data[6].recipe_name;
+        $cocktailName8.textContent = data[7].recipe_name;
+        $cocktailId1.textContent = data[0].board_id;
+        $cocktailId2.textContent = data[1].board_id;
+        $cocktailId3.textContent = data[2].board_id;
+        $cocktailId4.textContent = data[3].board_id;
+        $cocktailId5.textContent = data[4].board_id;
+        $cocktailId6.textContent = data[5].board_id;
+        $cocktailId7.textContent = data[6].board_id;
+        $cocktailId8.textContent = data[7].board_id;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  draw("popular");
   function showMenu(value) {
-    console.log(value);
     dropbtn_content.innerText = value;
     dropbtn_content.style.color = "#252525";
     dropbtn.style.borderColor = "#3992a8";
+    changeSort(value);
+  }
+  function changeSort(sortType) {
+    // 선택된 정렬 방식에 따라 필요한 작업 수행
+    if (sortType === "인기순") {
+      draw("popular");
+    } else if (sortType === "이름순") {
+      draw("name");
+    }
+
+    // 드롭다운 숨기기
+    var dropdownContent = document.getElementById("dropdown-content");
+    dropdownContent.classList.remove("active");
   }
   
   // default_board 게시글 수 카운트
@@ -117,12 +185,11 @@ window.onload = function () {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-    }),
+    body: JSON.stringify({}),
   })
     .then((response) => response.json())
     .then((data) => {
-      allPage=Math.floor(data[0].max_id / 8 + 1);
+      allPage = Math.floor(data[0].max_id / 8 + 1);
       const maxId = data[0].max_id || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
       $pagetext.textContent = `1 / ${Math.floor(maxId / 8 + 1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
     })
@@ -160,7 +227,6 @@ window.onload = function () {
         const boardId = cocktailButton.querySelector(".cocktail-summary").textContent; // 'cocktailId' 대신 'boardId'를 사용합니다.
         window.location.href = "./cocktail.html?id=" + boardId + "&type=default";
       });      
-
 
 
 };
@@ -202,5 +268,33 @@ $pageRightButton.addEventListener("click", () => {
 
 const $randomButton = document.getElementById("random-button");
 $randomButton.addEventListener("click", () => {
-  window.location.href = "./cocktail.html";
+  fetch("/search/random_default", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      window.location.href =
+        "./cocktail.html?id=" + data.result + "&type=default";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+const $bestCocktailButtonContainer = document.querySelector(
+  ".best-cocktail-button-container"
+);
+$bestCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailName = cocktailButton.children[1].textContent;
+  const cocktailId = cocktailButton.children[2].textContent;
+  console.log(cocktailId);
+  console.log("test");
+  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=default";
 });
