@@ -64,3 +64,95 @@ window.onload = function () {
     };
   }
 };
+function createItemElement(id, title, memberId, writeTime, goodCount) {
+  // Create the item div
+  const itemDiv = document.createElement("div");
+  itemDiv.id = `item${id}`;
+  itemDiv.classList.add("item");
+
+  // Create the item-box div
+  const itemBoxDiv = document.createElement("div");
+  itemBoxDiv.id = "item-box";
+
+  // Create the board_id p element
+  const boardIdP = document.createElement("p");
+  boardIdP.id = "board_id";
+  boardIdP.textContent = id;
+
+  // Create the board_title p element
+  const boardTitleP = document.createElement("p");
+  boardTitleP.id = "board_title";
+  boardTitleP.textContent = title;
+
+  // Create the member_id p element
+  const memberIdP = document.createElement("p");
+  memberIdP.id = "member_id";
+  memberIdP.textContent = memberId;
+
+  // Create the write_time p element
+  const writeTimeP = document.createElement("p");
+  writeTimeP.id = "write_time";
+  writeTimeP.textContent = writeTime;
+
+  // Create the good_cnt p element
+  const goodCntP = document.createElement("p");
+  goodCntP.id = "good_cnt";
+  goodCntP.textContent = `추천수 ${goodCount}`;
+
+  // Create the go-cocktail button
+  const goCocktailButton = document.createElement("button");
+  goCocktailButton.id = "go-cocktail";
+  goCocktailButton.textContent = "바로가기";
+
+  // Append the elements to their respective parents
+  itemBoxDiv.appendChild(boardIdP);
+  itemBoxDiv.appendChild(boardTitleP);
+  itemBoxDiv.appendChild(memberIdP);
+  itemBoxDiv.appendChild(writeTimeP);
+  itemBoxDiv.appendChild(goodCntP);
+  itemDiv.appendChild(itemBoxDiv);
+  itemDiv.appendChild(goCocktailButton);
+
+  return itemDiv;
+}
+
+// Create the item element
+function insertElementAfterResultText(element) {
+  // Find the result-box div
+  const resultBoxDiv = document.querySelector(".result-box");
+
+  // Find the result-text div within the result-box div
+  const resultTextDiv = resultBoxDiv.querySelector("#result-text");
+
+  // Insert the element after the result-text div
+  resultBoxDiv.insertBefore(element, resultTextDiv.nextSibling);
+}
+
+const elementsData = [
+  {
+    id: 1,
+    title: "잭콕",
+    memberId: "cjh418",
+    writeTime: "2000/04/18",
+    goodCount: 150,
+  },
+  {
+    id: 10,
+    title: "아메리카노",
+    memberId: "cjh418",
+    writeTime: "2000/04/18",
+    goodCount: 100,
+  },
+  // Add more elements data as needed
+];
+
+elementsData.forEach((data) => {
+  const itemElement = createItemElement(
+    data.id,
+    data.title,
+    data.memberId,
+    data.writeTime,
+    data.goodCount
+  );
+  insertElementAfterResultText(itemElement);
+});
