@@ -28,6 +28,7 @@ $searchButton.addEventListener("click", () => {
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
+  const $nickname = document.querySelector(".nickname");
 
   const $titleLogo = document.querySelector(".title-logo");
   $titleLogo.addEventListener("click", () => {
@@ -61,6 +62,25 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
+  //닉네임 서버에서 불러오기
+  fetch("/users/mypage_info", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      member_id: user.id,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      console.log(data.member_id);
+      $nickname.textContent = data[0].member_id;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 const $changePasswordButton = document.querySelector(".change-pw");
