@@ -184,4 +184,16 @@ router.post("/default_board_search", (req, res) => {
   );
 });
 
+router.post('/default_comment', (req, res) => {
+  con.query(`SELECT * FROM \`Default_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post('/my_comment', (req, res) => {
+  con.query(`SELECT * FROM \`MY_Board_Comment\` WHERE \`myboard_id\` = ${req.body.myboard_id}`, (err, result) => {
+    res.json(result)
+  })
+})
+
 module.exports = router;
