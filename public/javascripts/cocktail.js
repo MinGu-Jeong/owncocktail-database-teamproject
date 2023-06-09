@@ -5,8 +5,8 @@ $titleLogo.addEventListener("click", () => {
 });
 const $loginButton = document.getElementById("login-button");
 const $signupButton = document.getElementById("signup-button");
-const $receipeButton = document.getElementById("nav-cocktail-receipe");
-const $ownReceipeButton = document.getElementById("nav-own-cocktail");
+const $recipeButton = document.getElementById("nav-cocktail-recipe");
+const $ownRecipeButton = document.getElementById("nav-own-cocktail");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 
@@ -17,10 +17,10 @@ $loginButton.addEventListener("click", () => {
 $signupButton.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
-$receipeButton.addEventListener("click", () => {
+$recipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
-$ownReceipeButton.addEventListener("click", () => {
+$ownRecipeButton.addEventListener("click", () => {
   window.location.href = "./mycocktailmain.html";
 });
 $ingredientButton.addEventListener("click", () => {
@@ -42,7 +42,7 @@ window.onload = function () {
   const $signupButtonTop = document.querySelector("#signup-button");
   const deleteContainer = document.querySelector(".delete-container");
   const $recommentCount = document.querySelector(".recommend-count");
-
+  const $cocktailRecipe = document.querySelector(".cocktail-recipe-container");
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
@@ -94,6 +94,11 @@ window.onload = function () {
       .then((data) => {
         console.log(data);
         $recommentCount.textContent = data[0].good_cnt;
+        $cocktailRecipe.innerHTML = data[0].text;
+        let snacks = data[0].snack;
+        let snackArray = snacks.split(",");
+        const snackArraySize = snackArray.length;
+        console.log(snackArraySize);
       })
       .catch((error) => {
         console.error;
