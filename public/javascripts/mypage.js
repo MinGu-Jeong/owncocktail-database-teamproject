@@ -79,7 +79,7 @@ window.onload = function () {
       $nickname.textContent = data[0].member_id;
     })
     .catch((error) => {
-      console.error(error);
+      console.error;
     });
 };
 
@@ -117,7 +117,6 @@ $changePasswordButton.addEventListener("click", () => {
         error
       );
     });
- 
 });
 
 const $deletemember = document.querySelector(".withdrawal");
@@ -125,8 +124,8 @@ $deletemember.addEventListener("click", () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   const confirmation = window.confirm("정말 삭제하시겠습니까?");
-  
-  if (confirmation) { 
+
+  if (confirmation) {
     fetch("/users/deletemember", {
       method: "POST",
       headers: {
@@ -136,27 +135,24 @@ $deletemember.addEventListener("click", () => {
         member_id: user.id,
       }),
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
 
-      sessionStorage.clear();
-      window.location.href = 'index.html';
-    
-    })
-    .catch((error) => {
-      console.error(
-        "There has been a problem with your fetch operation:",
-        error
-      );
-    });
-  } else { 
+        sessionStorage.clear();
+        window.location.href = "index.html";
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  } else {
   }
 });
-
-
