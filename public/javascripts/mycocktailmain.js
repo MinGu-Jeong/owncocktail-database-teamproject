@@ -4,7 +4,10 @@ const $receipeButton = document.getElementById("nav-cocktail-receipe");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 const $mycocktailmain = document.getElementById("nav-own-cocktail");
-
+const $titleLogo = document.querySelector(".title-logo");
+$titleLogo.addEventListener("click", () => {
+  window.location.href = "./index.html";
+});
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
@@ -59,7 +62,82 @@ window.onload = function () {
   }
 };
 
-const $titleLogo = document.querySelector(".title-logo");
-$titleLogo.addEventListener("click", () => {
-  window.location.href = "./index.html";
+function changeSort(sortType) {
+  // 선택된 정렬 방식에 따라 필요한 작업 수행
+  if (sortType === "popular") {
+    // 인기순 정렬 처리
+    // ...
+  } else if (sortType === "name") {
+    // 이름순 정렬 처리
+    // ...
+  } else if (sortType === "comment") {
+    // 댓글순 정렬 처리
+    // ...
+  }
+
+  // 드롭다운 숨기기
+  var dropdownContent = document.getElementById("dropdown-content");
+  dropdownContent.classList.remove("active");
+}
+var dropbtn_icon = document.querySelector(".dropbtn_icon");
+var dropbtn_content = document.querySelector(".dropbtn_content");
+var dropbtn_click = document.querySelector(".dropbtn_click");
+var dropbtn = document.querySelector(".dropbtn");
+
+window.onload = () => {
+  document.querySelector(".dropbtn_click").onclick = () => {
+    dropdown();
+  };
+  const options = document.getElementsByClassName("option");
+  for (let i = 0; i < options.length; i++) {
+    options[i].onclick = () => {
+      showMenu(options[i].innerText);
+    };
+  }
+
+  function dropdown() {
+    var v = document.querySelector(".dropdown-content");
+    var dropbtn = document.querySelector(".dropbtn");
+    v.classList.toggle("show");
+    dropbtn.style.borderColor = "rgb(94, 94, 94)";
+  }
+
+  function showMenu(value) {
+    console.log(value);
+    dropbtn_content.innerText = value;
+    dropbtn_content.style.color = "#252525";
+    dropbtn.style.borderColor = "#3992a8";
+  }
+};
+
+window.onclick = (e) => {
+  if (!e.target.matches(".dropbtn_click")) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
+      }
+    }
+  }
+};
+
+$pageText = document.getElementById("page-text");
+$pageLeftButton = document.getElementById("left-button");
+$pageRightButton = document.getElementById("right-button");
+var pageCount = 1;
+var allPage = 20;
+$pageLeftButton.addEventListener("click", () => {
+  if (pageCount > 1) {
+    pageCount -= 1;
+    $pageText.innerText = `${pageCount} / ${allPage}`;
+  }
+});
+$pageRightButton.addEventListener("click", () => {
+  if (pageCount < allPage) {
+    pageCount += 1;
+    $pageText.innerText = `${pageCount} / ${allPage}`;
+  }
 });

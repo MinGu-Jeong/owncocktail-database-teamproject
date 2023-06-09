@@ -214,6 +214,9 @@ nav {
 .dropbtn_icon {
   font-family: "Material Icons";
 }
+.dropbtn_content {
+  margin-left: 8px;
+}
 .dropbtn {
   display: block;
   border: 0;
@@ -221,9 +224,9 @@ nav {
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   font-weight: 400;
-  color: rgb(124, 124, 124);
+  color: black;
   padding: 12px;
-  width: 90px;
+  width: 100px;
   text-align: left;
   cursor: pointer;
   font-size: 12px;
@@ -231,9 +234,10 @@ nav {
   position: relative;
 }
 .dropdown-content {
+  position: absolute;
+  top: 30px;
   display: none;
-  font-weight: 400;
-  background-color: #fcfcfc;
+  background-color: rgba(255, 255, 255, 0.6);
   width: 100px;
   border-radius: 3px;
   overflow: scroll;
@@ -333,4 +337,38 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.move-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#left-button {
+  width: 0;
+  height: 0;
+  border-bottom: 18px solid transparent;
+  border-top: 18px solid transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid #d9d9d9;
+  cursor: pointer;
+}
+#left-button:hover {
+  border-right: 20px solid #3030ac;
+}
+#page-text {
+  font-size: 20px;
+}
+#right-button {
+  width: 0;
+  height: 0;
+  border-bottom: 18px solid transparent;
+  border-top: 18px solid transparent;
+  border-left: 20px solid #d9d9d9;
+  border-right: 20px solid transparent;
+  cursor: pointer;
+}
+#right-button:hover {
+  border-left: 20px solid #3030ac;
 }

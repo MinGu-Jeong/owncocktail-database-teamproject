@@ -26,10 +26,9 @@ $searchButton.addEventListener("click", () => {
 $mycocktailmain.addEventListener("click", () => {
   window.location.href = "./mycocktailmain.html";
 });
-function toggleDropdown() {
-  var dropdownContent = document.getElementById("dropdown-content");
-  dropdownContent.classList.toggle("active");
-}
+$receipeButton.addEventListener("click", () => {
+  window.location.href = "./cocktailmain.html";
+});
 
 function changeSort(sortType) {
   // 선택된 정렬 방식에 따라 필요한 작업 수행
@@ -122,3 +121,21 @@ window.onclick = (e) => {
     }
   }
 };
+
+$pageText = document.getElementById("page-text");
+$pageLeftButton = document.getElementById("left-button");
+$pageRightButton = document.getElementById("right-button");
+var pageCount = 1;
+var allPage = 20;
+$pageLeftButton.addEventListener("click", () => {
+  if (pageCount > 1) {
+    pageCount -= 1;
+    $pageText.innerText = `${pageCount} / ${allPage}`;
+  }
+});
+$pageRightButton.addEventListener("click", () => {
+  if (pageCount < allPage) {
+    pageCount += 1;
+    $pageText.innerText = `${pageCount} / ${allPage}`;
+  }
+});
