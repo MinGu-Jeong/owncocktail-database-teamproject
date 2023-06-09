@@ -16,18 +16,19 @@ header {
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  margin-top: 30px;
+  margin-top: 25px;
   gap: 10px;
 }
 .title-logo {
-  width: 345px;
+  margin-top: -60px;
+  width: 300px;
   height: 100px;
   cursor: pointer;
 }
 nav {
   display: flex;
   justify-content: space-around;
-  gap: 100px;
+  gap: 50px;
   align-items: center;
   width: 1150px;
   height: 85px;
@@ -91,6 +92,14 @@ nav {
 
   color: white;
 }
+#nav-cocktail-receipe:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
+}
 #nav-own-cocktail {
   font-family: "Inter";
   font-style: normal;
@@ -105,6 +114,13 @@ nav {
   border: 0;
   background: none;
 }
+#nav-own-cocktail:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
+}
 #nav-ingredient {
   font-family: "Inter";
   font-style: normal;
@@ -118,6 +134,13 @@ nav {
   background: none;
   color: white;
 }
+#nav-ingredient:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
+}
 #nav-search {
   font-family: "Inter";
   font-style: normal;
@@ -130,6 +153,13 @@ nav {
   border: 0;
   background: none;
   color: white;
+}
+#nav-search:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
 }
 .best-cocktail-container {
   margin-top: 45px;

@@ -59,6 +59,17 @@ router.post("/idCheck", (req, res) => {
   );
 });
 
+ // ID 삭제 api
+router.post("/deletemember", (req, res) => {
+  con.query(
+    `DELETE FROM \`member\` WHERE \`member_id\` = '${req.body.member_id}'`
+,(err, result) => {
+      res.json({ result: true, id: req.body.member_id});
+    }
+  );
+});
+
+
 // 전화번호 중복 확인 api
 router.post("/phoneCheck", (req, res) => {
   con.query(

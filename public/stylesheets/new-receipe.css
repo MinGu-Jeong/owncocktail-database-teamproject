@@ -187,13 +187,54 @@ nav > button {
   justify-content: center;
   align-items: center;
 }
-.cocktail-title {
-  font-size: 32px;
+#cocktail-name {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 50px;
+  border: 3px solid black;
+  border-radius: 5px;
 }
 .cocktail-img {
   width: 230px;
   height: 235px;
   border: 10px solid black;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#cocktail-img-button {
+  width: 230px;
+  height: 235px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 25px;
+}
+.receipe-img-button,
+.receipe-add-button,
+.snack-add-button,
+.tool-add-button {
+  width: 230px;
+  height: 235px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 25px;
 }
 .writer {
   display: flex;
@@ -206,7 +247,7 @@ nav > button {
   font-size: 28px;
   line-height: 39px;
 }
-.recommend {
+#submit-button {
   border: 3px solid black;
   border-radius: 10px;
   width: 210px;
@@ -221,6 +262,9 @@ nav > button {
   top: 50px;
   right: 100px;
   cursor: pointer;
+}
+#submit-button:hover {
+  background-color: #c199c5;
 }
 .cocktail-ingredient {
   display: flex;
@@ -241,17 +285,23 @@ nav > button {
 .cocktail-ingredient-card-container,
 .snack-container,
 .tool-container {
-  width: 1300px;
-  height: 450px;
+  height: 470px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 20px;
-  overflow-x: scroll;
   white-space: nowrap;
 }
+
+.cocktail-row {
+  width: 1300px;
+  display: flex;
+  overflow-x: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
 .cocktail-ingredient-card,
 .snack-card,
 .tool-card {
@@ -264,10 +314,30 @@ nav > button {
   border: 10px solid black;
   flex-shrink: 0;
 }
+.card-flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.receipe-detail-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.receipe-input {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  border: 3px solid black;
+  font-size: 20px;
+}
 .receipe-detail,
 .snack-detail,
 .tool-detail {
-  margin-top: 350px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -282,14 +352,19 @@ nav > button {
 .cocktail-receipe-container {
   width: 100%;
   height: 100%;
-  margin-left: 100px;
   margin-top: 20px;
   display: flex;
   position: relative;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   font-size: 20px;
+}
+#receipe-textarea {
+  border-radius: 5px;
+  border: 3px solid black;
+  font-size: 20px;
+  resize: none;
 }
 .cocktail-receipe,
 .snack-title,
@@ -308,77 +383,4 @@ nav > button {
   font-size: 32px;
   line-height: 39px;
   color: #000000;
-}
-#comment-input {
-  width: 1050px;
-  height: 60px;
-  border: 3px solid black;
-  font-size: 32px;
-}
-#comment-button {
-  width: 100px;
-  height: 60px;
-  border: 3px solid black;
-  font-size: 32px;
-  background-color: #977bac;
-  color: white;
-  cursor: pointer;
-}
-.comment-card-container {
-  display: flex;
-  flex-direction: column;
-}
-.comment-card {
-  margin-top: 10px;
-  display: flex;
-  gap: 20px;
-}
-.comment-content {
-  border: 1px solid black;
-  padding: 2px 10px;
-  border-radius: 10px;
-  background-color: #d9d9d9;
-}
-.positive {
-  border-radius: 10px;
-  background-color: #9c97b6;
-  padding: 2px 10px;
-}
-.comment-title {
-  margin-right: 1100px;
-  width: 85px;
-  height: 55px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 39px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #dbd3dd;
-  border-radius: 10px;
-  color: #000000;
-}
-.delete-container {
-  margin-top: 20px;
-}
-#delete-button {
-  width: 130px;
-  height: 60px;
-  border: 3px solid black;
-  border-radius: 10px;
-  font-size: 32px;
-  background-color: #dbd3dd;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
-  color: #ff0000;
-
-  cursor: pointer;
-}
-#delete-button:hover {
-  background-color: red;
-  color: white;
 }

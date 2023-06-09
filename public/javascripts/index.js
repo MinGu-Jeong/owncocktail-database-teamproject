@@ -45,9 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
 const $loginButton = document.getElementById("login-button");
 const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
+const $ownReceipeButton = document.getElementById("nav-own-cocktail");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
-
+const $mycocktailmain = document.getElementById("nav-own-cocktail");
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
@@ -55,14 +56,32 @@ $loginButton.addEventListener("click", () => {
 $signupButton.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
-
+$receipeButton.addEventListener("click", () => {
+  window.location.href = "./cocktailmain.html";
+});
+$ownReceipeButton.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
 $ingredientButton.addEventListener("click", () => {
   window.location.href = "./ingredient.html";
 });
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
-
+$mycocktailmain.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
+$receipeButton.addEventListener("click", () => {
+  window.location.href = "./cocktailmain.html";
+});
+const $cocktailName1 = document.querySelector("#cocktail-name1");
+const $cocktailName2 = document.querySelector("#cocktail-name2");
+const $cocktailName3 = document.querySelector("#cocktail-name3");
+const $cocktailName4 = document.querySelector("#cocktail-name4");
+const $ownCocktailName1 = document.querySelector("#own-cocktail-name1");
+const $ownCocktailName2 = document.querySelector("#own-cocktail-name2");
+const $ownCocktailName3 = document.querySelector("#own-cocktail-name3");
+const $ownCocktailName4 = document.querySelector("#own-cocktail-name4");
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -95,4 +114,70 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
+
+  //db연결
+  //기본칵테일 4개 불러오기
+  fetch("/search/popular_default_board", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: 1,
+      num: 4,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      $cocktailName1.textContent = data[0].recipe_name;
+      $cocktailName2.textContent = data[1].recipe_name;
+      $cocktailName3.textContent = data[2].recipe_name;
+      $cocktailName4.textContent = data[3].recipe_name;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  //나만의 칵테일 4개 불러오기
+  fetch("/search/popular_my_board", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: 1,
+      num: 4,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      $ownCocktailName1.textContent = data[0].recipe_name;
+      $ownCocktailName2.textContent = data[1].recipe_name;
+      $ownCocktailName3.textContent = data[2].recipe_name;
+      $ownCocktailName4.textContent = data[3].recipe_name;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
+
+//best-cocktail-button-container 내부의 버튼 클릭시 cocktail.html로 이동
+const $bestCocktailButtonContainer = document.querySelector(
+  ".best-cocktail-button-container"
+);
+const $bestOwnCocktailButtonContainer = document.querySelector(
+  ".best-own-cocktail-button-container"
+);
+$bestCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailName = cocktailButton.children[1].textContent;
+  window.location.href = "./cocktail.html?id=" + cocktailName;
+});
+$bestOwnCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailName = cocktailButton.children[1].textContent;
+  window.location.href = "./cocktail.html?id=" + cocktailName;
+});

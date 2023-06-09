@@ -1,5 +1,13 @@
-body {
-  background: #230649;
+* {
+  margin: 0;
+  padding: 0;
+}
+.body {
+  background-color: #230649;
+  min-height: 110vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 header {
   display: flex;
@@ -11,7 +19,7 @@ header {
   justify-content: center;
   align-items: center;
   margin-right: 30px;
-  margin-top: 30px;
+  margin-top: 25px;
   gap: 10px;
 }
 .title-logo {
@@ -33,8 +41,11 @@ nav {
   border-radius: 10px;
   background: #9183a4;
 }
+nav > button {
+  cursor: pointer;
+}
 #login-button {
-  width: 75px;
+  width: 60px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -55,7 +66,7 @@ nav {
   background-color: #c199c5;
 }
 #signup-button {
-  width: 90px;
+  width: 80px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -86,8 +97,8 @@ nav {
   text-align: center;
   border: 0;
   background: none;
+
   color: white;
-  cursor: pointer;
 }
 #nav-cocktail-receipe:hover {
   background-color: #c199c5;
@@ -106,10 +117,10 @@ nav {
   display: flex;
   align-items: center;
   text-align: center;
+
   color: white;
   border: 0;
   background: none;
-  cursor: pointer;
 }
 #nav-own-cocktail:hover {
   background-color: #c199c5;
@@ -130,7 +141,6 @@ nav {
   border: 0;
   background: none;
   color: white;
-  cursor: pointer;
 }
 #nav-ingredient:hover {
   background-color: #c199c5;
@@ -140,10 +150,6 @@ nav {
   margin: -10px;
 }
 #nav-search {
-  background-color: #c199c5;
-  color: #83338a;
-  padding: 10px;
-  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -153,98 +159,167 @@ nav {
   align-items: center;
   text-align: center;
   border: 0;
+  background: none;
+  color: white;
+}
+#nav-search:hover {
+  background-color: #c199c5;
+  color: #83338a;
   border-radius: 10px;
   padding: 10px;
   margin: -10px;
-  cursor: pointer;
 }
-.search-box {
-  margin-top: 42px;
-  background: #9894ad;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-}
-
-input:focus {
-  outline: none;
-}
-#search-input {
-  height: 90px;
-  width: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
-  border: 3.5px solid #000000;
+.content-container {
+  width: 1350px;
+  height: 700px;
+  display: grid;
+  margin-top: 100px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1.2fr 2fr;
+  column-gap: 20px;
+  row-gap: 20px;
   border-radius: 10px;
-  font-size: 35px;
-  font-family: "Inter";
-  font-style: normal;
 }
-#search-img {
-  height: 90px;
-  margin-right: 5px;
+.content-container > div {
+  background-color: #9183a4;
+  border-radius: 10px;
 }
-.result-box {
-  margin-top: 42px;
-  height: 571px;
-  padding: 1px 20px 1px 20px;
-  background: #9894ad;
-  border-radius: 30px;
+.left-top-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-#result-text {
-  margin-top: 30px;
+.nickname {
+  display: flex;
+  width: 400px;
+  height: 160px;
+  background-color: #dbd3dd;
+  border: 5px solid black;
+  border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 36px;
-  line-height: 44px;
+  font-size: 48px;
+  line-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+}
+.right-top-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.change-pw-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.change-pw {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 100px;
+  background-color: #dbd3dd;
+  border: 5px solid black;
+  border-radius: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #000000;
+  cursor: pointer;
+}
+.change-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 100px;
+  background-color: #dbd3dd;
+  border: 5px solid black;
+  border-radius: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #000000;
+  cursor: pointer;
+}
+.withdrawal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 200px;
+  height: 100px;
+  background-color: #dbd3dd;
+  border: 5px solid black;
+  border-radius: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  color: #83338a;
+  cursor: pointer;
+}
+.change-pw:hover,
+.change-info:hover,
+.withdrawal:hover {
+  background-color: #c199c5;
+}
+.left-bottom-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.my-post {
+  display: flex;
+  width: 450px;
+  height: 300px;
+  background-color: #dbd3dd;
+  border: 5px solid black;
+  border-radius: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 58px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
   color: #000000;
 }
-.item {
-  margin-top: 30px;
+.right-bottom-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  border: 5px solid #000000;
+}
+.my-comment {
+  display: flex;
+  width: 450px;
+  height: 300px;
+  background-color: #dbd3dd;
+  border: 5px solid black;
   border-radius: 10px;
-  background-color: #ffffff;
-  padding: 0 20px 0 20px;
-  height: 70px;
-}
-#item-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 200px;
-}
-#item-name {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 36px;
-}
-#recomand {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
-}
-#go-cocktail {
-  width: 96px;
-  height: 46.14px;
-  left: 3155px;
-  top: 4568.43px;
-  border: 0;
-  background: #a098b7;
-}
-.sigin {
-  display: flex;
-  justify-content: center;
+  font-size: 48px;
+  line-height: 58px;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  text-align: center;
+
+  color: #000000;
 }

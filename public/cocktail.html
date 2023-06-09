@@ -8,54 +8,99 @@
     <link rel="stylesheet" href="./stylesheets/cocktail.css" />
   </head>
   <body>
-    <header>
-      <div class="title-logo">
-        <img src="./images/title-logo.png" width="345px" height="150px" />
-      </div>
-    </header>
-    <nav></nav>
-    <content class="receipe-container">
-      <h2 class="cocktail-title">칵테일 이름</h2>
-      <div class="recommend">추천 150</div>
-      <div class="cocktail-img"></div>
-      <h2 class="cocktail-ingredient">재료</h2>
-      <div class="cocktail-ingredient-card-container">
-        <div class="cocktail-ingredient-card"></div>
-        <div class="cocktail-ingredient-card"></div>
-        <div class="cocktail-ingredient-card"></div>
-        <div class="cocktail-ingredient-card"></div>
-        <div class="cocktail-ingredient-card"></div>
-        <div class="cocktail-ingredient-card"></div>
-        <div class="cocktail-ingredient-card"></div>
-      </div>
-      <h2 class="cocktail-receipe">만드는 방법</h2>
-      <div class="cocktail-receipe-container">
-        <ol>
-          <li>순서1</li>
-          <li>순서2</li>
-          <li>순서3</li>
-        </ol>
-      </div>
-      <h2 class="comment">댓글</h2>
-      <div class="comment-container">
-        <input type="text" id="comment-input" />
-        <button id="comment-button">등록</button>
-        <div class="comment-card-container">
-          <div class="comment-card">
-            <span class="comment-content">사용자1 : 내용</span>
-            <button class="positive">좋아요</button>
+    <div class="body">
+      <header>
+        <div class="title-logo">
+          <img src="./images/title-logo.png" width="300px" />
+        </div>
+        <nav>
+          <button id="nav-cocktail-receipe">칵테일 레시피</button>
+          <button id="nav-own-cocktail">나만의 칵테일</button>
+          <button id="nav-ingredient">재료</button>
+          <button id="nav-search">검색</button>
+        </nav>
+        <div class="login-signup">
+          <button id="login-button">로그인</button>
+          <button id="signup-button">회원가입</button>
+        </div>
+      </header>
+      <content class="receipe-container">
+        <h2 class="cocktail-title">칵테일 이름</h2>
+        <div class="recommend">추천 150</div>
+        <div class="writer">작성자 admin</div>
+        <div class="cocktail-img"></div>
+        <div class="receipe-inner-container">
+          <h2 class="cocktail-ingredient">재료</h2>
+          <div class="cocktail-ingredient-card-container">
+            <div class="cocktail-ingredient-card">
+              <div class="receipe-img"></div>
+              <div class="receipe-detail">깔루아<br />50ml</div>
+            </div>
+            <div class="cocktail-ingredient-card"></div>
           </div>
-          <div class="comment-card">
-            <span class="comment-content">사용자2 : 내용</span>
-            <button class="positive">좋아요</button>
+          <h2 class="cocktail-receipe">만드는 방법</h2>
+          <div class="cocktail-receipe-container">
+            <ol>
+              <li>순서1</li>
+              <li>순서2</li>
+              <li>순서3</li>
+            </ol>
           </div>
-          <div class="comment-card">
-            <span class="comment-content">사용자3 : 내용</span>
-            <button class="positive">좋아요</button>
+          <h2 class="snack-title">어울리는 안주</h2>
+          <div class="snack-container">
+            <div class="snack-card">
+              <div class="snack-img"></div>
+              <div class="snack-detail">바지락 홍합탕</div>
+            </div>
+            <div class="snack-card">
+              <div class="snack-img"></div>
+              <div class="snack-detail">홍합탕</div>
+            </div>
+            <div class="snack-card">
+              <div class="snack-img"></div>
+              <div class="snack-detail">조개탕</div>
+            </div>
+          </div>
+          <h2 class="tool-title">필요한 도구</h2>
+          <div class="tool-container">
+            <div class="tool-card">
+              <div class="tool-img"></div>
+              <div class="tool-detail">블렌더</div>
+            </div>
+            <div class="tool-card">
+              <div class="tool-img"></div>
+              <div class="tool-detail">쉐이커</div>
+            </div>
+            <div class="tool-card">
+              <div class="tool-img"></div>
+              <div class="tool-detail">막대기</div>
+            </div>
+          </div>
+          <h2 class="comment-title">댓글</h2>
+          <div class="comment-container">
+            <input type="text" id="comment-input" />
+            <button id="comment-button">등록</button>
+            <div class="comment-card-container">
+              <div class="comment-card">
+                <span class="comment-content">사용자1 : 내용</span>
+                <button class="positive">좋아요</button>
+              </div>
+              <div class="comment-card">
+                <span class="comment-content">사용자2 : 내용</span>
+                <button class="positive">좋아요</button>
+              </div>
+              <div class="comment-card">
+                <span class="comment-content">사용자3 : 내용</span>
+                <button class="positive">좋아요</button>
+              </div>
+            </div>
+          </div>
+          <div class="delete-container">
+            <button id="delete-button">삭제</button>
           </div>
         </div>
-      </div>
-    </content>
+      </content>
+    </div>
     <script src="./javascripts/cocktail.js"></script>
   </body>
 </html>

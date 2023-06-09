@@ -18,7 +18,7 @@ header {
 }
 .title-logo {
   margin-top: -60px;
-  width: 300px;
+  width: 345px;
   height: 100px;
   cursor: pointer;
 }
@@ -36,7 +36,7 @@ nav {
   background: #9183a4;
 }
 #login-button {
-  width: 75px;
+  width: 80px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -57,7 +57,7 @@ nav {
   background-color: #c199c5;
 }
 #signup-button {
-  width: 90px;
+  width: 100px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -97,9 +97,14 @@ nav {
   border: 0;
   border-radius: 10px;
   padding: 10px;
-  margin: -10px;
+  margin: -4px;
 }
 #nav-own-cocktail {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -108,10 +113,7 @@ nav {
   display: flex;
   align-items: center;
   text-align: center;
-
-  color: white;
   border: 0;
-  background: none;
   cursor: pointer;
 }
 #nav-own-cocktail:hover {
@@ -122,11 +124,6 @@ nav {
   margin: -10px;
 }
 #nav-ingredient {
-  background-color: #c199c5;
-  color: #83338a;
-  border-radius: 10px;
-  padding: 10px;
-  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -136,7 +133,16 @@ nav {
   align-items: center;
   text-align: center;
   border: 0;
+  background: none;
+  color: white;
   cursor: pointer;
+}
+#nav-ingredient:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -4px;
 }
 #nav-search {
   font-family: "Inter";
@@ -157,16 +163,16 @@ nav {
   color: #83338a;
   border-radius: 10px;
   padding: 10px;
-  margin: -10px;
+  margin: -4px;
 }
-.ingredient-container {
+.cocktail-container {
   margin-top: 40px;
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   padding: 19px 18px 19px 18px;
 }
-#ingredient-text-box {
+#cocktail-text-box {
   background: rgba(255, 255, 255, 0.6);
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -174,14 +180,13 @@ nav {
   justify-content: center;
   align-items: center;
   height: 65px;
-  width: 122px;
 }
-#ingredient-text {
+#cocktail-text {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#ingredient-text {
+#cocktail-text {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -266,9 +271,34 @@ nav {
 .container-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 40px;
 }
-.best-ingredient-button-container {
+.header1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.header2 {
+  margin-right: 10px;
+}
+#writeBTN {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 44px;
+  text-align: center;
+
+  color: #000000;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+}
+.best-cocktail-button-container {
   display: flex;
   justify-content: center;
   gap: 150px;
@@ -277,7 +307,7 @@ nav {
   background-color: #9183a4;
   flex-wrap: wrap;
 }
-.best-ingredient-button-container > button {
+.best-cocktail-button-container > button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -291,7 +321,7 @@ nav {
   flex-wrap: wrap;
   color: white;
 }
-.best-ingredient-image {
+.best-cocktail-image {
   display: flex;
   width: 160px;
   height: 130px;
@@ -301,15 +331,15 @@ nav {
   align-items: center;
   margin-top: 10px;
 }
-.ingredient-summary {
+.cocktail-summary {
   margin-top: -40px;
 }
-.ingredient-name {
+.cocktail-name {
   margin-top: -40px;
   font-size: 20px;
 }
 
-#best-own-ingredient-title {
+#best-own-cocktail-title {
   margin-left: 20px;
   display: inline-block;
   background-color: #dbd3dd;
@@ -329,7 +359,6 @@ nav {
   align-items: center;
   justify-content: center;
 }
-
 .move-page {
   display: flex;
   justify-content: center;
@@ -362,4 +391,43 @@ nav {
 }
 #right-button:hover {
   border-left: 20px solid #3030ac;
+}
+.random-receipe {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#random-img {
+  width: 102px;
+  height: 102px;
+}
+#random-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 569px;
+  height: 115px;
+  left: 3170px;
+  top: 5437px;
+
+  background: #9183a4;
+  border-radius: 30px;
+  border: 0;
+  cursor: pointer;
+}
+#random-text {
+  width: 407px;
+  height: 77px;
+  left: 3324px;
+  top: 5460px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 77px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
