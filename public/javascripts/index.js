@@ -129,14 +129,14 @@ window.onload = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data[0]);
-      $cocktailName1.textContent = data[0].title;
-      $cocktailName2.textContent = data[1].title;
-      $cocktailName3.textContent = data[2].title;
-      $cocktailName4.textContent = data[3].title;
+      console.log(data);
+      $cocktailName1.textContent = data[0].recipe_name;
+      $cocktailName2.textContent = data[1].recipe_name;
+      $cocktailName3.textContent = data[2].recipe_name;
+      $cocktailName4.textContent = data[3].recipe_name;
     })
     .catch((error) => {
-      error = 에러;
+      console.log(error);
     });
   //나만의 칵테일 4개 불러오기
   fetch("/search/popular_my_board", {
@@ -151,14 +151,14 @@ window.onload = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data[0]);
-      $ownCocktailName1.textContent = data[0].title;
-      $ownCocktailName2.textContent = data[1].title;
-      $ownCocktailName3.textContent = data[2].title;
-      $ownCocktailName4.textContent = data[3].title;
+      console.log(data);
+      $ownCocktailName1.textContent = data[0].recipe_name;
+      $ownCocktailName2.textContent = data[1].recipe_name;
+      $ownCocktailName3.textContent = data[2].recipe_name;
+      $ownCocktailName4.textContent = data[3].recipe_name;
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 };
 
