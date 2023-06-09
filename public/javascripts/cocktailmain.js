@@ -128,8 +128,9 @@ $pageRightButton.addEventListener("click", () => {
 
 const $randomButton = document.getElementById("random-button");
 $randomButton.addEventListener("click", () => {
-  window.location.href = "./cocktail.html";
+  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=default";
 });
+
 const $cocktailName1 = document.querySelector("#cocktail-name1");
 const $cocktailName2 = document.querySelector("#cocktail-name2");
 const $cocktailName3 = document.querySelector("#cocktail-name3");
@@ -158,7 +159,7 @@ fetch("/search/popular_default_board", {
 })
   .then((response) => response.json())
   .then((data) => {
-    //console.log(data);
+    console.log(data);
     $cocktailName1.textContent = data[0].recipe_name;
     $cocktailName2.textContent = data[1].recipe_name;
     $cocktailName3.textContent = data[2].recipe_name;
@@ -179,3 +180,15 @@ fetch("/search/popular_default_board", {
   .catch((error) => {
     console.log(error);
   });
+const $bestCocktailButtonContainer = document.querySelector(
+  ".best-cocktail-button-container"
+);
+$bestCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailName = cocktailButton.children[1].textContent;
+  const cocktailId = cocktailButton.children[2].textContent;
+  console.log(cocktailId);
+  console.log("test");
+  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=default";
+});

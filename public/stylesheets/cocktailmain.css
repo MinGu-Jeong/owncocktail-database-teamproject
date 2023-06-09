@@ -434,3 +434,7 @@ nav {
   align-items: center;
   text-align: center;
 }
+
+.hidden {
+  display: none;
+}
