@@ -3,6 +3,11 @@ const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
+// 칵테일 id 가져오기
+let searchParams = new URLSearchParams(window.location.search);
+const cocktailId = searchParams.get("id");
+//console.log(searchParams.get("id"));
+//console.log(window.location);
 
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
@@ -44,10 +49,23 @@ window.onload = function () {
     // 그렇지 않으면 delete-container를 숨깁니다.
     deleteContainer.style.display = "none";
   }
-};
 
-// 칵테일 id 가져오기
-let searchParams = new URLSearchParams(window.location.search);
-const cocktailId = searchParams.get("id");
-//console.log(searchParams.get("id"));
-//console.log(window.location);
+  //db호출 부분
+  // fetch("엔드포인트 작성", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     member_id: user.id,
+  //     passwd: changePassword,
+  //   }),
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log(board_title);
+  //   })
+  //   .catch((error) => {
+  //     error = 에러;
+  //   });
+};
