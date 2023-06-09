@@ -80,7 +80,7 @@ nav > button {
 #signup-button:hover {
   background-color: #c199c5;
 }
-#nav-cocktail-receipe {
+#nav-cocktail-recipe {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -94,7 +94,7 @@ nav > button {
 
   color: white;
 }
-#nav-cocktail-receipe:hover {
+#nav-cocktail-recipe:hover {
   background-color: #c199c5;
   color: #83338a;
   border: 0;
@@ -163,7 +163,7 @@ nav > button {
   padding: 10px;
   margin: -10px;
 }
-.receipe-container {
+.recipe-container {
   width: 100%;
   height: 100%;
   margin-top: 50px;
@@ -177,7 +177,7 @@ nav > button {
   background-color: #9186a4;
   border-radius: 6px;
 }
-.receipe-inner-container {
+.recipe-inner-container {
   padding: 30px;
   margin-bottom: 30px;
   background-color: #ffffff;
@@ -264,7 +264,7 @@ nav > button {
   border: 10px solid black;
   flex-shrink: 0;
 }
-.receipe-detail,
+.recipe-detail,
 .snack-detail,
 .tool-detail {
   margin-top: 350px;
@@ -279,7 +279,7 @@ nav > button {
 
   color: #000000;
 }
-.cocktail-receipe-container {
+.cocktail-recipe-container {
   width: 100%;
   height: 100%;
   margin-left: 100px;
@@ -291,7 +291,7 @@ nav > button {
   flex-direction: column;
   font-size: 20px;
 }
-.cocktail-receipe,
+.cocktail-recipe,
 .snack-title,
 .tool-title {
   display: flex;

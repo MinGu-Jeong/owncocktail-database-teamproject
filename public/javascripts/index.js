@@ -196,5 +196,6 @@ $bestOwnCocktailButtonContainer.addEventListener("click", (event) => {
   const cocktailButton = event.target.closest("button");
   if (!cocktailButton) return;
   const cocktailName = cocktailButton.children[1].textContent;
+  const cocktailId = cocktailButton.children[2].textContent;
   window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
 });
