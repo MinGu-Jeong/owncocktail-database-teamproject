@@ -9,6 +9,7 @@ const $newReceipeButton = document.getElementById("writeBTN");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
+
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
