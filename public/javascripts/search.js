@@ -116,43 +116,46 @@ function createItemElement(id, title, memberId, writeTime, goodCount) {
   return itemDiv;
 }
 
-// Create the item element
-function insertElementAfterResultText(element) {
-  // Find the result-box div
-  const resultBoxDiv = document.querySelector(".result-box");
+const searchInput = document.getElementById("search-input");
+var inputData = "";
 
-  // Find the result-text div within the result-box div
-  const resultTextDiv = resultBoxDiv.querySelector("#result-text");
-
-  // Insert the element after the result-text div
-  resultBoxDiv.insertBefore(element, resultTextDiv.nextSibling);
-}
-
-const elementsData = [
-  {
-    id: 1,
-    title: "잭콕",
-    memberId: "cjh418",
-    writeTime: "2000/04/18",
-    goodCount: 150,
-  },
-  {
-    id: 10,
-    title: "아메리카노",
-    memberId: "cjh418",
-    writeTime: "2000/04/18",
-    goodCount: 100,
-  },
-  // Add more elements data as needed
-];
-
-elementsData.forEach((data) => {
-  const itemElement = createItemElement(
-    data.id,
-    data.title,
-    data.memberId,
-    data.writeTime,
-    data.goodCount
-  );
-  insertElementAfterResultText(itemElement);
+searchInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    inputData = searchInput.value;
+    console.log("Input Data:", inputData);
+    fetch("/search/board_search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        search_target: `${inputData}`,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        data.forEach((data) => {
+          console.log("test");
+          var boardID;
+          if (data.board_id == null) {
+            boardID = `my${data.myboard_id}`;
+          } else {
+            boardID = data.board_id;
+          }
+          const itemElement = createItemElement(
+            boardID,
+            data.recipe_name,
+            data.member_id,
+            data.write_time,
+            data.good_cnt
+          );
+          const resultBoxDiv = document.querySelector(".result-box");
+          resultBoxDiv.appendChild(itemElement);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 });
