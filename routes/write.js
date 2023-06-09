@@ -3,6 +3,7 @@ var router = express.Router();
 const mysql = require("mysql");
 
 const con = mysql.createConnection({
+
   host: "localhost",
   user: "root",
   password: "1234",
@@ -211,6 +212,7 @@ router.post("/default_delete", (req, res) => {
       `DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${
         req.member_id
       } AND \`board_id\` = ${req.body.board_id}
+
 	DELETE FROM \`Default_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}
 	UPDATE \`ingredient\` SET \`count\` = \`count\` - 1 WHERE \`name\` IN (SELECT \`ingredient\` FROM \`Recipe\` WHERE \`recipe_name\` = ${
     req.body.board_title + "_" + req.body.member_id

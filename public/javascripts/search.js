@@ -116,11 +116,18 @@ function createItemElement(id, title, memberId, writeTime, goodCount) {
   return itemDiv;
 }
 
+function clearResultBox() {
+  const resultBoxDiv = document.querySelector(".result-box");
+  while (resultBoxDiv.firstChild) {
+    resultBoxDiv.removeChild(resultBoxDiv.firstChild);
+  }
+}
 const searchInput = document.getElementById("search-input");
 var inputData = "";
 
 searchInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
+    clearResultBox();
     inputData = searchInput.value;
     console.log("Input Data:", inputData);
     fetch("/search/board_search", {
@@ -147,7 +154,7 @@ searchInput.addEventListener("keydown", function (event) {
             boardID,
             data.recipe_name,
             data.member_id,
-            data.write_time,
+            data.write_time.slice(0, 10),
             data.good_cnt
           );
           const resultBoxDiv = document.querySelector(".result-box");

@@ -74,33 +74,24 @@ window.onload = function () {
       showMenu(options[i].innerText);
     };
   }
-
-  function dropdown() {
-    var v = document.querySelector(".dropdown-content");
-    var dropbtn = document.querySelector(".dropbtn");
-    v.classList.toggle("show");
-    dropbtn.style.borderColor = "rgb(94, 94, 94)";
-  }
-
-  function showMenu(value) {
-    console.log(value);
-    dropbtn_content.innerText = value;
-    dropbtn_content.style.color = "#252525";
-    dropbtn.style.borderColor = "#3992a8";
-  }
 };
+function dropdown() {
+  var v = document.querySelector(".dropdown-content");
+  var dropbtn = document.querySelector(".dropbtn");
+  v.classList.toggle("show");
+  dropbtn.style.borderColor = "rgb(94, 94, 94)";
+}
 
+function showMenu(value) {
+  dropbtn_content.innerText = value;
+  dropbtn_content.style.color = "#252525";
+  dropbtn.style.borderColor = "#3992a8";
+  changeSort(value);
+}
 function changeSort(sortType) {
   // 선택된 정렬 방식에 따라 필요한 작업 수행
-  if (sortType === "popular") {
-    // 인기순 정렬 처리
-    // ...
-  } else if (sortType === "name") {
-    // 이름순 정렬 처리
-    // ...
-  } else if (sortType === "comment") {
-    // 댓글순 정렬 처리
-    // ...
+  if (sortType === "인기순") {
+  } else if (sortType === "이름순") {
   }
 
   // 드롭다운 숨기기
