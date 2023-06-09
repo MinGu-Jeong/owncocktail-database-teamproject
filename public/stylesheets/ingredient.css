@@ -213,8 +213,7 @@ nav {
 .dropbtn {
   display: block;
   border: 0;
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  background: rgba(210, 205, 218);
   border-radius: 10px;
   font-weight: 400;
   color: black;
@@ -228,12 +227,11 @@ nav {
 }
 .dropdown-content {
   position: absolute;
-  top: 30px;
+  top: 13px;
   display: none;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(210, 205, 218);
   width: 100px;
-  border-radius: 3px;
-  overflow: scroll;
+  border-radius: 10px;
   box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
   cursor: pointer;
 }
@@ -257,7 +255,8 @@ nav {
   padding: 12px 20px;
 }
 .dropdown-content div:hover {
-  background-color: rgb(226, 226, 226);
+  background-color: rgba(210, 205, 218);
+  border-radius: 10px;
 }
 
 .dropdown-content.show {
@@ -269,7 +268,6 @@ nav {
   align-items: center;
   gap: 40px;
 }
-
 .best-ingredient-button-container {
   display: flex;
   justify-content: center;
