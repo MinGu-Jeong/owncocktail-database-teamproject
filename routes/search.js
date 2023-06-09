@@ -25,21 +25,28 @@ router.post("/random", (req, res) => {
         total = result[0].total;
         console.log(total);
       }
-    }
-  );
-  const randomValue = Math.random();
-  const id = Math.floor(randomValue * total) + 1;
-  con.query(
-    `SELECT \`title\`, \`recipe_nam\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`,
-    (err, result) => {
+    });
+  
+  const randomValue = Math.random()
+  const id = Math.floor(randomValue * total) + 1
+  con.query(`SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post("/search_recipe", (req, res) =>{
+  let recipe_name
+  con.query(`SELECT \`recipe_name\` FROM \`Default_Board\` WHERE \`board_id\` = ${req.body.board_id}`, (err, result) => {
+    recipe_name = result[0].recipe_name
+    con.query(`SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${recipe_name}';`, (err, result) =>{
       res.json(result);
-    }
-  );
-});
+    })
+  })
+})
 
 router.post("/my_board", (req, res) => {
   con.query(
-    `SELECT \`title\`, \`recipe_nam\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`board_id\` = ${req.body.board_id}`,
+    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`board_id\` = ${req.body.board_id}`,
     (err, result) => {
       res.json(result);
     }
