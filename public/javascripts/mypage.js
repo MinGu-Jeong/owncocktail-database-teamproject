@@ -62,3 +62,35 @@ window.onload = function () {
     };
   }
 };
+
+const $changePasswordButton = document.querySelector(".change-pw");
+const user = JSON.parse(sessionStorage.getItem("user"));
+$changePasswordButton.addEventListener("click", () => {
+  let changePassword = prompt("변경할 비밀번호를 입력해주세요.");
+
+  fetch("/users/passwd_update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      member_id: user.id,
+      passwd: changePassword,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data); // or any other way to use 'data'
+    })
+    .catch((error) => {
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
+    });
+});
