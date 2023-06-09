@@ -14,7 +14,7 @@ con.connect(function (err) {
   console.log("Connected");
 });
 
-router.post("/random", (req, res) => {
+router.post("/random_default", (req, res) => {
   let total;
   con.query(
     `SELECT COUNT(*) AS total FROM \`Default_Board\``,
@@ -27,6 +27,22 @@ router.post("/random", (req, res) => {
       }
     }
   );
+})
+
+router.post("/random_my", (req, res) => {
+  let total;
+  con.query(
+    `SELECT COUNT(*) AS total FROM \`My_Board\``,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        total = result[0].total;
+        console.log(total);
+      }
+    }
+  );
+})
 
   const randomValue = Math.random();
   const id = Math.floor(randomValue * total) + 1;
@@ -127,7 +143,7 @@ router.post("/name_my_board", (req, res) => {
 
 router.post("/popular_ingredient", (req, res) => {
   con.query(
-    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`count\` DESC LIMIT ${
+    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`count\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -138,7 +154,7 @@ router.post("/popular_ingredient", (req, res) => {
 
 router.post("/name_ingredient", (req, res) => {
   con.query(
-    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`name\` DESC LIMIT ${
+    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
