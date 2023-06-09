@@ -23,15 +23,12 @@ router.post("/random_default", (req, res) => {
         console.log(err);
       } else {
         total = result[0].total;
-        console.log(total);
+        const randomValue = Math.random();
+        const id = Math.floor(randomValue * total) + 1;
+        res.json({result: id})
       }
     }
   );
-
-  const randomValue = Math.random();
-  const id = Math.floor(randomValue * total) + 1;
-  res.json({result: id})
-
 });
 
 router.post("/random_my", (req, res) => {
@@ -43,14 +40,12 @@ router.post("/random_my", (req, res) => {
         console.log(err);
       } else {
         total = result[0].total;
-        console.log(total);
+        const randomValue = Math.random();
+        const id = Math.floor(randomValue * total) + 1;
+        res.json({result: id})
       }
     }
   );
-
-  const randomValue = Math.random();
-  const id = Math.floor(randomValue * total) + 1;
-  res.json({result: id})
 });
 
 router.post("/search_recipe", (req, res) => {
