@@ -97,21 +97,21 @@ router.post("/signup", (req, res) => {
 
 // 마이페이지 정보 반환
 router.post("/mypage_info", (req, res) =>{
-  con.query(`SELECT * FROM member WHERE member_id = \'${req.body.user_id}\'`, (err, result) =>{
+  con.query(`SELECT * FROM member WHERE member_id = \'${req.body.member_id}\'`, (err, result) =>{
     res.json(result);
   })
 })
 
 // 비밀번호 변경
 router.post("/passwd_update", (req, res) => {
-  con.query(`UPDATE \`member\` SET \`passwd\` = \'${req.body.passwd}\' WHERE \`member_id\` = \'${req.body.user_id}\'`, (err, result) =>{
+  con.query(`UPDATE \`member\` SET \`passwd\` = '${req.body.passwd}' WHERE \`member_id\` = '${req.body.member_id}'`, (err, result) =>{
     res.json({result: true})
   })
 })
 
 // 비밀번호 변경
 router.post("/email_update", (req, res) => {
-  con.query(`UPDATE \`member\` SET \`email\` = \'${req.body.email}\' WHERE \`member_id\` = \'${req.body.user_id}\'`, (err, result) =>{
+  con.query(`UPDATE \`member\` SET \`email\` = \'${req.body.email}\' WHERE \`member_id\` = \'${req.body.member_id}\'`, (err, result) =>{
     res.json({result: true})
   })
 })
