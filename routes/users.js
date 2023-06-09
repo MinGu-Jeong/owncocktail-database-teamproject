@@ -116,6 +116,34 @@ router.post("/mypage_info", (req, res) => {
   );
 });
 
+//게시글 수 정보 반환
+router.post("/myboard_count", (req, res) => {
+con.query(
+  `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`, 
+(err, result) => {
+    if (err) throw err;
+    res.json(result);
+});
+});
+
+//댓글 수 정보 반환
+router.post("/mycomment_count", (req, res) => {
+  const member_id = req.body.member_id;
+  
+  con.query(`SELECT COUNT(*) AS count FROM My_Board_Comment WHERE member_id = '${member_id}'`, 
+  (err, result1) => {
+      if (err) throw err;
+
+      con.query(`SELECT COUNT(*) AS count FROM Default_Board_Comment WHERE member_id = '${member_id}'`,
+      (err, result2) => {
+          if (err) throw err;
+
+          const total = result1[0].count + result2[0].count;
+          res.json({ total_comments: total });
+      });
+  });
+});
+
 // 비밀번호 변경
 router.post("/passwd_update", (req, res) => {
   con.query(
@@ -126,12 +154,12 @@ router.post("/passwd_update", (req, res) => {
   );
 });
 
-// 비밀번호 변경
+// 이메일 변경
 router.post("/email_update", (req, res) => {
   con.query(
-    `UPDATE \`member\` SET \`email\` = \'${req.body.email}\' WHERE \`member_id\` = \'${req.body.user_id}\'`,
+    `UPDATE \`member\` SET \`email\` = '${req.body.email}' WHERE \`member_id\` = '${req.body.member_id}'`,
     (err, result) => {
-      res.json({ result: true });
+      res.json({ result: true});
     }
   );
 });

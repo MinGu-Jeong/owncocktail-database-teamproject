@@ -29,6 +29,8 @@ window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
   const $nickname = document.querySelector(".nickname");
+  const $mypostcount = document.querySelector(".my-post-count");
+  const $mycommentcount = document.querySelector(".my-comment-count");
 
   const $titleLogo = document.querySelector(".title-logo");
   $titleLogo.addEventListener("click", () => {
@@ -81,8 +83,50 @@ window.onload = function () {
     .catch((error) => {
       console.error(error);
     });
+
+    //게시글 수 카운트
+    fetch("/users/myboard_count", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        member_id: user.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log(data.member_id);
+        $mypostcount.textContent = data[0].count;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      //댓글 수 카운트
+    fetch("/users/mycomment_count", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        member_id: user.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log(data.count);
+        $mycommentcount.textContent = data.total_comments;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
 };
 
+//비밀번호 변경 버튼 눌렀을 때
 const $changePasswordButton = document.querySelector(".change-pw");
 $changePasswordButton.addEventListener("click", () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
@@ -109,7 +153,7 @@ $changePasswordButton.addEventListener("click", () => {
       return response.json();
     })
     .then((data) => {
-      console.log(data); // or any other way to use 'data'
+      alert("변경이 완료되었습니다.");
     })
     .catch((error) => {
       console.error(
@@ -120,6 +164,48 @@ $changePasswordButton.addEventListener("click", () => {
  
 });
 
+
+//이메일 변경 버튼 눌렀을때
+const $changeEmailButton = document.querySelector(".change-email");
+$changeEmailButton.addEventListener("click", () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  let changeEmail = prompt("변경할 이메일을 입력해주세요.");
+  //이메일 변경 취소했을 때
+  if (changeEmail === null) {
+    return;
+  }
+
+  fetch("/users/email_update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      member_id: user.id,
+      email: changeEmail,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert("변경이 완료되었습니다."); // or any other way to use 'data'
+    })
+    .catch((error) => {
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
+    });
+ 
+});
+
+
+
+//회원 정보 삭제
 const $deletemember = document.querySelector(".withdrawal");
 $deletemember.addEventListener("click", () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
