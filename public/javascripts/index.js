@@ -136,7 +136,9 @@ window.onload = function () {
       $cocktailName4.textContent = data[3].recipe_name;
     })
     .catch((error) => {
+
       console.error;
+
     });
   //나만의 칵테일 4개 불러오기
   fetch("/search/popular_my_board", {
@@ -152,10 +154,10 @@ window.onload = function () {
     .then((response) => response.json())
     .then((data) => {
       console.log(data[0]);
-      $ownCocktailName1.textContent = data[0].title;
-      $ownCocktailName2.textContent = data[1].title;
-      $ownCocktailName3.textContent = data[2].title;
-      $ownCocktailName4.textContent = data[3].title;
+      $ownCocktailName1.textContent = data[0].recipe_name;
+      $ownCocktailName2.textContent = data[1].recipe_name;
+      $ownCocktailName3.textContent = data[2].recipe_name;
+      $ownCocktailName4.textContent = data[3].recipe_name;
     })
     .catch((error) => {
       console.error;

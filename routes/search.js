@@ -75,7 +75,7 @@ router.post("/popular_default_board", (req, res) => {
   );
 });
 
-router.post("/name_default_board", (res, req) => {
+router.post("/name_default_board", (req, res) => {
   con.query(
     `SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`title\` LIMIT ${
       (req.body.page - 1) * req.body.num + 1
@@ -97,7 +97,7 @@ router.post("/popular_my_board", (req, res) => {
   );
 });
 
-router.post("/name_my_board", (res, req) => {
+router.post("/name_my_board", (req, res) => {
   con.query(
     `SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`title\` LIMIT ${
       (req.body.page - 1) * req.body.num + 1
@@ -108,7 +108,7 @@ router.post("/name_my_board", (res, req) => {
   );
 });
 
-router.post("/popular_ingredient", (res, req) => {
+router.post("/popular_ingredient", (req, res) => {
   con.query(
     `SELECT \`name\` FROM \`ingredient\` ORDER BY \`count\` LIMIT ${
       (req.body.page - 1) * req.body.num + 1
@@ -119,7 +119,7 @@ router.post("/popular_ingredient", (res, req) => {
   );
 });
 
-router.post("/name_ingredient", (res, req) => {
+router.post("/name_ingredient", (req, res) => {
   con.query(
     `SELECT \`name\` FROM \`ingredient\` ORDER BY \`name\` LIMIT ${
       (req.body.page - 1) * req.body.num + 1

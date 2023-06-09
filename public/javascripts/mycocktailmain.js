@@ -5,10 +5,12 @@ const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 const $mycocktailmain = document.getElementById("nav-own-cocktail");
 const $titleLogo = document.querySelector(".title-logo");
+const $newReceipeButton = document.getElementById("writeBTN");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
 $loginButton.addEventListener("click", () => {
+  s;
   window.location.href = "./login.html";
 });
 
@@ -27,6 +29,9 @@ $mycocktailmain.addEventListener("click", () => {
 });
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
+});
+$newReceipeButton.addEventListener("click", () => {
+  window.location.href = "./new-receipe.html";
 });
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
@@ -140,4 +145,9 @@ $pageRightButton.addEventListener("click", () => {
     pageCount += 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
   }
+});
+
+const $randomButton = document.getElementById("random-button");
+$randomButton.addEventListener("click", () => {
+  window.location.href = "./cocktail.html";
 });
