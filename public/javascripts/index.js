@@ -74,7 +74,14 @@ $mycocktailmain.addEventListener("click", () => {
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
-
+const $cocktailName1 = document.querySelector("#cocktail-name1");
+const $cocktailName2 = document.querySelector("#cocktail-name2");
+const $cocktailName3 = document.querySelector("#cocktail-name3");
+const $cocktailName4 = document.querySelector("#cocktail-name4");
+const $ownCocktailName1 = document.querySelector("#own-cocktail-name1");
+const $ownCocktailName2 = document.querySelector("#own-cocktail-name2");
+const $ownCocktailName3 = document.querySelector("#own-cocktail-name3");
+const $ownCocktailName4 = document.querySelector("#own-cocktail-name4");
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -107,6 +114,54 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
+
+  //db연결
+  //기본칵테일 4개 불러오기
+  fetch("/search/popular_default_board", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: 1,
+      num: 4,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data[0]);
+      $cocktailName1.textContent = data[0].recipe_name;
+      $cocktailName2.textContent = data[1].recipe_name;
+      $cocktailName3.textContent = data[2].recipe_name;
+      $cocktailName4.textContent = data[3].recipe_name;
+    })
+    .catch((error) => {
+
+      console.error;
+
+    });
+  //나만의 칵테일 4개 불러오기
+  fetch("/search/popular_my_board", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: 1,
+      num: 4,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data[0]);
+      $ownCocktailName1.textContent = data[0].recipe_name;
+      $ownCocktailName2.textContent = data[1].recipe_name;
+      $ownCocktailName3.textContent = data[2].recipe_name;
+      $ownCocktailName4.textContent = data[3].recipe_name;
+    })
+    .catch((error) => {
+      console.error;
+    });
 };
 
 //best-cocktail-button-container 내부의 버튼 클릭시 cocktail.html로 이동

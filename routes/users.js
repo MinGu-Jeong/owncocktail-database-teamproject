@@ -109,7 +109,7 @@ router.post("/signup", (req, res) => {
 // 마이페이지 정보 반환
 router.post("/mypage_info", (req, res) => {
   con.query(
-    `SELECT * FROM member WHERE member_id = \'${req.body.user_id}\'`,
+    `SELECT * FROM member WHERE member_id = '${req.body.member_id}'`,
     (err, result) => {
       res.json(result);
     }
