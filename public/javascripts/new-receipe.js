@@ -3,7 +3,9 @@ const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
-
+let receipeCount = 1;
+let snackCount = 1;
+let toolCount = 1;
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -37,7 +39,6 @@ window.onload = function () {
     };
   }
 };
-
 const $receipeAddButton = document.querySelector(".receipe-add-button");
 const $snackAddButton = document.querySelector(".snack-add-button");
 const $toolAddButton = document.querySelector(".tool-add-button");
@@ -84,6 +85,7 @@ $receipeAddButton.addEventListener("click", () => {
   $cardFlexColumn.appendChild($receipeDetailTitle);
 
   $receipeCard.appendChild($cardFlexColumn);
+  receipeCount++;
 });
 
 const $snackCardContainer = document.querySelector(".snack-container"); // 선택자 수정
@@ -118,6 +120,7 @@ $snackAddButton.addEventListener("click", () => {
   $cardFlexColumn.appendChild($snackDetailTitle);
 
   $snackCardContainer.appendChild($cardFlexColumn); // 수정된 변수명 사용
+  snackCount++;
 });
 
 const $toolCardContainer = document.querySelector(".tool-container"); // 선택자 수정
@@ -152,15 +155,14 @@ $toolAddButton.addEventListener("click", () => {
   $cardFlexColumn.appendChild($toolDetailTitle);
 
   $toolCardContainer.appendChild($cardFlexColumn); // 수정된 변수명 사용
+  toolCount++;
 });
-
 const $loginButton = document.getElementById("login-button");
 const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 const $mycocktailmain = document.getElementById("nav-own-cocktail");
-const $newReceipeButton = document.getElementById("writeBTN");
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
@@ -181,6 +183,46 @@ $mycocktailmain.addEventListener("click", () => {
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
-$newReceipeButton.addEventListener("click", () => {
-  window.location.href = "./new-receipe.html";
+
+const $submitButton = document.querySelector("#submit-button");
+const $cocktailName = document.querySelector("#cocktail-name");
+const receipeArray = [];
+const snackArray = [];
+const toolArray = [];
+const $receipeText = document.querySelector("#receipe-textarea");
+const user = JSON.parse(sessionStorage.getItem("user"));
+for (let i = 0; i < receipeCount; i++) {
+  const $receipeInput = document.querySelectorAll(".receipe-input")[i];
+  receipeArray.push($receipeInput);
+}
+for (let i = 0; i < snackCount; i++) {
+  const $snackInput = document.querySelectorAll(".receipe-input")[i];
+  snackArray.push($snackInput);
+}
+for (let i = 0; i < toolCount; i++) {
+  const $toolInput = document.querySelectorAll(".receipe-input")[i];
+  toolArray.push($toolInput);
+}
+$submitButton.addEventListener("click", () => {
+  fetch("/write/my_board", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      recipe_name: $cocktailName.value,
+      member_id: user.id,
+      board_ingredient: receipeArray.map((receipe) => receipe.value),
+      board_snack: snackArray.map((snack) => snack.value),
+      board_tool: toolArray.map((tool) => tool.value),
+      board_text: $receipeText.value,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error;
+    });
 });
