@@ -438,3 +438,7 @@ nav {
 .hidden {
   display: none;
 }
+
+#writeBTN {
+  display: none;
+}
