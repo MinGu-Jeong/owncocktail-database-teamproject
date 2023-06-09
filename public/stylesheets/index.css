@@ -6,6 +6,9 @@
   background-color: #230649;
   min-height: 110vh;
 }
+.hidden {
+  display: none;
+}
 header {
   display: flex;
   justify-content: space-between;
