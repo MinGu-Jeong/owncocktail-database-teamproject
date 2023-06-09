@@ -65,31 +65,6 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
-};
-
-function changeSort(sortType) {
-  // 선택된 정렬 방식에 따라 필요한 작업 수행
-  if (sortType === "popular") {
-    // 인기순 정렬 처리
-    // ...
-  } else if (sortType === "name") {
-    // 이름순 정렬 처리
-    // ...
-  } else if (sortType === "comment") {
-    // 댓글순 정렬 처리
-    // ...
-  }
-
-  // 드롭다운 숨기기
-  var dropdownContent = document.getElementById("dropdown-content");
-  dropdownContent.classList.remove("active");
-}
-var dropbtn_icon = document.querySelector(".dropbtn_icon");
-var dropbtn_content = document.querySelector(".dropbtn_content");
-var dropbtn_click = document.querySelector(".dropbtn_click");
-var dropbtn = document.querySelector(".dropbtn");
-
-window.onload = () => {
   document.querySelector(".dropbtn_click").onclick = () => {
     dropdown();
   };
@@ -114,6 +89,28 @@ window.onload = () => {
     dropbtn.style.borderColor = "#3992a8";
   }
 };
+
+function changeSort(sortType) {
+  // 선택된 정렬 방식에 따라 필요한 작업 수행
+  if (sortType === "popular") {
+    // 인기순 정렬 처리
+    // ...
+  } else if (sortType === "name") {
+    // 이름순 정렬 처리
+    // ...
+  } else if (sortType === "comment") {
+    // 댓글순 정렬 처리
+    // ...
+  }
+
+  // 드롭다운 숨기기
+  var dropdownContent = document.getElementById("dropdown-content");
+  dropdownContent.classList.remove("active");
+}
+var dropbtn_icon = document.querySelector(".dropbtn_icon");
+var dropbtn_content = document.querySelector(".dropbtn_content");
+var dropbtn_click = document.querySelector(".dropbtn_click");
+var dropbtn = document.querySelector(".dropbtn");
 
 window.onclick = (e) => {
   if (!e.target.matches(".dropbtn_click")) {

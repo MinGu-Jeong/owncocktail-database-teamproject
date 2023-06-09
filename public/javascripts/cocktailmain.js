@@ -36,7 +36,7 @@ $newReceipeButton.addEventListener("click", () => {
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-
+  console.log("로그인 확인test");
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
@@ -65,13 +65,6 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
-};
-var dropbtn_icon = document.querySelector(".dropbtn_icon");
-var dropbtn_content = document.querySelector(".dropbtn_content");
-var dropbtn_click = document.querySelector(".dropbtn_click");
-var dropbtn = document.querySelector(".dropbtn");
-
-window.onload = () => {
   document.querySelector(".dropbtn_click").onclick = () => {
     dropdown();
   };
@@ -96,6 +89,10 @@ window.onload = () => {
     dropbtn.style.borderColor = "#3992a8";
   }
 };
+var dropbtn_icon = document.querySelector(".dropbtn_icon");
+var dropbtn_content = document.querySelector(".dropbtn_content");
+var dropbtn_click = document.querySelector(".dropbtn_click");
+var dropbtn = document.querySelector(".dropbtn");
 
 window.onclick = (e) => {
   if (!e.target.matches(".dropbtn_click")) {
