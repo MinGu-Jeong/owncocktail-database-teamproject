@@ -121,6 +121,7 @@ router.post('/my_comment', (req, res) => {
 	})
 })
 
+// 보류
 router.post('/default_delete', (req, res) => {
 	con.query(`DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${req.member_id} AND \`board_id\` = ${req.body.board_id}
 	DELETE FROM \`Default_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}

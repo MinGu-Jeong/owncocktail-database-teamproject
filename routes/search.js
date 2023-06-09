@@ -30,12 +30,8 @@ router.post("/random_default", (req, res) => {
 
   const randomValue = Math.random();
   const id = Math.floor(randomValue * total) + 1;
-  con.query(
-    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`,
-    (err, result) => {
-      res.json(result);
-    }
-  );
+  res.json({result: id})
+
 });
 
 router.post("/random_my", (req, res) => {
@@ -54,12 +50,7 @@ router.post("/random_my", (req, res) => {
 
   const randomValue = Math.random();
   const id = Math.floor(randomValue * total) + 1;
-  con.query(
-    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`myboard_id\` = ${id}`,
-    (err, result) => {
-      res.json(result);
-    }
-  );
+  res.json({result: id})
 });
 
 router.post("/search_recipe", (req, res) => {
