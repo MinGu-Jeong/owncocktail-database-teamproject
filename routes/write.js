@@ -75,15 +75,13 @@ router.post('/my_board', (req, res) =>{
 			tools = tools + req.body.board_tool[i] + ','
 		}
 	}
-	let insert_recipe = ''
-	let ingredient_cnt = ''
+
+	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name}', '${req.body.recipeImg}')`, (err, result) => {})
 	for (var i = 0; i < req.body.board_ingredient.length; i++){
-		insert_recipe = insert_recipe + `INSERT INTO \`Recipe\` (\`recipe_name\`, \`ingredient\`, \`ratio\`, \`img_url\`, \`ingredient_img_url\`) VALUE(${req.body.title + '_' + req.body.member_id}, ${req.body.board_ingredient[i][0]}, ${req.body.board_ingredient[i][1]}, ${req.body.board_recipeImg}, ${req.body.board_ingredient[i][2]})\n`
-		ingredient_cnt = ingredient_cnt + `INSERT INTO \`ingredient\` (\`name\`, \`count\`) VALUE(${req.body.board_ingredient[i][0]}, 1) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1\n`
+		con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.board_ingredient[i][0]}', '${req.body.board_ingredient[i][1]}')`, (err, result) => {})
+		con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i][0]}', 1, '${req.body.board_ingredient[i][2]}') ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
 	}
-	con.query(`INSERT INTO \`My_Board\` (\`title\`, \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE(${req.body.board_title}, ${req.body.title + '_' + req.body.member_id}, ${req.body.member_id}, ${write_time}, ${req.body.board_text}, ${snacks}, ${tools})
-	${insert_recipe}
-	${ingredient_cnt}`, (err, result) =>{
+	con.query(`INSERT INTO \`My_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${snacks}', '${tools}');`, (err, result) =>{
 		if (err){
 			res.json({result: false, error: err})
 		}else{
