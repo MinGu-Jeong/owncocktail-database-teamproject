@@ -24,9 +24,71 @@
       </div>
     </header>
     <div class="ingredient-container">
-      <div id="ingredient-text-box"><p id="ingredient-text">재료</p></div>
-      <div class="dropdown">
-        <button class="list-button" onclick="toggleDropdown()">인기순 ▼</button>
+      <div class="container-header">
+        <div id="ingredient-text-box"><p id="ingredient-text">재료</p></div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <span class="dropbtn_content">인기순</span>
+            <span
+              class="dropbtn_click"
+              style="
+                font-family: Material Icons;
+                font-size: 16px;
+                color: #3b3b3b;
+                float: right;
+              "
+              onclick="dropdown()"
+              >arrow_drop_down</span
+            >
+          </button>
+          <div class="dropdown-content">
+            <div class="option" onclick="showMenu(this.innerText)">인기순</div>
+            <div class="option" onclick="showMenu(this.innerText)">이름순</div>
+            <div class="option" onclick="showMenu(this.innerText)">댓글순</div>
+          </div>
+        </div>
+      </div>
+      <div class="best-ingredient-button-container">
+        <button id="best-ingredient-1" style="background-color: #880000">
+          <div class="best-ingredient-image">이미지</div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
+        <button id="best-ingredient-2" style="background-color: #020da3">
+          <div class="best-ingredient-image"></div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
+        <button id="best-ingredient-3" style="background-color: #02895c">
+          <div class="best-ingredient-image"></div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
+        <button id="best-ingredient-4" style="background-color: #a35302">
+          <div class="best-ingredient-image"></div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
+        <button id="best-ingredient-5" style="background-color: #a30285">
+          <div class="best-ingredient-image"></div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
+        <button id="best-ingredient-6" style="background-color: #0293a3">
+          <div class="best-ingredient-image"></div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
+        <button id="best-ingredient-7" style="background-color: #022da3">
+          <div class="best-ingredient-image"></div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
+        <button id="best-ingredient-8" style="background-color: #48a302">
+          <div class="best-ingredient-image"></div>
+          <div class="ingredient-name">제목</div>
+          <div class="ingredient-summary">설명</div>
+        </button>
       </div>
     </div>
     <script src="./javascripts/ingredient.js"></script>

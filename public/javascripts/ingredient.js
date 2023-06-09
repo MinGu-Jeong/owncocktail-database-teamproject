@@ -3,23 +3,25 @@ const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
-const $titleLogo = document.querySelector(".title-logo");
-$titleLogo.addEventListener("click", () => {
-  window.location.href = "./index.html";
-});
+const $mycocktailmain = document.getElementById("nav-own-cocktail");
+
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
+
 $signupButton.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
+
 $ingredientButton.addEventListener("click", () => {
   window.location.href = "./ingredient.html";
 });
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
-
+$mycocktailmain.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
 function toggleDropdown() {
   var dropdownContent = document.getElementById("dropdown-content");
   dropdownContent.classList.toggle("active");
@@ -75,5 +77,49 @@ window.onload = function () {
       // 회원가입 페이지로 이동
       window.location.href = "./signup.html";
     };
+  }
+};
+var dropbtn_icon = document.querySelector(".dropbtn_icon");
+var dropbtn_content = document.querySelector(".dropbtn_content");
+var dropbtn_click = document.querySelector(".dropbtn_click");
+var dropbtn = document.querySelector(".dropbtn");
+
+window.onload = () => {
+  document.querySelector(".dropbtn_click").onclick = () => {
+    dropdown();
+  };
+  const options = document.getElementsByClassName("option");
+  for (let i = 0; i < options.length; i++) {
+    options[i].onclick = () => {
+      showMenu(options[i].innerText);
+    };
+  }
+
+  function dropdown() {
+    var v = document.querySelector(".dropdown-content");
+    var dropbtn = document.querySelector(".dropbtn");
+    v.classList.toggle("show");
+    dropbtn.style.borderColor = "rgb(94, 94, 94)";
+  }
+
+  function showMenu(value) {
+    console.log(value);
+    dropbtn_content.innerText = value;
+    dropbtn_content.style.color = "#252525";
+    dropbtn.style.borderColor = "#3992a8";
+  }
+};
+
+window.onclick = (e) => {
+  if (!e.target.matches(".dropbtn_click")) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
+      }
+    }
   }
 };
