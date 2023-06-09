@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 // 로그인 api
 router.post("/login", (req, res) => {
   con.query(
-    `SELECT * FROM member WHERE member_id = \'${req.body.id}\'`,
+    `SELECT * FROM member WHERE member_id = '${req.body.id}'`,
     (err, result) => {
       if (result.length == 0 || result[0].passwd != req.body.passwd) {
         res.status(401);
@@ -107,14 +107,11 @@ router.post("/signup", (req, res) => {
 });
 
 // 마이페이지 정보 반환
-router.post("/mypage_info", (req, res) => {
-  con.query(
-    `SELECT * FROM member WHERE member_id = '${req.body.member_id}'`,
-    (err, result) => {
-      res.json(result);
-    }
-  );
-});
+router.post("/mypage_info", (req, res) =>{
+  con.query(`SELECT * FROM member WHERE member_id = \'${req.body.member_id}\'`, (err, result) =>{
+    res.json(result);
+  })
+})
 
 //게시글 수 정보 반환
 router.post("/myboard_count", (req, res) => {
@@ -146,22 +143,16 @@ router.post("/mycomment_count", (req, res) => {
 
 // 비밀번호 변경
 router.post("/passwd_update", (req, res) => {
-  con.query(
-    `UPDATE \`member\` SET \`passwd\` = '${req.body.passwd}' WHERE \`member_id\` = '${req.body.member_id}'`,
-    (err, result) => {
-      res.json({ result: true });
-    }
-  );
-});
+  con.query(`UPDATE \`member\` SET \`passwd\` = '${req.body.passwd}' WHERE \`member_id\` = '${req.body.member_id}'`, (err, result) =>{
+    res.json({result: true})
+  })
+})
 
 // 이메일 변경
 router.post("/email_update", (req, res) => {
-  con.query(
-    `UPDATE \`member\` SET \`email\` = '${req.body.email}' WHERE \`member_id\` = '${req.body.member_id}'`,
-    (err, result) => {
-      res.json({ result: true});
-    }
-  );
-});
+  con.query(`UPDATE \`member\` SET \`email\` = \'${req.body.email}\' WHERE \`member_id\` = \'${req.body.member_id}\'`, (err, result) =>{
+    res.json({result: true})
+  })
+})
 
 module.exports = router;
