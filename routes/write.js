@@ -24,44 +24,158 @@ router.get('/', (req, res) => {
     
 })
 
-router.post('/default', (req, res) => {
+router.post('/default_board', (req, res) => {
+
+	if(req.body.member_id !== 'admin'){
+		res.json({result: false, error: "not admin"})
+	}
+
+	let datetime = new Date();
+	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+	let snacks = ''
+	for (var i = 0; i < req.body.board_snack.length; i++){
+		if (i == req.body.board_snack.length - 1){
+			snacks = snacks + req.body.board_snack[i]
+		}else{
+			snacks = snacks + req.body.board_snack[i] + ', '
+		}
+	}
+	let tools = ''
+	for (var i = 0; i < req.body.board_tool.length; i++){
+		if(i == req.body.board_tool.length - 1){
+			tools = tools + req.body.board_tool[i]
+		}else{
+			tools = tools + req.body.board_tool[i] + ','
+		}
+	}
+	let insert_recipe = ''
+	let ingredient_cnt = ''
+	for (var i = 0; i < req.body.board_ingredient.length; i++){
+		insert_recipe = insert_recipe + `INSERT INTO \`Recipe\` (\`recipe_name\`, \`ingredient\`, \`ratio\`, \`img_url\`, \`ingredient_img_url\`) VALUE(${req.body.title + '_' + req.body.member_id}, ${req.body.board_ingredient[i][0]}, ${req.body.board_ingredient[i][1]}, ${req.body.board_recipeImg}, ${req.body.board_ingredient[i][2]})\n`
+		ingredient_cnt = ingredient_cnt + `INSERT INTO \`ingredient\` (\`name\`, \`count\`) VALUE(${req.body.board_ingredient[i][0]}, 1) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1\n`
+	}
+	con.query(`INSERT INTO \`Default_Board\` (\`title\`, \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE(${req.body.board_title}, ${req.body.title + '_' + req.body.member_id}, ${req.body.member_id}, ${write_time}, ${req.body.board_text}, ${snacks}, ${tools})
+	${insert_recipe}
+	${ingredient_cnt}`, (err, result) =>{
+		if (err){
+			res.json({result: false, error: err})
+		}else{
+			res.json({result: true})
+		}
+	}).catch((err) => {
+		res.json({result: false, error: err})
+	})
   
 })
 
-/*
-body: JSON.stringify({
-	board_title: "게시글 제목",
-	member_id: "게시글 작성자 아이디",
-	board_write_time: "게시글 작성 시간",
-	board_img_url: {"이미지 이름(재료종류 ex: base, garnish, ... 등등)": "게시글 이미지 url", ....},
-	board_text: "게시글 내용",
-	board_snack: ["안주1", "안주2", ...],
-	tool: ["사용도구1", "사용도구2", ...],
-	base: "이름\n용량"
-	garnish: ["이름1", "이름2", ...]
-	beveridge: "이름\n용량"
-	syrup: "이름\n용량"	
-})
-*/
+router.post('/my_board', (req, res) =>{
 
-router.post('/my', (req, res) => {
-    con.query(`
-    `, (err, result) => {
-        console.log(result);
-    })
-})
-
-router.put('/', (req, res) => {
-
-})
-
-router.delete('/', (req, res) => {
+	let datetime = new Date();
+	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+	let snacks = ''
+	for (var i = 0; i < req.body.board_snack.length; i++){
+		if (i == req.body.board_snack.length - 1){
+			snacks = snacks + req.body.board_snack[i]
+		}else{
+			snacks = snacks + req.body.board_snack[i] + ', '
+		}
+	}
+	let tools = ''
+	for (var i = 0; i < req.body.board_tool.length; i++){
+		if(i == req.body.board_tool.length - 1){
+			tools = tools + req.body.board_tool[i]
+		}else{
+			tools = tools + req.body.board_tool[i] + ','
+		}
+	}
+	let insert_recipe = ''
+	let ingredient_cnt = ''
+	for (var i = 0; i < req.body.board_ingredient.length; i++){
+		insert_recipe = insert_recipe + `INSERT INTO \`Recipe\` (\`recipe_name\`, \`ingredient\`, \`ratio\`, \`img_url\`, \`ingredient_img_url\`) VALUE(${req.body.title + '_' + req.body.member_id}, ${req.body.board_ingredient[i][0]}, ${req.body.board_ingredient[i][1]}, ${req.body.board_recipeImg}, ${req.body.board_ingredient[i][2]})\n`
+		ingredient_cnt = ingredient_cnt + `INSERT INTO \`ingredient\` (\`name\`, \`count\`) VALUE(${req.body.board_ingredient[i][0]}, 1) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1\n`
+	}
+	con.query(`INSERT INTO \`My_Board\` (\`title\`, \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE(${req.body.board_title}, ${req.body.title + '_' + req.body.member_id}, ${req.body.member_id}, ${write_time}, ${req.body.board_text}, ${snacks}, ${tools})
+	${insert_recipe}
+	${ingredient_cnt}`, (err, result) =>{
+		if (err){
+			res.json({result: false, error: err})
+		}else{
+			res.json({result: true})
+		}
+	}).catch((err) => {
+		res.json({result: false, error: err})
+	})
   
 })
 
-// const test = "민서형이\n원하는것"
-// console.log(test)
-// let result_test = test.split("\n")
-// console.log(result_test)
+router.post('/default_comment', (req, res) =>{
+	let datetime = new Date();
+	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+	con.query(`INSERT INTO \`Default_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`board_id\`) VALUE(${req.body.text}, ${req.body.member_id}, ${write_time}, ${req.body.board_id})`, (err, result) =>{
+		if (err){
+			res.json({result: false, error: err})
+		}else{
+			res.json({result: true})
+		}
+	}).catch((err) => {
+		res.json({result: false, error: err})
+	})
+})
+
+router.post('/my_comment', (req, res) => {
+	let datetime = new Date();
+	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+	con.query(`INSERT INTO \`My_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`board_id\`) VALUE(${req.body.text}, ${req.body.member_id}, ${write_time}, ${req.body.board_id})`, (err, result) =>{
+		if (err){
+			res.json({result: false, error: err})
+		}else{
+			res.json({result: true})
+		}
+	}).catch((err) => {
+		res.json({result: false, error: err})
+	})
+})
+
+router.post('/default_delete', (req, res) => {
+	con.query(`DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${req.member_id} AND \`board_id\` = ${req.body.board_id}
+	DELETE FROM \`Default_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}
+	UPDATE \`ingredient\` SET \`count\` = \`count\` - 1 WHERE \`name\` IN (SELECT \`ingredient\` FROM \`Recipe\` WHERE \`recipe_name\` = ${req.body.board_title + '_' + req.body.member_id})
+	DELETE FROM \`Recipe\` WHERE \`recipe_name\` = ${req.body.board_title + '_' + req.body.member_id}`, (err, result) =>{
+		if(err){
+			res.json({result: false, error: err})
+		}else{
+			res.json({result: true})
+		}
+	}).catch((err) => {
+		res.json({result: false, error: err})
+	})
+})
+
+router.post('/my_delete', (req, res) => {
+	con.query(`DELETE FROM \`My_Board\` WHERE \`member_id\` = '${req.member_id} AND \`board_id\` = ${req.body.board_id}
+	DELETE FROM \`My_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}
+	UPDATE \`ingredient\` SET \`count\` = \`count\` - 1 WHERE \`name\` IN (SELECT \`ingredient\` FROM \`Recipe\` WHERE \`recipe_name\` = ${req.body.board_title + '_' + req.body.member_id})
+	DELETE FROM \`Recipe\` WHERE \`recipe_name\` = ${req.body.board_title + '_' + req.body.member_id}`, (err, result) =>{
+		if(err){
+			res.json({result: false, error: err})
+		}else{
+			res.json({result: true})
+		}
+	}).catch((err) => {
+		res.json({result: false, error: err})
+	})
+})
+
+router.post('/good', (req, res) =>{
+
+	
+
+})
+
+router.post('/good_cancel', (req, res) =>{
+
+
+
+})
 
 module.exports = router;
