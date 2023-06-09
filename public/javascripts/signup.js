@@ -4,6 +4,12 @@ $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
 
+//취소 클릭 이벤트: index.html로 이동
+const dissignupBTN = document.getElementById("cancel-button");
+dissignupBTN.addEventListener("click", () => {
+  window.location.href = "./index.html";
+});
+
 // 로그인 버튼 클릭 이벤트: login.html로 이동
 const $loginButtonTop = document.querySelector("#login-button-top");
 $loginButtonTop.addEventListener("click", () => {
@@ -29,12 +35,20 @@ const $pwCheck = document.getElementById("pw-check");
 $pwCheck.addEventListener("blur", () => {
   if ($pw.value !== $pwCheck.value) {
     $pwCheckView[0].style.display = "block";
-    if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+    if (
+      $check_id_view[0].style.display == "block" ||
+      $check_phone_view[0].style.display == "block" ||
+      $pwCheckView[0].style.display == "block"
+    ) {
       $signupButton.disabled = true;
     }
   } else {
     $pwCheckView[0].style.display = "none";
-    if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+    if (
+      $check_id_view[0].style.display == "none" &&
+      $check_phone_view[0].style.display == "none" &&
+      $pwCheckView[0].style.display == "none"
+    ) {
       $signupButton.disabled = false;
     }
   }
@@ -100,14 +114,22 @@ $phoneNumber.addEventListener("keyup", (e) => {
         console.log("전화번호 사용 가능!");
         // alert("아이디 사용 가능!")
         $check_phone_view[0].style.display = "none";
-        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+        if (
+          $check_id_view[0].style.display == "none" &&
+          $check_phone_view[0].style.display == "none" &&
+          $pwCheckView[0].style.display == "none"
+        ) {
           $signupButton.disabled = false;
         }
       } else {
         console.log("전화번호 사용 불가능!");
         // alert("아이디 사용 불가능!")
         $check_phone_view[0].style.display = "block";
-        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+        if (
+          $check_id_view[0].style.display == "block" ||
+          $check_phone_view[0].style.display == "block" ||
+          $pwCheckView[0].style.display == "block"
+        ) {
           $signupButton.disabled = true;
         }
       }
@@ -123,9 +145,13 @@ signupBTN.addEventListener("click", () => {
   const idval = decodeURIComponent(document.querySelector("#id").value);
   const pwval = decodeURIComponent(document.querySelector("#pw").value);
   const nameval = decodeURIComponent(document.querySelector("#name").value);
-  const birthdateval = decodeURIComponent(document.querySelector("#birthdate").value);
+  const birthdateval = decodeURIComponent(
+    document.querySelector("#birthdate").value
+  );
   const emailval = decodeURIComponent(document.querySelector("#email").value);
-  const phoneval = decodeURIComponent(document.querySelector("#phone-number").value);
+  const phoneval = decodeURIComponent(
+    document.querySelector("#phone-number").value
+  );
 
   fetch("/users/signup", {
     method: "POST",
@@ -170,14 +196,22 @@ $check_id.addEventListener("keyup", (e) => {
       if (data.message) {
         console.log("아이디 사용 가능!");
         $check_id_view[0].style.display = "none";
-        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+        if (
+          $check_id_view[0].style.display == "none" &&
+          $check_phone_view[0].style.display == "none" &&
+          $pwCheckView[0].style.display == "none"
+        ) {
           $signupButton.disabled = false;
         }
         // alert("아이디 사용 가능!")
       } else {
         console.log("아이디 사용 불가능!");
         $check_id_view[0].style.display = "block";
-        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+        if (
+          $check_id_view[0].style.display == "block" ||
+          $check_phone_view[0].style.display == "block" ||
+          $pwCheckView[0].style.display == "block"
+        ) {
           $signupButton.disabled = true;
         }
         // alert("아이디 사용 불가능!")
