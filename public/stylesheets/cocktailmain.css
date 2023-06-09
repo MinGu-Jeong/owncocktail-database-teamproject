@@ -17,6 +17,7 @@ header {
   gap: 10px;
 }
 .title-logo {
+  margin-top: -60px;
   width: 345px;
   height: 100px;
   cursor: pointer;
