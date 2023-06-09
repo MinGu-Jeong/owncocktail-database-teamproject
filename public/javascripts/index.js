@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 const $loginButton = document.getElementById("login-button");
 const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
+const $ownReceipeButton = document.getElementById("nav-own-cocktail");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 
@@ -55,7 +56,12 @@ $loginButton.addEventListener("click", () => {
 $signupButton.addEventListener("click", () => {
   window.location.href = "./signup.html";
 });
-
+$receipeButton.addEventListener("click", () => {
+  window.location.href = "./cocktailmain.html";
+});
+$ownReceipeButton.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
 $ingredientButton.addEventListener("click", () => {
   window.location.href = "./ingredient.html";
 });

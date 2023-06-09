@@ -5,6 +5,10 @@ const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 const $mycocktailmain = document.getElementById("nav-own-cocktail");
 
+const $titleLogo = document.querySelector(".title-logo");
+$titleLogo.addEventListener("click", () => {
+  window.location.href = "./index.html";
+});
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
