@@ -26,7 +26,7 @@ router.post('/random', (req, res) => {
   })
   const randomValue = Math.random()
   const id = Math.floor(randomValue * total) + 1
-  con.query(`SELECT \`title\`, \`recipe_nam\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`, (err, result) => {
+  con.query(`SELECT \`title\`, \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`, (err, result) => {
     res.json(result)
   })
 })

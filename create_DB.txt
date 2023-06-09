@@ -4,32 +4,31 @@ CREATE DATABASE `MyCocktail`;
 USE `MyCocktail`;
 
 CREATE TABLE `Recipe`(
-    `recipe_id` INT AUTO_INCREMENT,
     `recipe_name` VARCHAR(50) NOT NULL,
     `img_url` VARCHAR(255),
-    PRIMARY KEY(`recipe_id`)
-)DEFAULT CHARSET = utf8;
-
-CREATE TABLE `Ingredient`(
-    `ingredient_id` INT AUTO_INCREMENT,
-    `ingredient_name` VARCHAR(2048) NOT NULL,
-    `ingredient_img_url` VARCHAR(255),
-    PRIMARY KEY(`ingredient_id`)
+    PRIMARY KEY(`recipe_name`)
 )DEFAULT CHARSET = utf8;
 
 CREATE TABLE `Recipe_Ingredient`(
-    `recipe_id` INT,
-    `ingredient_id` INT,
-    `ratio` VARCHAR(2048) NOT NULL,
-    PRIMARY KEY(`recipe_id`, `ingredient_id`),
-    FOREIGN KEY(`recipe_id`) REFERENCES `Recipe`(`recipe_id`),
-    FOREIGN KEY(`ingredient_id`) REFERENCES `Ingredient`(`ingredient_id`)
+    `recipe_ingredient_id` INT,
+    `recipe_name` VARCHAR(50),
+    `ingredient` VARCHAR(50)
+    `ratio` VARCHAR(50) NOT NULL,
+    PRIMARY KEY(`recipe_ingredient_id`),
+    FOREIGN KEY(`recipe_name`) REFERENCES `Recipe`(`recipe_name`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `Ingredient`(
+    `ingredient_name` VARCHAR(50),
+    `count` INT default 0,
+    `ingredient_img_url` VARCHAR(255),
+    PRIMARY KEY(`ingredient_name`)
 )DEFAULT CHARSET = utf8;
 
 CREATE TABLE `member`(
-   `member_name` VARCHAR(10) NOT NULL,
-    `tel` VARCHAR(20) UNIQUE,
     `member_id` VARCHAR(20),
+    `member_name` VARCHAR(10) NOT NULL,
+    `tel` VARCHAR(20) UNIQUE, 
     `passwd` VARCHAR(1024) NOT NULL,
     `birth` DATE NOT NULL,
     `email` VARCHAR(50) UNIQUE,
@@ -38,7 +37,6 @@ CREATE TABLE `member`(
 
 CREATE TABLE `Default_Board`(
     `board_id` INT AUTO_INCREMENT,
-    `title` VARCHAR(50),
     `recipe_name` VARCHAR(50) NOT NULL,
     `member_id` VARCHAR(20),
     `write_time` DATETIME NOT NULL,
@@ -46,22 +44,25 @@ CREATE TABLE `Default_Board`(
     `good_cnt` INT DEFAULT 0,
     `snack` VARCHAR(255),
     `tool` VARCHAR(1024),
-    PRIMARY KEY(`board_id`)
+    PRIMARY KEY(`board_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`recipe_name`) REFERENCES `Recipe`(`recipe_name`)
 )DEFAULT CHARSET = utf8;
 
 CREATE TABLE `Default_Board_Comment`(
-    `comment_id` INT AUTO_INCREMENT,
+    `board_comment_id` INT AUTO_INCREMENT,
     `text` VARCHAR(2048) NOT NULL,
     `member_id` VARCHAR(20) NOT NULL,
     `datetime` DATETIME,
     `good_cnt` INT DEFAULT 0,
     `board_id` INT,
-    PRIMARY KEY(`comment_id`)
+    PRIMARY KEY(`board_comment_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`board_id`) REFERENCES `Default_Board`(`board_id`)
 )DEFAULT CHARSET = utf8;
 
 CREATE TABLE `My_Board`(
-    `board_id` INT AUTO_INCREMENT,
-    `title` VARCHAR(50),
+    `myboard_id` INT AUTO_INCREMENT,
     `recipe_name` VARCHAR(50) NOT NULL,
     `member_id` VARCHAR(20),
     `write_time` DATETIME NOT NULL,
@@ -69,45 +70,57 @@ CREATE TABLE `My_Board`(
     `good_cnt` INT DEFAULT 0,
     `snack` VARCHAR(255),
     `tool` VARCHAR(1024),
-    PRIMARY KEY(`board_id`)
+    PRIMARY KEY(`myboard_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`recipe_name`) REFERENCES `Recipe`(`recipe_name`)
 )DEFAULT CHARSET = utf8;
 
 CREATE TABLE `My_Board_Comment`(
-   `comment_id` INT AUTO_INCREMENT,
+    `myboard_comment_id` INT AUTO_INCREMENT,
     `text` VARCHAR(2048) NOT NULL,
     `member_id` VARCHAR(20) NOT NULL,
     `datetime` DATETIME,
     `good_cnt` INT DEFAULT 0,
     `board_id` INT,
-    PRIMARY KEY(`comment_id`)
+    PRIMARY KEY(`myboard_comment_id`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`myboard_id`) REFERENCES `My_Board`(`board_id`)
 )DEFAULT CHARSET = utf8;
 
-CREATE TABLE `DefaultBoardPost_Likes`(
+CREATE TABLE `DefaultBoard_Good`(
     `num` INT AUTO_INCREMENT,
     `member_id` VARCHAR(20) NOT NULL,
-    `post_id` INT NOT NULL,
-    PRIMARY KEY(`num`)
+    `board_id` INT NOT NULL,
+    PRIMARY KEY(`num`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`board_id`) REFERENCES `Default_Board`(`board_id`)
 )DEFAULT CHARSET = utf8;
 
-CREATE TABLE `DefaultBoardComment_Likes`(
-    `num` INT AUTO_INCREMENT,
-    `member_id` VARCHAR(20) NOT NULL,
-    `comment_id` INT NOT NULL,
-    PRIMARY KEY(`num`)
-)DEFAULT CHARSET = utf8;
-
-CREATE TABLE `MyBoardPost_Likes`(
-    `num` INT AUTO_INCREMENT,
-    `member_id` VARCHAR(20) NOT NULL,
-    `post_id` INT NOT NULL,
-    PRIMARY KEY(`num`)
-)DEFAULT CHARSET = utf8;
-
-CREATE TABLE `MyBoardComment_Likes`(
+CREATE TABLE `DefaultBoardComment_Good`(
     `num` INT AUTO_INCREMENT,
     `member_id` VARCHAR(20) NOT NULL,
     `comment_id` INT NOT NULL,
-    PRIMARY KEY(`num`)
+    PRIMARY KEY(`num`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`board_comment_id`) REFERENCES `Default_Board_Comment`(`board_comment_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `MyBoard_Good`(
+    `num` INT AUTO_INCREMENT,
+    `member_id` VARCHAR(20) NOT NULL,
+    `myboard_id` INT NOT NULL,
+    PRIMARY KEY(`num`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`myboard_id`) REFERENCES `My_Board`(`myboard_id`)
+)DEFAULT CHARSET = utf8;
+
+CREATE TABLE `MyBoardComment_Good`(
+    `num` INT AUTO_INCREMENT,
+    `member_id` VARCHAR(20) NOT NULL,
+    `comment_id` INT NOT NULL,
+    PRIMARY KEY(`num`),
+    FOREIGN KEY(`member_id`) REFERENCES `member`(`member_id`),
+    FOREIGN KEY(`myboard_comment_id`) REFERENCES `My_Board_Comment`(`myboard_comment_id`)
 )DEFAULT CHARSET = utf8;
 
 INSERT INTO `member` VALUE('조병하', '010-8725-4687', 'xmaaks', 'jakecake0716', '2002-07-16', 'xmaaks@koreatech.ac.kr');
