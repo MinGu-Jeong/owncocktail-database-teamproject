@@ -87,6 +87,10 @@ const $changePasswordButton = document.querySelector(".change-pw");
 const user = JSON.parse(sessionStorage.getItem("user"));
 $changePasswordButton.addEventListener("click", () => {
   let changePassword = prompt("변경할 비밀번호를 입력해주세요.");
+  //비밀번호 변경 취소했을 때
+  if (changePassword === null) {
+    return;
+  }
 
   fetch("/users/passwd_update", {
     method: "POST",
