@@ -90,6 +90,8 @@ const $ownCocktailId1 = document.querySelector("#own-cocktail-id1");
 const $ownCocktailId2 = document.querySelector("#own-cocktail-id2");
 const $ownCocktailId3 = document.querySelector("#own-cocktail-id3");
 const $ownCocktailId4 = document.querySelector("#own-cocktail-id4");
+
+
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");

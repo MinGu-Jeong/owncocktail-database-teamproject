@@ -37,6 +37,24 @@ $newReceipeButton.addEventListener("click", () => {
 var pageCount = 1;
 var allPage = 20;
 
+const $cocktailName1 = document.querySelector("#cocktail-name1");
+const $cocktailName2 = document.querySelector("#cocktail-name2");
+const $cocktailName3 = document.querySelector("#cocktail-name3");
+const $cocktailName4 = document.querySelector("#cocktail-name4");
+const $cocktailName5 = document.querySelector("#cocktail-name1");
+const $cocktailName6 = document.querySelector("#cocktail-name2");
+const $cocktailName7 = document.querySelector("#cocktail-name3");
+const $cocktailName8 = document.querySelector("#cocktail-name4");
+
+const $cocktailId1 = document.querySelector("#cocktail-id1");
+const $cocktailId2 = document.querySelector("#cocktail-id2");
+const $cocktailId3 = document.querySelector("#cocktail-id3");
+const $cocktailId4 = document.querySelector("#cocktail-id4");
+const $cocktailId5 = document.querySelector("#cocktail-id1");
+const $cocktailId6 = document.querySelector("#cocktail-id2");
+const $cocktailId7 = document.querySelector("#cocktail-id3");
+const $cocktailId8 = document.querySelector("#cocktail-id4");
+
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -160,7 +178,7 @@ window.onload = function () {
     var dropdownContent = document.getElementById("dropdown-content");
     dropdownContent.classList.remove("active");
   }
-
+  
   // default_board 게시글 수 카운트
   fetch("/search/default_board_count", {
     method: "POST",
@@ -178,6 +196,39 @@ window.onload = function () {
     .catch((error) => {
       console.error;
     });
+
+    fetch("/search/popular_default_board", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        page: 1*(pageCount),
+        num: 8*(pageCount),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        for (let i = 0; i < 8; i++) {
+          document.querySelector(`#best-cocktail-${i+1} .cocktail-name`).textContent = data[i].recipe_name;
+          document.querySelector(`#best-cocktail-${i+1} .cocktail-summary`).textContent = data[i].board_id; // '설명' 대신 'board_id'를 표시합니다.
+        }
+      })
+      .catch((error) => {
+        console.error;
+      });
+  
+      const $bestCocktailButtonContainer = document.querySelector(".best-cocktail-button-container");
+
+      $bestCocktailButtonContainer.addEventListener("click", (event) => {
+        const cocktailButton = event.target.closest("button");
+        if (!cocktailButton) return;
+        const boardId = cocktailButton.querySelector(".cocktail-summary").textContent; // 'cocktailId' 대신 'boardId'를 사용합니다.
+        window.location.href = "./cocktail.html?id=" + boardId + "&type=default";
+      });      
+
+
 };
 var dropbtn_icon = document.querySelector(".dropbtn_icon");
 var dropbtn_content = document.querySelector(".dropbtn_content");
