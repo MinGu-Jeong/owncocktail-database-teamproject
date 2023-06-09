@@ -47,7 +47,7 @@ const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
-
+const $mycocktailmain = document.getElementById("nav-own-cocktail");
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
@@ -61,6 +61,12 @@ $ingredientButton.addEventListener("click", () => {
 });
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
+});
+$mycocktailmain.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
+$receipeButton.addEventListener("click", () => {
+  window.location.href = "./cocktailmain.html";
 });
 
 window.onload = function () {

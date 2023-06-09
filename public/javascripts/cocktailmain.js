@@ -61,3 +61,65 @@ window.onload = function () {
     };
   }
 };
+var dropbtn_icon = document.querySelector(".dropbtn_icon");
+var dropbtn_content = document.querySelector(".dropbtn_content");
+var dropbtn_click = document.querySelector(".dropbtn_click");
+var dropbtn = document.querySelector(".dropbtn");
+
+window.onload = () => {
+  document.querySelector(".dropbtn_click").onclick = () => {
+    dropdown();
+  };
+  const options = document.getElementsByClassName("option");
+  for (let i = 0; i < options.length; i++) {
+    options[i].onclick = () => {
+      showMenu(options[i].innerText);
+    };
+  }
+
+  function dropdown() {
+    var v = document.querySelector(".dropdown-content");
+    var dropbtn = document.querySelector(".dropbtn");
+    v.classList.toggle("show");
+    dropbtn.style.borderColor = "rgb(94, 94, 94)";
+  }
+
+  function showMenu(value) {
+    console.log(value);
+    dropbtn_content.innerText = value;
+    dropbtn_content.style.color = "#252525";
+    dropbtn.style.borderColor = "#3992a8";
+  }
+};
+
+window.onclick = (e) => {
+  if (!e.target.matches(".dropbtn_click")) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
+      }
+    }
+  }
+};
+
+$pageText = document.getElementById("page-text");
+$pageLeftButton = document.getElementById("left-button");
+$pageRightButton = document.getElementById("right-button");
+var pageCount = 1;
+var allPage = 20;
+$pageLeftButton.addEventListener("click", () => {
+  if (pageCount > 1) {
+    pageCount -= 1;
+    $pageText.innerText = `${pageCount} / ${allPage}`;
+  }
+});
+$pageRightButton.addEventListener("click", () => {
+  if (pageCount < allPage) {
+    pageCount += 1;
+    $pageText.innerText = `${pageCount} / ${allPage}`;
+  }
+});

@@ -327,3 +327,37 @@ nav {
   align-items: center;
   justify-content: center;
 }
+
+.move-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#left-button {
+  width: 0;
+  height: 0;
+  border-bottom: 18px solid transparent;
+  border-top: 18px solid transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid #d9d9d9;
+  cursor: pointer;
+}
+#left-button:hover {
+  border-right: 20px solid #3030ac;
+}
+#page-text {
+  font-size: 20px;
+}
+#right-button {
+  width: 0;
+  height: 0;
+  border-bottom: 18px solid transparent;
+  border-top: 18px solid transparent;
+  border-left: 20px solid #d9d9d9;
+  border-right: 20px solid transparent;
+  cursor: pointer;
+}
+#right-button:hover {
+  border-left: 20px solid #3030ac;
+}
