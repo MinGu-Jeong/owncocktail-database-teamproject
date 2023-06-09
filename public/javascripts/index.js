@@ -78,6 +78,10 @@ const $cocktailName1 = document.querySelector("#cocktail-name1");
 const $cocktailName2 = document.querySelector("#cocktail-name2");
 const $cocktailName3 = document.querySelector("#cocktail-name3");
 const $cocktailName4 = document.querySelector("#cocktail-name4");
+const $ownCocktailName1 = document.querySelector("#own-cocktail-name1");
+const $ownCocktailName2 = document.querySelector("#own-cocktail-name2");
+const $ownCocktailName3 = document.querySelector("#own-cocktail-name3");
+const $ownCocktailName4 = document.querySelector("#own-cocktail-name4");
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -112,6 +116,7 @@ window.onload = function () {
   }
 
   //db연결
+  //기본칵테일 4개 불러오기
   fetch("/search/popular_default_board", {
     method: "POST",
     headers: {
@@ -132,6 +137,28 @@ window.onload = function () {
     })
     .catch((error) => {
       error = 에러;
+    });
+  //나만의 칵테일 4개 불러오기
+  fetch("/search/popular_my_board", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: 1,
+      num: 4,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data[0]);
+      $ownCocktailName1.textContent = data[0].title;
+      $ownCocktailName2.textContent = data[1].title;
+      $ownCocktailName3.textContent = data[2].title;
+      $ownCocktailName4.textContent = data[3].title;
+    })
+    .catch((error) => {
+      console.error(error);
     });
 };
 
