@@ -143,7 +143,7 @@ router.post("/board_search", (req, res) => {
     target = `${target}${buf}%`;
   }
   con.query(
-    `SELECT \`title\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` NATURAL JOIN \`My_Board\` WHERE \`title\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`,
+    `SELECT \`recipe_name\`, \`good_cnt\`, \`board_id\` FROM \`Default_Board\` NATURAL JOIN \`My_Board\` WHERE \`recipe_name\` LIKE \'${target}\' OR \`text\` LIKE \'${target}\'`,
     (err, result) => {
       res.json(result);
     }
