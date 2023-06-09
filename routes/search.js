@@ -14,7 +14,7 @@ con.connect(function (err) {
   console.log("Connected");
 });
 
-router.post("/random", (req, res) => {
+router.post("/random_default", (req, res) => {
   let total;
   con.query(
     `SELECT COUNT(*) AS total FROM \`Default_Board\``,
@@ -32,6 +32,30 @@ router.post("/random", (req, res) => {
   const id = Math.floor(randomValue * total) + 1;
   con.query(
     `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${id}`,
+    (err, result) => {
+      res.json(result);
+    }
+  );
+});
+
+router.post("/random_my", (req, res) => {
+  let total;
+  con.query(
+    `SELECT COUNT(*) AS total FROM \`My_Board\``,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        total = result[0].total;
+        console.log(total);
+      }
+    }
+  );
+
+  const randomValue = Math.random();
+  const id = Math.floor(randomValue * total) + 1;
+  con.query(
+    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`myboard_id\` = ${id}`,
     (err, result) => {
       res.json(result);
     }
@@ -127,7 +151,7 @@ router.post("/name_my_board", (req, res) => {
 
 router.post("/popular_ingredient", (req, res) => {
   con.query(
-    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`count\` DESC LIMIT ${
+    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`count\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -138,7 +162,7 @@ router.post("/popular_ingredient", (req, res) => {
 
 router.post("/name_ingredient", (req, res) => {
   con.query(
-    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`name\` DESC LIMIT ${
+    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -193,5 +217,17 @@ router.post("/default_board_search", (req, res) => {
     }
   );
 });
+
+router.post('/default_comment', (req, res) => {
+  con.query(`SELECT * FROM \`Default_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}`, (err, result) => {
+    res.json(result)
+  })
+})
+
+router.post('/my_comment', (req, res) => {
+  con.query(`SELECT * FROM \`MY_Board_Comment\` WHERE \`myboard_id\` = ${req.body.myboard_id}`, (err, result) => {
+    res.json(result)
+  })
+})
 
 module.exports = router;
