@@ -51,19 +51,3 @@ let searchParams = new URLSearchParams(window.location.search);
 const cocktailId = searchParams.get("id");
 //console.log(searchParams.get("id"));
 //console.log(window.location);
-
-//admin만 삭제버튼이 보이도록 하는 코드
-// window.onload = function () {
-//   const deleteContainer = document.querySelector(".delete-container");
-
-//   // 세션스토리지에서 id 값을 가져옵니다.
-//   const id = sessionStorage.getItem("id");
-
-//   // id가 'admin'이면 delete-container를 표시합니다.
-//   if (id === "admin") {
-//     deleteContainer.style.display = "block";
-//   } else {
-//     // 그렇지 않으면 delete-container를 숨깁니다.
-//     deleteContainer.style.display = "none";
-//   }
-// };
