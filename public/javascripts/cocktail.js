@@ -3,16 +3,45 @@ const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
+const $loginButton = document.getElementById("login-button");
+const $signupButton = document.getElementById("signup-button");
+const $receipeButton = document.getElementById("nav-cocktail-receipe");
+const $ownReceipeButton = document.getElementById("nav-own-cocktail");
+const $ingredientButton = document.getElementById("nav-ingredient");
+const $searchButton = document.getElementById("nav-search");
+
+$loginButton.addEventListener("click", () => {
+  window.location.href = "./login.html";
+});
+
+$signupButton.addEventListener("click", () => {
+  window.location.href = "./signup.html";
+});
+$receipeButton.addEventListener("click", () => {
+  window.location.href = "./cocktailmain.html";
+});
+$ownReceipeButton.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
+$ingredientButton.addEventListener("click", () => {
+  window.location.href = "./ingredient.html";
+});
+$searchButton.addEventListener("click", () => {
+  window.location.href = "./search.html";
+});
 // 칵테일 id 가져오기
+// 칵테일 type (기본칵테일인지 나만의 칵테일인지) 가져오기
 let searchParams = new URLSearchParams(window.location.search);
 const cocktailId = searchParams.get("id");
+const cocktailType = searchParams.get("type");
 //console.log(searchParams.get("id"));
-//console.log(window.location);
+//console.log(searchParams.get("type"));
 
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
   const deleteContainer = document.querySelector(".delete-container");
+  const $recommentCount = document.querySelector(".recommend-count");
 
   const user = JSON.parse(sessionStorage.getItem("user"));
 
@@ -51,21 +80,40 @@ window.onload = function () {
   }
 
   //db호출 부분
-  // fetch("엔드포인트 작성", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     member_id: user.id,
-  //     passwd: changePassword,
-  //   }),
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     console.log(board_title);
-  //   })
-  //   .catch((error) => {
-  //     error = 에러;
-  //   });
+  if (cocktailType === "default") {
+    fetch("/search/default_board", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board_id: cocktailId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        $recommentCount.textContent = data[0].good_cnt;
+      })
+      .catch((error) => {
+        console.error;
+      });
+  } else {
+    fetch("/search/default_board", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board_id: cocktailId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error;
+      });
+  }
 };
