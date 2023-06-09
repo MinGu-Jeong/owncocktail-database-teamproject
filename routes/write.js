@@ -16,9 +16,9 @@ con.connect(function(err){
 
 router.post('/default_board', (req, res) => {
 
-	if(req.body.member_id !== 'admin'){
-		res.json({result: false, error: "not admin"})
-	}
+	// if(req.body.member_id !== 'admin'){
+	// 	res.json({result: false, error: "not admin"})
+	// }
 
 	let datetime = new Date();
 	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
@@ -76,7 +76,7 @@ router.post('/my_board', (req, res) =>{
 		}
 	}
 
-	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name}', '${req.body.recipeImg}')`, (err, result) => {})
+	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.recipeImg}')`, (err, result) => {})
 	for (var i = 0; i < req.body.board_ingredient.length; i++){
 		con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.board_ingredient[i][0]}', '${req.body.board_ingredient[i][1]}')`, (err, result) => {})
 		con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i][0]}', 1, '${req.body.board_ingredient[i][2]}') ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
@@ -88,7 +88,7 @@ router.post('/my_board', (req, res) =>{
 			res.json({result: true})
 		}
 	}).catch((err) => {
-		res.json({result: false, error: err})
+		// res.json({result: false, error: err})
 	})
   
 })
