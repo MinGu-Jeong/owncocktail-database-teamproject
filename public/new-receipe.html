@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나만의 칵테일 추가하기</title>
+    <link rel="stylesheet" href="./stylesheets/new-receipe.css" />
+  </head>
+  <body>
+    <div class="body">
+      <header>
+        <div class="title-logo">
+          <img src="./images/title-logo.png" width="300px" />
+        </div>
+        <nav>
+          <button id="nav-cocktail-receipe">칵테일 레시피</button>
+          <button id="nav-own-cocktail">나만의 칵테일</button>
+          <button id="nav-ingredient">재료</button>
+          <button id="nav-search">검색</button>
+        </nav>
+        <div class="login-signup">
+          <button id="login-button">로그인</button>
+          <button id="signup-button">회원가입</button>
+        </div>
+      </header>
+      <content class="receipe-container">
+        <input type="text" id="cocktail-name" placeholder="칵테일 이름" />
+        <div class="submit"><button id="submit-button">작성</button></div>
+        <div class="writer">작성자 admin</div>
+        <div class="cocktail-img">
+          <button id="cocktail-img-button">이미지 추가</button>
+        </div>
+        <div class="receipe-inner-container">
+          <h2 class="cocktail-ingredient">재료</h2>
+          <div class="cocktail-row">
+            <div class="cocktail-ingredient-card-container">
+              <div class="card-flex-column">
+                <div class="cocktail-ingredient-card">
+                  <div class="receipe-img">
+                    <button class="receipe-img-button">이미지 추가</button>
+                  </div>
+                </div>
+                <div class="receipe-detail-title">
+                  <input
+                    class="receipe-input"
+                    type="text"
+                    placeholder="재료 입력"
+                  />
+                  <input
+                    class="receipe-input"
+                    type="text"
+                    placeholder="용량 입력"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="cocktail-ingredient-card-container">
+              <div class="card-flex-column">
+                <div class="cocktail-ingredient-card">
+                  <div class="receipe-img">
+                    <button class="receipe-add-button">재료 추가</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="cocktail-receipe">만드는 방법</h2>
+          <div class="cocktail-receipe-container">
+            <textarea cols="100" rows="20" id="receipe-textarea"></textarea>
+          </div>
+          <h2 class="snack-title">어울리는 안주</h2>
+          <div class="cocktail-row">
+            <div class="snack-container">
+              <div class="card-flex-column">
+                <div class="cocktail-ingredient-card">
+                  <div class="receipe-img">
+                    <button class="receipe-img-button">이미지 추가</button>
+                  </div>
+                </div>
+                <div class="receipe-detail-title">
+                  <input
+                    class="receipe-input"
+                    type="text"
+                    placeholder="안주 입력"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="snack-container">
+              <div class="card-flex-column">
+                <div class="cocktail-ingredient-card">
+                  <div class="receipe-img">
+                    <button class="snack-add-button">안주 추가</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="tool-title">필요한 도구</h2>
+          <div class="cocktail-row">
+            <div class="tool-container">
+              <div class="card-flex-column">
+                <div class="cocktail-ingredient-card">
+                  <div class="receipe-img">
+                    <button class="receipe-img-button">이미지 추가</button>
+                  </div>
+                </div>
+                <div class="receipe-detail-title">
+                  <input
+                    class="receipe-input"
+                    type="text"
+                    placeholder="도구 입력"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="tool-container">
+              <div class="card-flex-column">
+                <div class="cocktail-ingredient-card">
+                  <div class="receipe-img">
+                    <button class="tool-add-button">도구 추가</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </content>
+    </div>
+    <script src="./javascripts/new-receipe.js"></script>
+  </body>
+</html>
