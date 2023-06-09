@@ -66,8 +66,8 @@ router.post("/ingredient_board", (req, res) => {
 
 router.post("/popular_default_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`good_cnt\` LIMIT ${
-      (req.body.page - 1) * req.body.num + 1
+    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`good_cnt\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
       res.json(result);
@@ -77,8 +77,8 @@ router.post("/popular_default_board", (req, res) => {
 
 router.post("/name_default_board", (req, res) => {
   con.query(
-    `SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`title\` LIMIT ${
-      (req.body.page - 1) * req.body.num + 1
+    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`recipe_name\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
       res.json(result);
@@ -88,8 +88,8 @@ router.post("/name_default_board", (req, res) => {
 
 router.post("/popular_my_board", (req, res) => {
   con.query(
-    `SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` LIMIT ${
-      (req.body.page - 1) * req.body.num + 1
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
       res.json(result);
@@ -99,8 +99,8 @@ router.post("/popular_my_board", (req, res) => {
 
 router.post("/name_my_board", (req, res) => {
   con.query(
-    `SELECT \`title\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`title\` LIMIT ${
-      (req.body.page - 1) * req.body.num + 1
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`recipe_name\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
       res.json(result);
@@ -110,8 +110,8 @@ router.post("/name_my_board", (req, res) => {
 
 router.post("/popular_ingredient", (req, res) => {
   con.query(
-    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`count\` LIMIT ${
-      (req.body.page - 1) * req.body.num + 1
+    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`count\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
       res.json(result);
@@ -121,8 +121,8 @@ router.post("/popular_ingredient", (req, res) => {
 
 router.post("/name_ingredient", (req, res) => {
   con.query(
-    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`name\` LIMIT ${
-      (req.body.page - 1) * req.body.num + 1
+    `SELECT \`name\` FROM \`ingredient\` ORDER BY \`name\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
       res.json(result);
