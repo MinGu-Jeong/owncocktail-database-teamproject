@@ -5,6 +5,7 @@ const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 const $mycocktailmain = document.getElementById("nav-own-cocktail");
 const $titleLogo = document.querySelector(".title-logo");
+const $newReceipeButton = document.getElementById("writeBTN");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
@@ -28,6 +29,9 @@ $mycocktailmain.addEventListener("click", () => {
 });
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
+});
+$newReceipeButton.addEventListener("click", () => {
+  window.location.href = "./new-receipe.html";
 });
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
@@ -107,9 +111,9 @@ window.onclick = (e) => {
   }
 };
 
-$pageText = document.getElementById("page-text");
-$pageLeftButton = document.getElementById("left-button");
-$pageRightButton = document.getElementById("right-button");
+const $pageText = document.getElementById("page-text");
+const $pageLeftButton = document.getElementById("left-button");
+const $pageRightButton = document.getElementById("right-button");
 var pageCount = 1;
 var allPage = 20;
 $pageLeftButton.addEventListener("click", () => {
@@ -123,4 +127,9 @@ $pageRightButton.addEventListener("click", () => {
     pageCount += 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
   }
+});
+
+const $randomButton = document.getElementById("random-button");
+$randomButton.addEventListener("click", () => {
+  window.location.href = "./cocktail.html";
 });

@@ -220,8 +220,7 @@ nav {
 .dropbtn {
   display: block;
   border: 0;
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  background: rgba(210, 205, 218);
   border-radius: 10px;
   font-weight: 400;
   color: black;
@@ -235,12 +234,11 @@ nav {
 }
 .dropdown-content {
   position: absolute;
-  top: 30px;
+  top: 13px;
   display: none;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(210, 205, 218);
   width: 100px;
-  border-radius: 3px;
-  overflow: scroll;
+  border-radius: 10px;
   box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
   cursor: pointer;
 }
@@ -264,7 +262,8 @@ nav {
   padding: 12px 20px;
 }
 .dropdown-content div:hover {
-  background-color: rgb(226, 226, 226);
+  background-color: rgba(210, 205, 218);
+  border-radius: 10px;
 }
 
 .dropdown-content.show {
@@ -274,9 +273,33 @@ nav {
 .container-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 40px;
 }
+.header1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.header2 {
+  margin-right: 10px;
+}
+#writeBTN {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 44px;
+  text-align: center;
 
+  color: #000000;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+}
 .best-cocktail-button-container {
   display: flex;
   justify-content: center;
@@ -370,4 +393,44 @@ nav {
 }
 #right-button:hover {
   border-left: 20px solid #3030ac;
+}
+
+.random-receipe {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#random-img {
+  width: 102px;
+  height: 102px;
+}
+#random-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 569px;
+  height: 115px;
+  left: 3170px;
+  top: 5437px;
+
+  background: #9183a4;
+  border-radius: 30px;
+  border: 0;
+  cursor: pointer;
+}
+#random-text {
+  width: 407px;
+  height: 77px;
+  left: 3324px;
+  top: 5460px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 77px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }

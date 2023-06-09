@@ -153,3 +153,34 @@ $toolAddButton.addEventListener("click", () => {
 
   $toolCardContainer.appendChild($cardFlexColumn); // 수정된 변수명 사용
 });
+
+const $loginButton = document.getElementById("login-button");
+const $signupButton = document.getElementById("signup-button");
+const $receipeButton = document.getElementById("nav-cocktail-receipe");
+const $ingredientButton = document.getElementById("nav-ingredient");
+const $searchButton = document.getElementById("nav-search");
+const $mycocktailmain = document.getElementById("nav-own-cocktail");
+const $newReceipeButton = document.getElementById("writeBTN");
+$loginButton.addEventListener("click", () => {
+  window.location.href = "./login.html";
+});
+
+$signupButton.addEventListener("click", () => {
+  window.location.href = "./signup.html";
+});
+
+$ingredientButton.addEventListener("click", () => {
+  window.location.href = "./ingredient.html";
+});
+$searchButton.addEventListener("click", () => {
+  window.location.href = "./search.html";
+});
+$mycocktailmain.addEventListener("click", () => {
+  window.location.href = "./mycocktailmain.html";
+});
+$receipeButton.addEventListener("click", () => {
+  window.location.href = "./cocktailmain.html";
+});
+$newReceipeButton.addEventListener("click", () => {
+  window.location.href = "./new-receipe.html";
+});
