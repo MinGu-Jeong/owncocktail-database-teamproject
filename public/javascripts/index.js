@@ -82,6 +82,14 @@ const $ownCocktailName1 = document.querySelector("#own-cocktail-name1");
 const $ownCocktailName2 = document.querySelector("#own-cocktail-name2");
 const $ownCocktailName3 = document.querySelector("#own-cocktail-name3");
 const $ownCocktailName4 = document.querySelector("#own-cocktail-name4");
+const $cocktailId1 = document.querySelector("#cocktail-id1");
+const $cocktailId2 = document.querySelector("#cocktail-id2");
+const $cocktailId3 = document.querySelector("#cocktail-id3");
+const $cocktailId4 = document.querySelector("#cocktail-id4");
+const $ownCocktailId1 = document.querySelector("#own-cocktail-id1");
+const $ownCocktailId2 = document.querySelector("#own-cocktail-id2");
+const $ownCocktailId3 = document.querySelector("#own-cocktail-id3");
+const $ownCocktailId4 = document.querySelector("#own-cocktail-id4");
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -129,11 +137,15 @@ window.onload = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       $cocktailName1.textContent = data[0].recipe_name;
       $cocktailName2.textContent = data[1].recipe_name;
       $cocktailName3.textContent = data[2].recipe_name;
       $cocktailName4.textContent = data[3].recipe_name;
+      $cocktailId1.textContent = data[0].board_id;
+      $cocktailId2.textContent = data[1].board_id;
+      $cocktailId3.textContent = data[2].board_id;
+      $cocktailId4.textContent = data[3].board_id;
     })
     .catch((error) => {
       console.log(error);
@@ -156,6 +168,10 @@ window.onload = function () {
       $ownCocktailName2.textContent = data[1].recipe_name;
       $ownCocktailName3.textContent = data[2].recipe_name;
       $ownCocktailName4.textContent = data[3].recipe_name;
+      $ownCocktailId1.textContent = data[0].myboard_id;
+      $ownCocktailId2.textContent = data[1].myboard_id;
+      $ownCocktailId3.textContent = data[2].myboard_id;
+      $ownCocktailId4.textContent = data[3].myboard_id;
     })
     .catch((error) => {
       console.log(error);
@@ -173,11 +189,12 @@ $bestCocktailButtonContainer.addEventListener("click", (event) => {
   const cocktailButton = event.target.closest("button");
   if (!cocktailButton) return;
   const cocktailName = cocktailButton.children[1].textContent;
-  window.location.href = "./cocktail.html?id=" + cocktailName;
+  const cocktailId = cocktailButton.children[2].textContent;
+  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=default";
 });
 $bestOwnCocktailButtonContainer.addEventListener("click", (event) => {
   const cocktailButton = event.target.closest("button");
   if (!cocktailButton) return;
   const cocktailName = cocktailButton.children[1].textContent;
-  window.location.href = "./cocktail.html?id=" + cocktailName;
+  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
 });
