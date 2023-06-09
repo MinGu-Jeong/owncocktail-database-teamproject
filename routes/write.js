@@ -167,14 +167,40 @@ router.post('/my_delete', (req, res) => {
 })
 
 router.post('/good', (req, res) =>{
-
-	
-
+	con.query(`INSERT INTO \`Good_Check\` (\`member_id\`, \`target_id\`, \`target_type\`) VALUE('${req.body.member_id}', ${req.body.target_id}, ${req.body.target_type})`, (err, result) => {})
+	if (req.body.target_type === 'Default_Board'){
+		con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`board_id\` = ${req.body.target_id}`, (err, result) => {})
+	}else if(req.body.target_type === 'Default_Board_Comment'){
+		con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`comment_id\` = ${req.body.target_id}`, (err, result) => {})
+	}else if (req.body.target_type === 'My_Board'){
+		con.query(`UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`board_id\` = ${req.body.target_id}`, (err, result) => {})
+	}else if(req.body.target_type === 'My_Board_Comment'){
+		con.query(`UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`comment_id\` = ${req.body.target_id}`, (err, result) => {})
+	}
 })
 
 router.post('/good_cancel', (req, res) =>{
 
-
+	let check_good
+	con.query(`SELECT COUNT(*) AS cnt FROM \`Good_Check\` WHERE \`member_id\` = ${req.body.member_id} AND \`target_id\` = ${req.body.target_id} AND \`target_type\` = ${req.body.target_type}`, (err, result) => {
+		check_good = result[0].cnt
+	})
+	if (check_good == 0){
+		res.json({result: false})
+	}else{
+		if (req.body.target_type === 'Default_Board'){
+			con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = ${req.body.target_id}`, (err, result) => {})
+		}else if(req.body.target_type === 'Default_Board_Comment'){
+			con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`comment_id\` = ${req.body.target_id}`, (err, result) => {})
+		}else if (req.body.target_type === 'My_Board'){
+			con.query(`UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = ${req.body.target_id}`, (err, result) => {})
+		}else if(req.body.target_type === 'My_Board_Comment'){
+			con.query(`UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`comment_id\` = ${req.body.target_id}`, (err, result) => {})
+		}
+		con.query(`DELETE FROM \`Good_Check\` WHERE \`member_id\` = '${req.body.member_id}' AND \`target_id\` = '${req.body.target_id}' AND \`target_type\` = '${req.body.target_type}'`, (err, result) => {
+			res.json({result: true})
+		})
+	}
 
 })
 

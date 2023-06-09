@@ -80,6 +80,7 @@ CREATE TABLE `Good_Check`(
     `num` INT AUTO_INCREMENT,
     `member_id` VARCHAR(20) NOT NULL,
     `target_id` INT NOT NULL,
+    `target_type` VARCHAR(20) NOT NULL,
     PRIMARY KEY(`num`)
 )DEFAULT CHARSET = utf8;
 
