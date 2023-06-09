@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 // 로그인 api
 router.post("/login", (req, res) => {
   con.query(
-    `SELECT * FROM member WHERE member_id = \'${req.body.id}\'`,
+    `SELECT * FROM member WHERE member_id = '${req.body.id}'`,
     (err, result) => {
       if (result.length == 0 || result[0].passwd != req.body.passwd) {
         res.status(401);
