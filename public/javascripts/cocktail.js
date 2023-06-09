@@ -92,13 +92,88 @@ window.onload = function () {
     })
       .then((response) => response.json())
       .then((data) => {
+        // 재료 api 시작
+        fetch("/search/search_recipe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            board_id: cocktailId,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+
+            // 칵테일 재료 카드 컨테이너 찾기
+            let $cocktailIngredientCardContainer = document.querySelector(
+              ".cocktail-ingredient-card-container"
+            );
+
+            // 이미 존재하는 칵테일 재료 카드들을 모두 삭제
+            $cocktailIngredientCardContainer.innerHTML = "";
+            // 칵테일 재료 카드 생성 후 컨테이너에 추가
+            for (let i = 0; i < data.length; i++) {
+              // data크기를 data.length로 변경
+              let $cocktailIngredientCard = document.createElement("div");
+              $cocktailIngredientCard.classList.add("cocktail-ingredient-card");
+              let $recipeDetail = document.createElement("div");
+              $recipeDetail.classList.add("recipe-detail");
+
+              $recipeDetail.textContent = data[i].ingredient_name; // 재료 이름을 카드에 표시하려는 경우
+
+              // $ingredientDetail를 $cocktailIngredientCard에 추가
+              $cocktailIngredientCard.appendChild($recipeDetail);
+
+              $cocktailIngredientCardContainer.appendChild(
+                $cocktailIngredientCard
+              );
+            }
+          })
+          .catch((error) => {
+            console.error;
+          });
+        // 재료 api 끝
+        const $cocktailTitle = document.querySelector(".cocktail-title");
         console.log(data);
+        $cocktailTitle.textContent = data[0].recipe_name;
         $recommentCount.textContent = data[0].good_cnt;
         $cocktailRecipe.innerHTML = data[0].text;
         let snacks = data[0].snack;
         let snackArray = snacks.split(",");
         const snackArraySize = snackArray.length;
-        console.log(snackArraySize);
+        let tools = data[0].tool;
+        let toolArray = tools.split(",");
+        const toolArraySize = toolArray.length;
+
+        // 스낵 카드 컨테이너 찾기
+        let $snackContainer = document.querySelector(".snack-container");
+        // 이미 존재하는 스낵 카드들을 모두 삭제
+        $snackContainer.innerHTML = "";
+
+        // 스낵 카드 생성 후 컨테이너에 추가
+        for (let i = 0; i < snackArraySize; i++) {
+          let $snackCard = document.createElement("div");
+          $snackCard.classList.add("snack-card");
+          let $snackDetail = document.createElement("div");
+          $snackDetail.classList.add("snack-detail");
+          $snackDetail.textContent = snackArray[i]; // 스낵 이름을 카드에 표시하려는 경우
+          // $snackDetail를 $snackCard에 추가
+          $snackCard.appendChild($snackDetail);
+          $snackContainer.appendChild($snackCard);
+        }
+        let $toolContainer = document.querySelector(".tool-container");
+        $toolContainer.innerHTML = "";
+        for (let i = 0; i < toolArraySize; i++) {
+          let $toolCard = document.createElement("div");
+          $toolCard.classList.add("tool-card");
+          let $toolDetail = document.createElement("div");
+          $toolDetail.classList.add("tool-detail");
+          $toolDetail.textContent = toolArray[i];
+          $toolCard.appendChild($toolDetail);
+          $toolContainer.appendChild($toolCard);
+        }
       })
       .catch((error) => {
         console.error;
