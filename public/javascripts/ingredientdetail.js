@@ -1,6 +1,5 @@
 var searchParams = new URLSearchParams(window.location.search);
-const cocktailId = searchParams.get("id");
-const cocktailType = searchParams.get("type");
+const ingredientId = searchParams.get("id");
 const $loginButton = document.getElementById("login-button");
 const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
@@ -61,16 +60,7 @@ if (user && user.isLogin) {
     window.location.href = "./signup.html";
   };
 }
-window.onload = () => {
-  document.querySelector(".dropbtn_click").onclick = () => {
-    dropdown();
-  };
-  for (let i = 0; i < options.length; i++) {
-    options[i].onclick = () => {
-      showMenu(options[i].innerText);
-    };
-  }
-
+window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
   const user = JSON.parse(sessionStorage.getItem("user"));
@@ -101,3 +91,21 @@ window.onload = () => {
     };
   }
 };
+console.log(ingredientId);
+fetch(`/search/ingredient_board`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: `${ingredientId}`,
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data[0].recipe_name);
+    console.log("test");
+  })
+  .catch((error) => {
+    console.log(error);
+  });

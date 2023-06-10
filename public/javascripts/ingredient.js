@@ -37,7 +37,7 @@ var dropbtn = document.querySelector(".dropbtn");
 var pageCount = 1;
 var allPage = 20;
 const options = document.getElementsByClassName("option");
-window.onload = () => {
+window.onload = function () {
   document.querySelector(".dropbtn_click").onclick = () => {
     dropdown();
   };
@@ -198,6 +198,5 @@ $bestCocktailButtonContainer.addEventListener("click", (event) => {
   const ingredientId = cocktailButton.children[1].textContent;
   console.log(ingredientId);
   console.log("test");
-  window.location.href =
-    "./ingredientdetail.html?id=" + ingredientId + "&type=default";
+  window.location.href = "./ingredientdetail.html?id=" + ingredientId;
 });
