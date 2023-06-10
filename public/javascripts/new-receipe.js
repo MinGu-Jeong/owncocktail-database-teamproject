@@ -226,9 +226,9 @@ $submitButton.addEventListener("click", () => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      console.log(data[0].result);
+      console.log(data.result[0].myboard_id);
       window.location.href =
-        "./cocktail.html?id=" + data[0].result + "&type=own";
+        "./cocktail.html?id=" + data.result[0].myboard_id + "&type=own";
     })
     .catch((error) => {
       console.error;
