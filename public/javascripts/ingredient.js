@@ -30,34 +30,17 @@ $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
 
-function changeSort(sortType) {
-  // 선택된 정렬 방식에 따라 필요한 작업 수행
-  if (sortType === "popular") {
-    // 인기순 정렬 처리
-    // ...
-  } else if (sortType === "name") {
-    // 이름순 정렬 처리
-    // ...
-  } else if (sortType === "comment") {
-    // 댓글순 정렬 처리
-    // ...
-  }
-
-  // 드롭다운 숨기기
-  var dropdownContent = document.getElementById("dropdown-content");
-  dropdownContent.classList.remove("active");
-}
-
 var dropbtn_icon = document.querySelector(".dropbtn_icon");
 var dropbtn_content = document.querySelector(".dropbtn_content");
 var dropbtn_click = document.querySelector(".dropbtn_click");
 var dropbtn = document.querySelector(".dropbtn");
-
+var pageCount = 1;
+var allPage = 20;
+const options = document.getElementsByClassName("option");
 window.onload = () => {
   document.querySelector(".dropbtn_click").onclick = () => {
     dropdown();
   };
-  const options = document.getElementsByClassName("option");
   for (let i = 0; i < options.length; i++) {
     options[i].onclick = () => {
       showMenu(options[i].innerText);
@@ -99,76 +82,8 @@ window.onload = () => {
     v.classList.toggle("show");
     dropbtn.style.borderColor = "rgb(94, 94, 94)";
   }
-  const $ingredientName1 = document.querySelector("#ingredient-name1");
-  const $ingredientName2 = document.querySelector("#ingredient-name2");
-  const $ingredientName3 = document.querySelector("#ingredient-name3");
-  const $ingredientName4 = document.querySelector("#ingredient-name4");
-  const $ingredientName5 = document.querySelector("#ingredient-name5");
-  const $ingredientName6 = document.querySelector("#ingredient-name6");
-  const $ingredientName7 = document.querySelector("#ingredient-name7");
-  const $ingredientName8 = document.querySelector("#ingredient-name8");
-  const $ingredientId1 = document.querySelector("#ingredient-id1");
-  const $ingredientId2 = document.querySelector("#ingredient-id2");
-  const $ingredientId3 = document.querySelector("#ingredient-id3");
-  const $ingredientId4 = document.querySelector("#ingredient-id4");
-  const $ingredientId5 = document.querySelector("#ingredient-id5");
-  const $ingredientId6 = document.querySelector("#ingredient-id6");
-  const $ingredientId7 = document.querySelector("#ingredient-id7");
-  const $ingredientId8 = document.querySelector("#ingredient-id8");
-  function draw(path) {
-    fetch(`/search/${path}_default_board`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        page: 1,
-        num: 8,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        $ingredientName1.textContent = data[0].recipe_name;
-        $ingredientName2.textContent = data[1].recipe_name;
-        $ingredientName3.textContent = data[2].recipe_name;
-        $ingredientName4.textContent = data[3].recipe_name;
-        $ingredientName5.textContent = data[4].recipe_name;
-        $ingredientName6.textContent = data[5].recipe_name;
-        $ingredientName7.textContent = data[6].recipe_name;
-        $ingredientName8.textContent = data[7].recipe_name;
-        $ingredientId1.textContent = data[0].board_id;
-        $ingredientId2.textContent = data[1].board_id;
-        $ingredientId3.textContent = data[2].board_id;
-        $ingredientId4.textContent = data[3].board_id;
-        $ingredientId5.textContent = data[4].board_id;
-        $ingredientId6.textContent = data[5].board_id;
-        $ingredientId7.textContent = data[6].board_id;
-        $ingredientId8.textContent = data[7].board_id;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  draw("popular");
-  function showMenu(value) {
-    dropbtn_content.innerText = value;
-    dropbtn_content.style.color = "#252525";
-    dropbtn.style.borderColor = "#3992a8";
-    changeSort(value);
-  }
-  function changeSort(sortType) {
-    // 선택된 정렬 방식에 따라 필요한 작업 수행
-    if (sortType === "인기순") {
-      draw("popular");
-    } else if (sortType === "이름순") {
-      draw("name");
-    }
 
-    // 드롭다운 숨기기
-    var dropdownContent = document.getElementById("dropdown-content");
-    dropdownContent.classList.remove("active");
-  }
+  draw("popular", pageCount);
 
   // default_board 게시글 수 카운트
   fetch("/search/default_board_count", {
@@ -188,52 +103,53 @@ window.onload = () => {
       console.error;
     });
 };
-const $cocktailName1 = document.querySelector("#cocktail-name1");
-const $cocktailName2 = document.querySelector("#cocktail-name2");
-const $cocktailName3 = document.querySelector("#cocktail-name3");
-const $cocktailName4 = document.querySelector("#cocktail-name4");
-const $cocktailName5 = document.querySelector("#cocktail-name5");
-const $cocktailName6 = document.querySelector("#cocktail-name6");
-const $cocktailName7 = document.querySelector("#cocktail-name7");
-const $cocktailName8 = document.querySelector("#cocktail-name8");
-const $cocktailId1 = document.querySelector("#cocktail-id1");
-const $cocktailId2 = document.querySelector("#cocktail-id2");
-const $cocktailId3 = document.querySelector("#cocktail-id3");
-const $cocktailId4 = document.querySelector("#cocktail-id4");
-const $cocktailId5 = document.querySelector("#cocktail-id5");
-const $cocktailId6 = document.querySelector("#cocktail-id6");
-const $cocktailId7 = document.querySelector("#cocktail-id7");
-const $cocktailId8 = document.querySelector("#cocktail-id8");
-function draw(path) {
-  fetch(`/search/${path}_default_board`, {
+const $ingredientName1 = document.querySelector("#ingredient-name1");
+const $ingredientName2 = document.querySelector("#ingredient-name2");
+const $ingredientName3 = document.querySelector("#ingredient-name3");
+const $ingredientName4 = document.querySelector("#ingredient-name4");
+const $ingredientName5 = document.querySelector("#ingredient-name5");
+const $ingredientName6 = document.querySelector("#ingredient-name6");
+const $ingredientName7 = document.querySelector("#ingredient-name7");
+const $ingredientName8 = document.querySelector("#ingredient-name8");
+function showMenu(value) {
+  dropbtn_content.innerText = value;
+  dropbtn_content.style.color = "#252525";
+  dropbtn.style.borderColor = "#3992a8";
+  changeSort(value, pageCount);
+}
+function changeSort(sortType, thispage) {
+  // 선택된 정렬 방식에 따라 필요한 작업 수행
+  if (sortType === "사용순") {
+    draw("popular", thispage);
+  } else if (sortType === "이름순") {
+    draw("name", thispage);
+  }
+
+  // 드롭다운 숨기기
+  var dropdownContent = document.getElementById("dropdown-content");
+  dropdownContent.classList.remove("active");
+}
+function draw(path, thispage) {
+  fetch(`/search/${path}_ingredient`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      page: 1,
+      page: thispage,
       num: 8,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      $cocktailName1.textContent = data[0].recipe_name;
-      $cocktailName2.textContent = data[1].recipe_name;
-      $cocktailName3.textContent = data[2].recipe_name;
-      $cocktailName4.textContent = data[3].recipe_name;
-      $cocktailName5.textContent = data[4].recipe_name;
-      $cocktailName6.textContent = data[5].recipe_name;
-      $cocktailName7.textContent = data[6].recipe_name;
-      $cocktailName8.textContent = data[7].recipe_name;
-      $cocktailId1.textContent = data[0].board_id;
-      $cocktailId2.textContent = data[1].board_id;
-      $cocktailId3.textContent = data[2].board_id;
-      $cocktailId4.textContent = data[3].board_id;
-      $cocktailId5.textContent = data[4].board_id;
-      $cocktailId6.textContent = data[5].board_id;
-      $cocktailId7.textContent = data[6].board_id;
-      $cocktailId8.textContent = data[7].board_id;
+      $ingredientName1.textContent = data[0].ingredient_name;
+      $ingredientName2.textContent = data[1].ingredient_name;
+      $ingredientName3.textContent = data[2].ingredient_name;
+      $ingredientName4.textContent = data[3].ingredient_name;
+      $ingredientName5.textContent = data[4].ingredient_name;
+      $ingredientName6.textContent = data[5].ingredient_name;
+      $ingredientName7.textContent = data[6].ingredient_name;
+      $ingredientName8.textContent = data[7].ingredient_name;
     })
     .catch((error) => {
       console.log(error);
@@ -257,17 +173,31 @@ window.onclick = (e) => {
 $pageText = document.getElementById("page-text");
 $pageLeftButton = document.getElementById("left-button");
 $pageRightButton = document.getElementById("right-button");
-var pageCount = 1;
-var allPage = 20;
+
 $pageLeftButton.addEventListener("click", () => {
   if (pageCount > 1) {
     pageCount -= 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
+    changeSort(dropbtn_content.innerText, pageCount);
   }
 });
 $pageRightButton.addEventListener("click", () => {
   if (pageCount < allPage) {
     pageCount += 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
+    changeSort(dropbtn_content.innerText, pageCount);
   }
+});
+
+const $bestCocktailButtonContainer = document.querySelector(
+  ".best-ingredient-button-container"
+);
+$bestCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const ingredientId = cocktailButton.children[1].textContent;
+  console.log(ingredientId);
+  console.log("test");
+  window.location.href =
+    "./ingredientdetail.html?id=" + ingredientId + "&type=default";
 });

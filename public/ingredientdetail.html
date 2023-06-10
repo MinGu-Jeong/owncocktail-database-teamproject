@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ingredient</title>
+    <link rel="stylesheet" href="./stylesheets/ingredientdetail.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title-logo">
+        <img src="./images/title-logo.png" width="300px" />
+      </div>
+      <nav>
+        <button id="nav-cocktail-receipe">칵테일 레시피</button>
+        <button id="nav-own-cocktail">나만의 칵테일</button>
+        <button id="nav-ingredient">재료</button>
+        <button id="nav-search">검색</button>
+      </nav>
+      <div class="login-signup">
+        <button id="login-button">로그인</button>
+        <button id="signup-button">회원가입</button>
+      </div>
+    </header>
+    <div class="ingredient-container">
+      <div class="container-header">
+        <div id="ingredient-text-box"><p id="ingredient-text">특정재료</p></div>
+      </div>
+      <div class="ingredient-button-container">
+        <div class="used-ingredient">
+          <button id="ingredient" style="background-color: #880000">
+            <div class="ingredient-image">이미지</div>
+            <div class="ingredient-name">제목</div>
+            <div class="hidden" id="ingredient"></div>
+            <div class="ingredient-summary">설명</div>
+          </button>
+        </div>
+        <div class="use-recipe">
+          <button class="recipe-button" id="recipe-1" style="background-color: #020da3">
+            <div class="recipe-image"></div>
+            <div class="recipe-name" id="recipe-name1">제목</div>
+            <div class="hidden" id="recipe-id1"></div>
+            <div class="recipe-summary">설명</div>
+          </button>
+          <button class="recipe-button" id="recipe-2" style="background-color: #02895c">
+            <div class="recipe-image"></div>
+            <div class="recipe-name" id="recipe-name2">제목</div>
+            <div class="hidden" id="recipe-id2"></div>
+            <div class="recipe-summary">설명</div>
+          </button>
+          <button class="recipe-button" id="recipe-4" style="background-color: #a35302">
+            <div class="recipe-image"></div>
+            <div class="recipe-name" id="recipe-name3">제목</div>
+            <div class="hidden" id="recipe-id3"></div>
+            <div class="recipe-summary">설명</div>
+          </button>
+          <button class="recipe-button" id="recipe-5" style="background-color: #a30285">
+            <div class="recipe-image"></div>
+            <div class="recipe-name" id="recipe-name4">제목</div>
+            <div class="hidden" id="recipe-id4"></div>
+            <div class="recipe-summary">설명</div>
+          </button>
+          <button class="recipe-button" id="recipe-5" style="background-color: #0293a3">
+            <div class="recipe-image"></div>
+            <div class="recipe-name" id="recipe-name5">제목</div>
+            <div class="hidden" id="recipe-id6"></div>
+            <div class="recipe-summary">설명</div>
+          </button>
+        </div>
+    </div>
+    <script src="./javascripts/ingredient.js"></script>
+  </body>
+</html>
