@@ -16,9 +16,9 @@ con.connect(function(err){
 
 router.post('/default_board', (req, res) => {
 
-	// if(req.body.member_id !== 'admin'){
-	// 	res.json({result: false, error: "not admin"})
-	// }
+	if(req.body.member_id !== 'admin'){
+		res.json({result: false, error: "not admin"})
+	}
 
 	let datetime = new Date();
 	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
