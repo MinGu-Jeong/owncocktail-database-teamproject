@@ -84,7 +84,7 @@ router.post("/default_board", (req, res) => {
 
 router.post("/ingredient_board", (req, res) => {
   con.query(
-    `DISTINCT SELECT \`recipe_name\` FROM \`Recipe\` WHERE \`ingredient\` = '${req.body.name}'`,
+    `DISTINCT SELECT \`recipe_name\` FROM \`Recipe_Ingredient\` WHERE \`ingredient\` = '${req.body.name}'`,
     (err, result) => {
       res.json(result);
     }
@@ -178,25 +178,25 @@ router.post("/board_search", (req, res) => {
   );
 });
 
-//myboard 게시글 수 정보 반환
-// router.post("/myboard_count", (req, res) => {
-//   con.query(
-//     `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`, 
-//   (err, result) => {
-//       if (err) throw err;
-//       res.json(result);
-//   });
-//   });
-
-  //myboard 게시글 수 정보 반환
+// myboard 게시글 수 정보 반환
 router.post("/myboard_count", (req, res) => {
   con.query(
-    `SELECT MAX(board_id) AS max_id FROM my_board`, 
+    `SELECT COUNT(*) AS count FROM My_Board`, 
   (err, result) => {
       if (err) throw err;
       res.json(result);
   });
   });
+
+//   //myboard 게시글 수 정보 반환
+// router.post("/myboard_count", (req, res) => {
+//   con.query(
+//     `SELECT MAX(board_id) AS max_id FROM my_board`, 
+//   (err, result) => {
+//       if (err) throw err;
+//       res.json(result);
+//   });
+// });
   
 router.post("/my_board_search", (req, res) => {
   let target = `%`;
