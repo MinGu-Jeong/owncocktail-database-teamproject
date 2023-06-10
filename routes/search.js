@@ -63,7 +63,7 @@ router.post("/search_recipe", (req, res) => {
 
 router.post("/my_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`board_id\` = ${req.body.board_id}`,
+    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.board_id}`,
     (err, result) => {
       res.json(result);
     }
@@ -123,7 +123,7 @@ router.post("/popular_my_board", (req, res) => {
 
 router.post("/name_my_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`recipe_name\` DESC LIMIT ${
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`recipe_name\`LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -145,7 +145,7 @@ router.post("/popular_ingredient", (req, res) => {
 
 router.post("/name_ingredient", (req, res) => {
   con.query(
-    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` DESC LIMIT ${
+    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -177,13 +177,10 @@ router.post("/board_search", (req, res) => {
 
 //myboard 게시글 수 정보 반환
 router.post("/myboard_count", (req, res) => {
-  con.query(
-    `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`,
-    (err, result) => {
-      if (err) throw err;
-      res.json(result);
-    }
-  );
+  con.query(`SELECT COUNT(*) AS count FROM My_Board`, (err, result) => {
+    if (err) throw err;
+    res.json(result);
+  });
 });
 
 router.post("/my_board_search", (req, res) => {

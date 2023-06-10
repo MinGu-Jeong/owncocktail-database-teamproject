@@ -18,7 +18,7 @@ header {
 }
 .title-logo {
   margin-top: -60px;
-  width: 300px;
+  width: 345px;
   height: 100px;
   cursor: pointer;
 }
@@ -36,7 +36,7 @@ nav {
   background: #9183a4;
 }
 #login-button {
-  width: 75px;
+  width: 80px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -57,7 +57,7 @@ nav {
   background-color: #c199c5;
 }
 #signup-button {
-  width: 90px;
+  width: 100px;
   height: 30px;
   font-family: "Inter";
   font-style: normal;
@@ -97,9 +97,14 @@ nav {
   border: 0;
   border-radius: 10px;
   padding: 10px;
-  margin: -10px;
+  margin: -4px;
 }
 #nav-own-cocktail {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -108,10 +113,7 @@ nav {
   display: flex;
   align-items: center;
   text-align: center;
-
-  color: white;
   border: 0;
-  background: none;
   cursor: pointer;
 }
 #nav-own-cocktail:hover {
@@ -122,11 +124,6 @@ nav {
   margin: -10px;
 }
 #nav-ingredient {
-  background-color: #c199c5;
-  color: #83338a;
-  border-radius: 10px;
-  padding: 10px;
-  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -136,7 +133,16 @@ nav {
   align-items: center;
   text-align: center;
   border: 0;
+  background: none;
+  color: white;
   cursor: pointer;
+}
+#nav-ingredient:hover {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -4px;
 }
 #nav-search {
   font-family: "Inter";
@@ -157,7 +163,7 @@ nav {
   color: #83338a;
   border-radius: 10px;
   padding: 10px;
-  margin: -10px;
+  margin: -4px;
 }
 .ingredient-container {
   margin-top: 40px;
@@ -174,14 +180,12 @@ nav {
   justify-content: center;
   align-items: center;
   height: 65px;
-  width: 122px;
 }
+
 #ingredient-text {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-#ingredient-text {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -192,83 +196,13 @@ nav {
   color: #000000;
 }
 
-.dropdown-label {
-  font-size: 12px;
-  margin: 10px;
-  font-weight: bold;
-  color: rgb(50, 50, 50);
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn_icon {
-  font-family: "Material Icons";
-}
-.dropbtn_content {
-  margin-left: 8px;
-}
-.dropbtn {
-  display: block;
-  border: 0;
-  background: rgba(210, 205, 218);
-  border-radius: 10px;
-  font-weight: 400;
-  color: black;
-  padding: 12px;
-  width: 100px;
-  text-align: left;
-  cursor: pointer;
-  font-size: 12px;
-  z-index: 1;
-  position: relative;
-}
-.dropdown-content {
-  position: absolute;
-  top: 13px;
-  display: none;
-  background-color: rgba(210, 205, 218);
-  width: 100px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
-  cursor: pointer;
-}
-.option {
-  cursor: pointer;
-}
-.dropdown-content::-webkit-scrollbar {
-  width: 5px;
-  height: 10px;
-}
-.dropdown-content::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(194, 194, 194);
-}
-
-.dropdown-content div {
-  display: block;
-  text-decoration: none;
-  color: rgb(37, 37, 37);
-  font-size: 12px;
-  padding: 12px 20px;
-}
-.dropdown-content div:hover {
-  background-color: rgba(210, 205, 218);
-  border-radius: 10px;
-}
-
-.dropdown-content.show {
-  display: block;
-}
-
 .container-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 40px;
 }
-.best-ingredient-button-container {
+.ingredient-button-container {
   display: flex;
   justify-content: center;
   gap: 150px;
@@ -277,7 +211,7 @@ nav {
   background-color: #9183a4;
   flex-wrap: wrap;
 }
-.best-ingredient-button-container > button {
+.used-ingredient > button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -291,7 +225,24 @@ nav {
   flex-wrap: wrap;
   color: white;
 }
-.best-ingredient-image {
+.use-recipe {
+  display: flex;
+}
+.recipe-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  border: 0;
+  border-radius: 20px;
+  gap: 40px;
+  margin-right: 10px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: white;
+}
+.ingredient-image {
   display: flex;
   width: 160px;
   height: 130px;
@@ -309,61 +260,29 @@ nav {
   font-size: 20px;
 }
 
-#best-own-ingredient-title {
-  margin-left: 20px;
-  display: inline-block;
-  background-color: #dbd3dd;
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+.recipe-image {
+  display: flex;
+  width: 160px;
+  height: 130px;
   border-radius: 10px;
+  background-color: #363333;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
-  padding: 10px 15px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 44px;
-  text-align: center;
 }
+.recipe-summary {
+  margin-top: -40px;
+}
+.recipe-name {
+  margin-top: -40px;
+  font-size: 20px;
+}
+
 #best-cocktail-1-img {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.move-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-#left-button {
-  width: 0;
-  height: 0;
-  border-bottom: 18px solid transparent;
-  border-top: 18px solid transparent;
-  border-left: 20px solid transparent;
-  border-right: 20px solid #d9d9d9;
-  cursor: pointer;
-}
-#left-button:hover {
-  border-right: 20px solid #3030ac;
-}
-#page-text {
-  font-size: 20px;
-}
-#right-button {
-  width: 0;
-  height: 0;
-  border-bottom: 18px solid transparent;
-  border-top: 18px solid transparent;
-  border-left: 20px solid #d9d9d9;
-  border-right: 20px solid transparent;
-  cursor: pointer;
-}
-#right-button:hover {
-  border-left: 20px solid #3030ac;
-}
-
 .hidden {
   display: none;
 }

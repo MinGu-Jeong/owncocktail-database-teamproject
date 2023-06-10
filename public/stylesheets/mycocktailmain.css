@@ -181,12 +181,11 @@ nav {
   align-items: center;
   height: 65px;
 }
+
 #cocktail-text {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-#cocktail-text {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -430,4 +429,7 @@ nav {
   display: flex;
   align-items: center;
   text-align: center;
+}
+.hidden {
+  display: none;
 }
