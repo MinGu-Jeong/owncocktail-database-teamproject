@@ -87,7 +87,7 @@ router.post('/my_board', (req, res) => {
 			 if (err) {
 				res.json({ result: false, error: err });
 			 } else {
-				con.query(`SELECT \`myboard_id\` FROM \`Default_Board\` ORDER BY \`myboard_id\` DESC LIMIT 1`, (err, result) => {
+				con.query(`SELECT \`myboard_id\` FROM \`My_Board\` ORDER BY \`myboard_id\` DESC LIMIT 1`, (err, result) => {
 					if(err){
 						res.json({result: false, error: err});
 					}else{
