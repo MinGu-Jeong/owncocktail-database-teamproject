@@ -328,7 +328,9 @@ nav > button {
   align-items: center;
   gap: 10px;
 }
-.receipe-input {
+.receipe-input,
+.snack-input,
+.tool-input {
   width: 200px;
   height: 30px;
   border-radius: 5px;
