@@ -25,7 +25,8 @@ router.post("/random_default", (req, res) => {
         total = result[0].total;
         const randomValue = Math.random();
         const id = Math.floor(randomValue * total) + 1;
-        res.json({ result: id });
+        res.json({result: id})
+
       }
     }
   );
@@ -33,16 +34,20 @@ router.post("/random_default", (req, res) => {
 
 router.post("/random_my", (req, res) => {
   let total;
-  con.query(`SELECT COUNT(*) AS total FROM \`My_Board\``, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      total = result[0].total;
-      const randomValue = Math.random();
-      const id = Math.floor(randomValue * total) + 1;
-      res.json({ result: id });
+
+  con.query(
+    `SELECT COUNT(*) AS total FROM \`My_Board\``,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        total = result[0].total;
+        const randomValue = Math.random();
+        const id = Math.floor(randomValue * total) + 1;
+        res.json({result: id})
+      }
     }
-  });
+  );
 });
 
 router.post("/search_recipe", (req, res) => {
@@ -123,7 +128,7 @@ router.post("/popular_my_board", (req, res) => {
 
 router.post("/name_my_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`recipe_name\`LIMIT ${
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`recipe_name\` LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -176,6 +181,16 @@ router.post("/board_search", (req, res) => {
 });
 
 //myboard 게시글 수 정보 반환
+// router.post("/myboard_count", (req, res) => {
+//   con.query(
+//     `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`, 
+//   (err, result) => {
+//       if (err) throw err;
+//       res.json(result);
+//   });
+//   });
+
+  //myboard 게시글 수 정보 반환
 router.post("/myboard_count", (req, res) => {
   con.query(`SELECT COUNT(*) AS count FROM My_Board`, (err, result) => {
     if (err) throw err;
@@ -194,6 +209,13 @@ router.post("/my_board_search", (req, res) => {
       res.json(result);
     }
   );
+});
+
+router.post("/ingredient_count", (req, res) => {
+  con.query(`SELECT COUNT(*) FROM \`ingredient\``, (err, result) => {
+    if(err) throw err;
+    res.json(result);
+  });
 });
 
 //default_board 게시글 수 정보 반환
