@@ -33,10 +33,13 @@ $receipeButton.addEventListener("click", () => {
 $newReceipeButton.addEventListener("click", () => {
   window.location.href = "./new-receipe.html";
 });
+var pageCount = 1;
+var allPage = 20;
+const options = document.getElementsByClassName("option");
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-
+  const $pagetext = document.querySelector("#page-text");
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
@@ -68,12 +71,30 @@ window.onload = function () {
   document.querySelector(".dropbtn_click").onclick = () => {
     dropdown();
   };
-  const options = document.getElementsByClassName("option");
   for (let i = 0; i < options.length; i++) {
     options[i].onclick = () => {
       showMenu(options[i].innerText);
     };
   }
+  draw("popular", pageCount);
+  // myboard 게시글 수 카운트
+  fetch("/search/myboard_count", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      allPage = Math.floor(data[0].count / 8 + 1);
+      console.log(allPage);
+      const maxId = data[0].count || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
+      $pagetext.textContent = `1 / ${Math.floor(maxId / 8 + 1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
+    })
+    .catch((error) => {
+      console.error;
+    });
 };
 function dropdown() {
   var v = document.querySelector(".dropdown-content");
@@ -81,17 +102,71 @@ function dropdown() {
   v.classList.toggle("show");
   dropbtn.style.borderColor = "rgb(94, 94, 94)";
 }
+const $owncocktailName1 = document.querySelector("#owncocktail-name1");
+const $owncocktailName2 = document.querySelector("#owncocktail-name2");
+const $owncocktailName3 = document.querySelector("#owncocktail-name3");
+const $owncocktailName4 = document.querySelector("#owncocktail-name4");
+const $owncocktailName5 = document.querySelector("#owncocktail-name5");
+const $owncocktailName6 = document.querySelector("#owncocktail-name6");
+const $owncocktailName7 = document.querySelector("#owncocktail-name7");
+const $owncocktailName8 = document.querySelector("#owncocktail-name8");
+const $owncocktailId1 = document.querySelector("#owncocktail-id1");
+const $owncocktailId2 = document.querySelector("#owncocktail-id2");
+const $owncocktailId3 = document.querySelector("#owncocktail-id3");
+const $owncocktailId4 = document.querySelector("#owncocktail-id4");
+const $owncocktailId5 = document.querySelector("#owncocktail-id5");
+const $owncocktailId6 = document.querySelector("#owncocktail-id6");
+const $owncocktailId7 = document.querySelector("#owncocktail-id7");
+const $owncocktailId8 = document.querySelector("#owncocktail-id8");
+function draw(path, thispage) {
+  console.log("나만의 칵테일 테스트");
+  fetch(`/search/${path}_my_board`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: thispage,
+      num: 8,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      $owncocktailName1.textContent = data[0].recipe_name;
+      $owncocktailName2.textContent = data[1].recipe_name;
+      $owncocktailName3.textContent = data[2].recipe_name;
+      $owncocktailName4.textContent = data[3].recipe_name;
+      $owncocktailName5.textContent = data[4].recipe_name;
+      $owncocktailName6.textContent = data[5].recipe_name;
+      $owncocktailName7.textContent = data[6].recipe_name;
+      $owncocktailName8.textContent = data[7].recipe_name;
+      $owncocktailId1.textContent = data[0].myboard_id;
+      $owncocktailId2.textContent = data[1].myboard_id;
+      $owncocktailId3.textContent = data[2].myboard_id;
+      $owncocktailId4.textContent = data[3].myboard_id;
+      $owncocktailId5.textContent = data[4].myboard_id;
+      $owncocktailId6.textContent = data[5].myboard_id;
+      $owncocktailId7.textContent = data[6].myboard_id;
+      $owncocktailId8.textContent = data[7].myboard_id;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 function showMenu(value) {
   dropbtn_content.innerText = value;
   dropbtn_content.style.color = "#252525";
   dropbtn.style.borderColor = "#3992a8";
-  changeSort(value);
+  changeSort(value, pageCount);
 }
-function changeSort(sortType) {
+function changeSort(sortType, thispage) {
   // 선택된 정렬 방식에 따라 필요한 작업 수행
   if (sortType === "인기순") {
+    draw("popular", thispage);
   } else if (sortType === "이름순") {
+    draw("name", thispage);
   }
 
   // 드롭다운 숨기기
@@ -120,22 +195,36 @@ window.onclick = (e) => {
 $pageText = document.getElementById("page-text");
 $pageLeftButton = document.getElementById("left-button");
 $pageRightButton = document.getElementById("right-button");
-var pageCount = 1;
-var allPage = 20;
+
 $pageLeftButton.addEventListener("click", () => {
   if (pageCount > 1) {
     pageCount -= 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
+    changeSort(dropbtn_content.innerText, pageCount);
   }
 });
 $pageRightButton.addEventListener("click", () => {
+  console.log(`${pageCount},${allPage}`);
   if (pageCount < allPage) {
     pageCount += 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
+    changeSort(dropbtn_content.innerText, pageCount);
   }
 });
 
 const $randomButton = document.getElementById("random-button");
 $randomButton.addEventListener("click", () => {
   window.location.href = "./cocktail.html";
+});
+
+const $bestCocktailButtonContainer = document.querySelector(
+  ".best-cocktail-button-container"
+);
+$bestCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailId = cocktailButton.children[2].textContent;
+  console.log("cocktailtest");
+  console.log(cocktailId);
+  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
 });

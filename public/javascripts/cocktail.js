@@ -197,7 +197,7 @@ window.onload = function () {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            board_id: cocktailId,
+            myboard_id: cocktailId,
           }),
         })
           .then((response) => response.json())
