@@ -39,7 +39,7 @@ router.post('/default_board', (req, res) => {
    //    }
    // }
 
-   con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name}', '${req.body.recipeImg}')`, (err, result) => {})
+   con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name}', null)`, (err, result) => {})
    for (var i = 0; i < req.body.board_ingredient.length; i = i + 2){
       con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name}', '${req.body.board_ingredient[i]}', '${req.body.board_ingredient[i + 1]}')`, (err, result) => {})
       con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
@@ -77,7 +77,7 @@ router.post('/my_board', (req, res) =>{
    //    }
    // }
 
-   con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.recipeImg}')`, (err, result) => {})
+   con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', null)`, (err, result) => {})
    for (var i = 0; i < req.body.board_ingredient.length; i = i + 2){
       con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.board_ingredient[i]}', '${req.body.board_ingredient[i + 1]}')`, (err, result) => {})
       con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
