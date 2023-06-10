@@ -110,22 +110,9 @@ function dropdown() {
   v.classList.toggle("show");
   dropbtn.style.borderColor = "rgb(94, 94, 94)";
 }
-const $cocktailName1 = document.querySelector("#cocktail-name1");
-const $cocktailName2 = document.querySelector("#cocktail-name2");
-const $cocktailName3 = document.querySelector("#cocktail-name3");
-const $cocktailName4 = document.querySelector("#cocktail-name4");
-const $cocktailName5 = document.querySelector("#cocktail-name5");
-const $cocktailName6 = document.querySelector("#cocktail-name6");
-const $cocktailName7 = document.querySelector("#cocktail-name7");
-const $cocktailName8 = document.querySelector("#cocktail-name8");
-const $cocktailId1 = document.querySelector("#cocktail-id1");
-const $cocktailId2 = document.querySelector("#cocktail-id2");
-const $cocktailId3 = document.querySelector("#cocktail-id3");
-const $cocktailId4 = document.querySelector("#cocktail-id4");
-const $cocktailId5 = document.querySelector("#cocktail-id5");
-const $cocktailId6 = document.querySelector("#cocktail-id6");
-const $cocktailId7 = document.querySelector("#cocktail-id7");
-const $cocktailId8 = document.querySelector("#cocktail-id8");
+const cocktailNameElements = document.querySelectorAll("[id^='cocktail-name']");
+const cocktailIdElements = document.querySelectorAll("[id^='cocktail-id']");
+
 function draw(path, thispage) {
   fetch(`/search/${path}_default_board`, {
     method: "POST",
@@ -140,22 +127,16 @@ function draw(path, thispage) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      $cocktailName1.textContent = data[0].recipe_name;
-      $cocktailName2.textContent = data[1].recipe_name;
-      $cocktailName3.textContent = data[2].recipe_name;
-      $cocktailName4.textContent = data[3].recipe_name;
-      $cocktailName5.textContent = data[4].recipe_name;
-      $cocktailName6.textContent = data[5].recipe_name;
-      $cocktailName7.textContent = data[6].recipe_name;
-      $cocktailName8.textContent = data[7].recipe_name;
-      $cocktailId1.textContent = data[0].board_id;
-      $cocktailId2.textContent = data[1].board_id;
-      $cocktailId3.textContent = data[2].board_id;
-      $cocktailId4.textContent = data[3].board_id;
-      $cocktailId5.textContent = data[4].board_id;
-      $cocktailId6.textContent = data[5].board_id;
-      $cocktailId7.textContent = data[6].board_id;
-      $cocktailId8.textContent = data[7].board_id;
+      for (let i = 0; i < data.length; i++) {
+        cocktailNameElements[i].textContent = data[i].recipe_name;
+        cocktailIdElements[i].textContent = data[i].board_id;
+      }
+      if (data.length < 8) {
+        for (let i = data.length; i < 8; i++) {
+          cocktailNameElements[i].textContent = "로딩중";
+          cocktailIdElements[i].textContent = "로딩중";
+        }
+      }
     })
     .catch((error) => {
       console.log(error);
