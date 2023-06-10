@@ -37,7 +37,7 @@ var dropbtn = document.querySelector(".dropbtn");
 var pageCount = 1;
 var allPage = 20;
 const options = document.getElementsByClassName("option");
-window.onload = () => {
+window.onload = function () {
   document.querySelector(".dropbtn_click").onclick = () => {
     dropdown();
   };
@@ -86,7 +86,7 @@ window.onload = () => {
   draw("popular", pageCount);
 
   // default_board 게시글 수 카운트
-  fetch("/search/default_board_count", {
+  fetch("/search/ingredient_count", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -95,6 +95,8 @@ window.onload = () => {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log("갯수");
+      console.log(data);
       allPage = Math.floor(data[0].max_id / 8 + 1);
       const maxId = data[0].max_id || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
       $pagetext.textContent = `1 / ${Math.floor(maxId / 8 + 1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
@@ -198,6 +200,5 @@ $bestCocktailButtonContainer.addEventListener("click", (event) => {
   const ingredientId = cocktailButton.children[1].textContent;
   console.log(ingredientId);
   console.log("test");
-  window.location.href =
-    "./ingredientdetail.html?id=" + ingredientId + "&type=default";
+  window.location.href = "./ingredientdetail.html?id=" + ingredientId;
 });

@@ -100,11 +100,6 @@ nav {
   margin: -4px;
 }
 #nav-own-cocktail {
-  background-color: #c199c5;
-  color: #83338a;
-  border-radius: 10px;
-  padding: 10px;
-  margin: -10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -113,7 +108,9 @@ nav {
   display: flex;
   align-items: center;
   text-align: center;
+  background: none;
   border: 0;
+  color: white;
   cursor: pointer;
 }
 #nav-own-cocktail:hover {
@@ -124,6 +121,11 @@ nav {
   margin: -10px;
 }
 #nav-ingredient {
+  background-color: #c199c5;
+  color: #83338a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: -4px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -133,8 +135,6 @@ nav {
   align-items: center;
   text-align: center;
   border: 0;
-  background: none;
-  color: white;
   cursor: pointer;
 }
 #nav-ingredient:hover {
@@ -205,25 +205,33 @@ nav {
 .ingredient-button-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   gap: 150px;
   margin-bottom: 10px;
   padding: 20px;
   background-color: #9183a4;
   flex-wrap: wrap;
 }
+.used-ingredient {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
 .used-ingredient > button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 220px;
-  height: 220px;
-  border: 0;
-  border-radius: 20px;
+  width: 250px;
+  height: 250px;
+  border: 4px solid black;
   gap: 40px;
   margin-right: 10px;
   flex-direction: column;
   flex-wrap: wrap;
-  color: white;
+  color: black;
 }
 .use-recipe {
   display: flex;
@@ -232,22 +240,23 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 220px;
-  height: 220px;
-  border: 0;
-  border-radius: 20px;
+  width: 250px;
+  height: 250px;
+  border: 4px solid black;
   gap: 40px;
   margin-right: 10px;
   flex-direction: column;
   flex-wrap: wrap;
-  color: white;
+  color: black;
+  font-weight: 400;
 }
+
 .ingredient-image {
   display: flex;
   width: 160px;
   height: 130px;
   border-radius: 10px;
-  background-color: #363333;
+  background: none;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
@@ -256,8 +265,9 @@ nav {
   margin-top: -40px;
 }
 .ingredient-name {
-  margin-top: -40px;
-  font-size: 20px;
+  color: black;
+  margin-bottom: 20px;
+  font-size: 30px;
 }
 
 .recipe-image {
@@ -265,7 +275,7 @@ nav {
   width: 160px;
   height: 130px;
   border-radius: 10px;
-  background-color: #363333;
+  background: none;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
@@ -274,8 +284,9 @@ nav {
   margin-top: -40px;
 }
 .recipe-name {
-  margin-top: -40px;
+  margin-top: -25px;
   font-size: 20px;
+  font-weight: 400px;
 }
 
 #best-cocktail-1-img {
