@@ -173,9 +173,9 @@ insert into Recipe_Ingredient(Recipe_Ingredient_id, recipe_name, ingredient, rat
 ("20", "마이타이", "오렌지 큐라스", "15ml"),
 ("21", "마이타이", "오르쟈 시럽", "30ml"),
 ("22", "마이타이", "설탕 시럽", "7.5ml"),
-("23", "드라이 마티니", "진", "2/3"),
-("24","드라이 마티니", "프렌치 베르무트","1/3"),
-("25","드라이 마티니", "앙고르투라 비터스","1Dash"),
+("23", "드라이 마티니", "진", "30ml"),
+("24","드라이 마티니", "프렌치 베르무트","15ml"),
+("25","드라이 마티니", "앙고르투라 비터스","1ml"),
 ("26","프렌치75","진","30ml"),
 ("27","프렌치75","샴페인","60ml"),
 ("28","프렌치75","레몬 주스","15ml"),
@@ -191,12 +191,12 @@ insert into Recipe_Ingredient(Recipe_Ingredient_id, recipe_name, ingredient, rat
 ("38","롱 아일랜드 아이스티","코앵트로","15ml"),
 ("39","롱 아일랜드 아이스티","레몬 주스","30ml"),
 ("40","롱 아일랜드 아이스티","심플 시럽","20ml"),
-("41","롱 아일랜드 아이스티","콜라","Full Up"),
+("41","롱 아일랜드 아이스티","콜라","30ml"),
 ("42","모히또","화이트 럼","45ml"),
-("43","모히또","민트","6 leaves"),
-("44","모히또","백설탕","2tsp"),
+("43","모히또","민트","6장"),
+("44","모히또","설탕","10ml"),
 ("45","모히또","라임 주스","20ml"),
-("46","모히또","탄산수","Full Up"),
+("46","모히또","탄산수","30ml"),
 ("47","섹스 온 더 비치","보드카","40ml"),
 ("48","섹스 온 더 비치","피치 슈냅스","20ml"),
 ("49","섹스 온 더 비치","크린베리 주스","40ml"),
@@ -206,7 +206,7 @@ insert into Recipe_Ingredient(Recipe_Ingredient_id, recipe_name, ingredient, rat
 ("53","블러디 메리","보드카","45ml"),
 ("54","블러디 메리","레몬 주스","15ml"),
 ("55","블러디 메리","토마토 주스","90ml"),
-("56","블러디 메리","우스터 소스","2Dashes"),
+("56","블러디 메리","우스터 소스","2ml"),
 ("57","골든 드림","갈리아노","20ml"),
 ("58","골든 드림","트리플 섹","20ml"),
 ("59","골든 드림","오렌지 주스","20ml"),
@@ -223,7 +223,7 @@ insert into Recipe_Ingredient(Recipe_Ingredient_id, recipe_name, ingredient, rat
 ("70","키르","크렘 드 카시스","10ml"),
 ("71", "메가 멘하탄", "레드 베르무트", "40ml"),
 ("72", "메가 멘하탄", "앙고스투라비터", "1ml"),
-("73", "약한 미모사", "오렌지주스", "75ml"),
+("73", "약한 미모사", "오렌지 주스", "75ml"),
 ("74", "약한 미모사", "프로세코", "30ml"),
 ("75", "상큼한 아일리쉬 커피", "아일리쉬 위스키", "50ml"),
 ("76", "상큼한 아일리쉬 커피", "커피", "120ml"),
@@ -234,7 +234,6 @@ insert into Recipe_Ingredient(Recipe_Ingredient_id, recipe_name, ingredient, rat
 ("81", "더 진한 올드 패션드", "설탕", "5ml"),
 ("82", "더 진한 올드 패션드", "앙고스투라비터", "1ml"),
 ("83", "더 진한 올드 패션드", "탄산수", "15ml");
-
 
 insert into ingredient(ingredient_name, count, ingredient_img_url) value 
 ("깔루아",(SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "깔루아"),"NULL"),
@@ -274,7 +273,6 @@ insert into ingredient(ingredient_name, count, ingredient_img_url) value
 ("심플 시럽", (SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "심플 시럽"), "NULL"),
 ("콜라", (SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "콜라"), "NULL"),
 ("민트", (SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "민트"), "NULL"),
-("백설탕", (SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "백설탕"), "NULL"),
 ("피치 슈냅스", (SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "피치 슈냅스"), "NULL"),
 ("크린베리 주스", (SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "크린베리 주스"), "NULL"),
 ("오렌지 주스", (SELECT COUNT(*) FROM `Recipe_Ingredient` WHERE `ingredient` = "오렌지 주스"), "NULL"),
@@ -326,4 +324,3 @@ INSERT INTO DefaultBoard_Good(num, member_id, board_id) VALUES ("1", "admin", "1
 ("3", "IronMan", "1"),
 ("4", "BlackWidow", "2"),
 ("5", "Thor", "1");
-

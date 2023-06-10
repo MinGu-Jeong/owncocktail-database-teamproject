@@ -211,6 +211,13 @@ router.post("/my_board_search", (req, res) => {
   );
 });
 
+router.post("/ingredient_count", (req, res) => {
+  con.query(`SELECT COUNT(*) FROM \`ingredient\``, (err, result) => {
+    if(err) throw err;
+    res.json(result);
+  });
+});
+
 //default_board 게시글 수 정보 반환
 router.post("/default_board_count", (req, res) => {
   con.query(
