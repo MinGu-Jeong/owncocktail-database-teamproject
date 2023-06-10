@@ -61,9 +61,25 @@ router.post("/search_recipe", (req, res) => {
   );
 });
 
+router.post("/search_my_recipe", (req, res) => {
+  let recipe_name;
+  con.query(
+    `SELECT \`recipe_name\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.board_id}`,
+    (err, result) => {
+      recipe_name = result[0].recipe_name;
+      con.query(
+        `SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${recipe_name}';`,
+        (err, result) => {
+          res.json(result);
+        }
+      );
+    }
+  );
+});
+
 router.post("/my_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`board_id\` = ${req.body.board_id}`,
+    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.board_id}`,
     (err, result) => {
       res.json(result);
     }
@@ -81,6 +97,7 @@ router.post("/default_board", (req, res) => {
 
 router.post("/ingredient_board", (req, res) => {
   con.query(
+
     `SELECT DISTINCT \`recipe_name\` FROM \`Recipe_Ingredient\` WHERE \`ingredient\` = '${req.body.name}'`,
     (err, result) => {
       res.json(result);
@@ -110,6 +127,12 @@ router.post("/name_default_board", (req, res) => {
   );
 });
 
+router.post("/date_default_board", (req, res) => {
+  con.query(`SELECR \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num};`, (err, result) => {
+      res.json(result)
+  })
+})
+
 router.post("/popular_my_board", (req, res) => {
   con.query(
     `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` DESC LIMIT ${
@@ -131,6 +154,12 @@ router.post("/name_my_board", (req, res) => {
     }
   );
 });
+
+router.post("/date_my_board", (req, res) => {
+  con.query(`SELECR \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num};`, (err, result) => {
+      res.json(result)
+  })
+})
 
 router.post("/popular_ingredient", (req, res) => {
   con.query(
@@ -207,8 +236,9 @@ router.post("/my_board_search", (req, res) => {
 });
 
 router.post("/ingredient_count", (req, res) => {
-  con.query(`SELECT COUNT(*) FROM \`ingredient\``, (err, result) => {
-    if (err) throw err;
+  con.query(`SELECT COUNT(*) AS count FROM \`ingredient\``, (err, result) => {
+    if(err) throw err;
+
     res.json(result);
   });
 });

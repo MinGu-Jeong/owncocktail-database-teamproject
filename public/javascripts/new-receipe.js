@@ -208,9 +208,6 @@ $submitButton.addEventListener("click", () => {
   let receipeString = receipeArray.slice(2).join(",");
   let snackString = snackArray.slice(1).join(", ");
   let toolString = toolArray.slice(1).join(", ");
-  console.log(receipeString);
-  console.log(snackString);
-  console.log(toolString);
   const user = JSON.parse(sessionStorage.getItem("user"));
   fetch("/write/my_board", {
     method: "POST",
@@ -229,6 +226,9 @@ $submitButton.addEventListener("click", () => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      console.log(data.result[0].myboard_id);
+      window.location.href =
+        "./cocktail.html?id=" + data.result[0].myboard_id + "&type=own";
     })
     .catch((error) => {
       console.error;
