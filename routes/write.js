@@ -22,29 +22,29 @@ router.post('/default_board', (req, res) => {
 
 	let datetime = new Date();
 	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
-	let snacks = ''
-	for (var i = 0; i < req.body.board_snack.length; i++){
-		if (i == req.body.board_snack.length - 1){
-			snacks = snacks + req.body.board_snack[i]
-		}else{
-			snacks = snacks + req.body.board_snack[i] + ', '
-		}
-	}
-	let tools = ''
-	for (var i = 0; i < req.body.board_tool.length; i++){
-		if(i == req.body.board_tool.length - 1){
-			tools = tools + req.body.board_tool[i]
-		}else{
-			tools = tools + req.body.board_tool[i] + ','
-		}
-	}
+	// let snacks = ''
+	// for (var i = 0; i < req.body.board_snack.length; i++){
+	// 	if (i == req.body.board_snack.length - 1){
+	// 		snacks = snacks + req.body.board_snack[i]
+	// 	}else{
+	// 		snacks = snacks + req.body.board_snack[i] + ', '
+	// 	}
+	// }
+	// let tools = ''
+	// for (var i = 0; i < req.body.board_tool.length; i++){
+	// 	if(i == req.body.board_tool.length - 1){
+	// 		tools = tools + req.body.board_tool[i]
+	// 	}else{
+	// 		tools = tools + req.body.board_tool[i] + ','
+	// 	}
+	// }
 
 	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name}', '${req.body.recipeImg}')`, (err, result) => {})
-	for (var i = 0; i < req.body.board_ingredient.length; i++){
-		con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name}', '${req.body.board_ingredient[i][0]}', '${req.body.board_ingredient[i][1]}')`, (err, result) => {})
-		con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i][0]}', 1, '${req.body.board_ingredient[i][2]}') ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
+	for (var i = 0; i < req.body.board_ingredient.length; i = i + 2){
+		con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name}', '${req.body.board_ingredient[i]}', '${req.body.board_ingredient[i + 1]}')`, (err, result) => {})
+		con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
 	}
-	con.query(`INSERT INTO \`Default_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE('${req.body.recipe_name}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${snacks}', '${tools}');`, (err, result) =>{
+	con.query(`INSERT INTO \`Default_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE('${req.body.recipe_name}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${req.body.board_snacks}', '${req.body.board_tool}');`, (err, result) =>{
 		if (err){
 			res.json({result: false, error: err})
 		}else{
@@ -59,29 +59,30 @@ router.post('/my_board', (req, res) =>{
 
 	let datetime = new Date();
 	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
-	let snacks = ''
-	for (var i = 0; i < req.body.board_snack.length; i++){
-		if (i == req.body.board_snack.length - 1){
-			snacks = snacks + req.body.board_snack[i]
-		}else{
-			snacks = snacks + req.body.board_snack[i] + ', '
-		}
-	}
-	let tools = ''
-	for (var i = 0; i < req.body.board_tool.length; i++){
-		if(i == req.body.board_tool.length - 1){
-			tools = tools + req.body.board_tool[i]
-		}else{
-			tools = tools + req.body.board_tool[i] + ','
-		}
-	}
+	// let snacks = ''
+	// let snack = req.body.board_snack.split(',');
+	// for (var i = 0; i < snack.length; i++){
+	// 	if (i == req.body.board_snack.length - 1){
+	// 		snacks = snacks + req.body.board_snack[i]
+	// 	}else{
+	// 		snacks = snacks + req.body.board_snack[i] + ', '
+	// 	}
+	// }
+	// let tools = ''
+	// for (var i = 0; i < req.body.board_tool.length; i++){
+	// 	if(i == req.body.board_tool.length - 1){
+	// 		tools = tools + req.body.board_tool[i]
+	// 	}else{
+	// 		tools = tools + req.body.board_tool[i] + ','
+	// 	}
+	// }
 
 	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.recipeImg}')`, (err, result) => {})
-	for (var i = 0; i < req.body.board_ingredient.length; i++){
-		con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.board_ingredient[i][0]}', '${req.body.board_ingredient[i][1]}')`, (err, result) => {})
-		con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i][0]}', 1, '${req.body.board_ingredient[i][2]}') ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
+	for (var i = 0; i < req.body.board_ingredient.length; i = i + 2){
+		con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.board_ingredient[i]}', '${req.body.board_ingredient[i + 1]}')`, (err, result) => {})
+		con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE('${req.body.board_ingredient[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {})
 	}
-	con.query(`INSERT INTO \`My_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${snacks}', '${tools}');`, (err, result) =>{
+	con.query(`INSERT INTO \`My_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUE('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${req.body.board_snack}', '${req.body.board_tool}');`, (err, result) =>{
 		if (err){
 			res.json({result: false, error: err})
 		}else{
