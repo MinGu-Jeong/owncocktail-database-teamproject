@@ -80,6 +80,7 @@ window.onload = function () {
   }
 
   //db호출 부분
+  //기본칵테일인경우
   if (cocktailType === "default") {
     fetch("/search/default_board", {
       method: "POST",
@@ -179,6 +180,7 @@ window.onload = function () {
         console.error;
       });
   } else {
+    //나만의칵테일인 경우
     fetch("/search/my_board", {
       method: "POST",
       headers: {
@@ -203,7 +205,6 @@ window.onload = function () {
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-
             // 칵테일 재료 카드 컨테이너 찾기
             let $cocktailIngredientCardContainer = document.querySelector(
               ".cocktail-ingredient-card-container"
