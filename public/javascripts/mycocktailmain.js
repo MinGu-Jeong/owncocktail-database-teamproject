@@ -87,10 +87,10 @@ window.onload = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      allPage = Math.floor(data[0].count / 8 + 1);
-      console.log(allPage);
+      allPage = Math.ceil(data[0].count / 8);
+      console.log(data[0].count);
       const maxId = data[0].count || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
-      $pagetext.textContent = `1 / ${Math.floor(maxId / 8 + 1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
+      $pageText.textContent = `1 / ${Math.floor(maxId / 8)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
     })
     .catch((error) => {
       console.error;
@@ -102,24 +102,8 @@ function dropdown() {
   v.classList.toggle("show");
   dropbtn.style.borderColor = "rgb(94, 94, 94)";
 }
-const $owncocktailName1 = document.querySelector("#owncocktail-name1");
-const $owncocktailName2 = document.querySelector("#owncocktail-name2");
-const $owncocktailName3 = document.querySelector("#owncocktail-name3");
-const $owncocktailName4 = document.querySelector("#owncocktail-name4");
-const $owncocktailName5 = document.querySelector("#owncocktail-name5");
-const $owncocktailName6 = document.querySelector("#owncocktail-name6");
-const $owncocktailName7 = document.querySelector("#owncocktail-name7");
-const $owncocktailName8 = document.querySelector("#owncocktail-name8");
-const $owncocktailId1 = document.querySelector("#owncocktail-id1");
-const $owncocktailId2 = document.querySelector("#owncocktail-id2");
-const $owncocktailId3 = document.querySelector("#owncocktail-id3");
-const $owncocktailId4 = document.querySelector("#owncocktail-id4");
-const $owncocktailId5 = document.querySelector("#owncocktail-id5");
-const $owncocktailId6 = document.querySelector("#owncocktail-id6");
-const $owncocktailId7 = document.querySelector("#owncocktail-id7");
-const $owncocktailId8 = document.querySelector("#owncocktail-id8");
+
 function draw(path, thispage) {
-  console.log("나만의 칵테일 테스트");
   fetch(`/search/${path}_my_board`, {
     method: "POST",
     headers: {
@@ -133,22 +117,22 @@ function draw(path, thispage) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      $owncocktailName1.textContent = data[0].recipe_name;
-      $owncocktailName2.textContent = data[1].recipe_name;
-      $owncocktailName3.textContent = data[2].recipe_name;
-      $owncocktailName4.textContent = data[3].recipe_name;
-      $owncocktailName5.textContent = data[4].recipe_name;
-      $owncocktailName6.textContent = data[5].recipe_name;
-      $owncocktailName7.textContent = data[6].recipe_name;
-      $owncocktailName8.textContent = data[7].recipe_name;
-      $owncocktailId1.textContent = data[0].myboard_id;
-      $owncocktailId2.textContent = data[1].myboard_id;
-      $owncocktailId3.textContent = data[2].myboard_id;
-      $owncocktailId4.textContent = data[3].myboard_id;
-      $owncocktailId5.textContent = data[4].myboard_id;
-      $owncocktailId6.textContent = data[5].myboard_id;
-      $owncocktailId7.textContent = data[6].myboard_id;
-      $owncocktailId8.textContent = data[7].myboard_id;
+      for (let i = 0; i < data.length; i++) {
+        const cocktailNameElement = document.querySelector(
+          `#owncocktail-name${i + 1}`
+        );
+        const cocktailIdElement = document.querySelector(
+          `#owncocktail-id${i + 1}`
+        );
+        cocktailNameElement.textContent = data[i].recipe_name;
+        cocktailIdElement.textContent = data[i].myboard_id;
+      }
+      if (data.length < 8) {
+        for (let i = data.length; i < 8; i++) {
+          cocktailNameElements[i].textContent = "로딩중";
+          cocktailIdElements[i].textContent = "로딩중";
+        }
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -168,10 +152,6 @@ function changeSort(sortType, thispage) {
   } else if (sortType === "이름순") {
     draw("name", thispage);
   }
-
-  // 드롭다운 숨기기
-  var dropdownContent = document.getElementById("dropdown-content");
-  dropdownContent.classList.remove("active");
 }
 var dropbtn_icon = document.querySelector(".dropbtn_icon");
 var dropbtn_content = document.querySelector(".dropbtn_content");
@@ -192,9 +172,9 @@ window.onclick = (e) => {
   }
 };
 
-$pageText = document.getElementById("page-text");
-$pageLeftButton = document.getElementById("left-button");
-$pageRightButton = document.getElementById("right-button");
+const $pageText = document.getElementById("page-text");
+const $pageLeftButton = document.getElementById("left-button");
+const $pageRightButton = document.getElementById("right-button");
 
 $pageLeftButton.addEventListener("click", () => {
   if (pageCount > 1) {

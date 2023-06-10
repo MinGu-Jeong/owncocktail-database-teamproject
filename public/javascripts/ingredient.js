@@ -36,6 +36,9 @@ var dropbtn_click = document.querySelector(".dropbtn_click");
 var dropbtn = document.querySelector(".dropbtn");
 var pageCount = 1;
 var allPage = 20;
+$pageText = document.getElementById("page-text");
+$pageLeftButton = document.getElementById("left-button");
+$pageRightButton = document.getElementById("right-button");
 const options = document.getElementsByClassName("option");
 window.onload = function () {
   document.querySelector(".dropbtn_click").onclick = () => {
@@ -97,9 +100,10 @@ window.onload = function () {
     .then((data) => {
       console.log("갯수");
       console.log(data);
-      allPage = Math.floor(data[0].max_id / 8 + 1);
-      const maxId = data[0].max_id || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
-      $pagetext.textContent = `1 / ${Math.floor(maxId / 8 + 1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
+      allPage = Math.floor(data[0].count / 8 + 1);
+      console.log(allPage);
+      const maxId = data[0].count || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
+      $pageText.textContent = `1 / ${Math.floor(maxId / 8 + 1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
     })
     .catch((error) => {
       console.error;
@@ -171,10 +175,6 @@ window.onclick = (e) => {
     }
   }
 };
-
-$pageText = document.getElementById("page-text");
-$pageLeftButton = document.getElementById("left-button");
-$pageRightButton = document.getElementById("right-button");
 
 $pageLeftButton.addEventListener("click", () => {
   if (pageCount > 1) {
