@@ -62,16 +62,16 @@ router.post("/idCheck", (req, res) => {
  // ID 삭제 api
 router.post("/deletemember", (req, res) => {
   con.query(
-    `DELETE FROM \`member\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`My_Board\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`My_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`My_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`My_Board_Comment_Good\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`Default_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`Default_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
-    DELETE FROM \`Default_Board_Comment_Good\` WHERE \`member_id\` = '${req.body.member_id}'
-    `
+    `DELETE FROM \`member\` WHERE \`member_id\` = '${req.body.member_id}'`
+    // DELETE FROM \`My_Board\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`My_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`My_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`My_Board_Comment_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board_Comment_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+    
 ,(err, result) => {
       res.json({ result: true, id: req.body.member_id});
     }
