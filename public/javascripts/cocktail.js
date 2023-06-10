@@ -193,7 +193,7 @@ window.onload = function () {
       .then((response) => response.json())
       .then((data) => {
         // 재료 api 시작
-        fetch("/search/search_recipe", {
+        fetch("/search/search_my_recipe", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -64,7 +64,7 @@ router.post("/search_recipe", (req, res) => {
 router.post("/search_my_recipe", (req, res) => {
   let recipe_name;
   con.query(
-    `SELECT \`recipe_name\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.board_id}`,
+    `SELECT \`recipe_name\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.myboard_id}`,
     (err, result) => {
       recipe_name = result[0].recipe_name;
       con.query(
