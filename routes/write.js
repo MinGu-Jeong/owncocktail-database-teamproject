@@ -42,10 +42,16 @@ router.post('/default_board', (req, res) => {
 			 });
 		  }
 		  con.query(`INSERT INTO \`Default_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUES ('${req.body.recipe_name}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${req.body.board_snacks}', '${req.body.board_tool}');`, (err, result) => {
-			 if (err) {
+			if (err) {
 				res.json({ result: false, error: err });
 			 } else {
-				res.json({ result: true });
+				con.query(`SELECT \`board_id\` FROM \`Default_Board\` ORDER BY \`board_id\` DESC LIMIT 1`, (err, result) => {
+					if(err){
+						res.json({result: false, error: err});
+					}else{
+						res.json({ result: result });
+					}
+				})
 			 }
 		  });
 	   }
@@ -81,7 +87,13 @@ router.post('/my_board', (req, res) => {
 			 if (err) {
 				res.json({ result: false, error: err });
 			 } else {
-				res.json({ result: true });
+				con.query(`SELECT \`myboard_id\` FROM \`Default_Board\` ORDER BY \`myboard_id\` DESC LIMIT 1`, (err, result) => {
+					if(err){
+						res.json({result: false, error: err});
+					}else{
+						res.json({ result: result });
+					}
+				})
 			 }
 		  });
 	   }
