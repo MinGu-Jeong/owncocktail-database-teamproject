@@ -240,7 +240,7 @@ router.post("/my_board_search", (req, res) => {
 });
 
 router.post("/ingredient_count", (req, res) => {
-  con.query(`SELECT COUNT(*) FROM \`ingredient\``, (err, result) => {
+  con.query(`SELECT COUNT(*) AS count FROM \`ingredient\``, (err, result) => {
     if(err) throw err;
     res.json(result);
   });
