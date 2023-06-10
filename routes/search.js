@@ -84,7 +84,7 @@ router.post("/default_board", (req, res) => {
 
 router.post("/ingredient_board", (req, res) => {
   con.query(
-    `DISTINCT SELECT \`recipe_name\` FROM \`Recipe_Ingredient\` WHERE \`ingredient\` = '${req.body.name}'`,
+    `SELECT \`recipe_name\` FROM \`Recipe_Ingredient\` WHERE \`ingredient\` = '${req.body.name}'`,
     (err, result) => {
       res.json(result);
     }
