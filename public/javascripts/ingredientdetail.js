@@ -60,6 +60,13 @@ if (user && user.isLogin) {
     window.location.href = "./signup.html";
   };
 }
+const $ingredientName = document.querySelector("#ingredient-name1");
+const $recipeName1 = document.querySelector("#recipe-name1");
+const $recipeName2 = document.querySelector("#recipe-name2");
+const $recipeName3 = document.querySelector("#recipe-name3");
+const $recipeName4 = document.querySelector("#recipe-name4");
+const $recipeName5 = document.querySelector("#recipe-name5");
+$ingredientName.textContent = ingredientId;
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -103,8 +110,12 @@ fetch(`/search/ingredient_board`, {
 })
   .then((response) => response.json())
   .then((data) => {
-    console.log(data[0].recipe_name);
-    console.log("test");
+    console.log(data);
+    $recipeName1.textContent = data[0].recipe_name;
+    $recipeName2.textContent = data[1].recipe_name;
+    $recipeName3.textContent = data[2].recipe_name;
+    $recipeName4.textContent = data[3].recipe_name;
+    $recipeName5.textContent = data[4].recipe_name;
   })
   .catch((error) => {
     console.log(error);
