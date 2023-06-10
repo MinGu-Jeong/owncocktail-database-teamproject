@@ -9,7 +9,6 @@ let toolCount = 0;
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
@@ -38,6 +37,9 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
+  //작성자
+  $writerValue = document.querySelector("#writer-value");
+  $writerValue.textContent = user.id;
 };
 const $receipeAddButton = document.querySelector(".receipe-add-button");
 const $snackAddButton = document.querySelector(".snack-add-button");
