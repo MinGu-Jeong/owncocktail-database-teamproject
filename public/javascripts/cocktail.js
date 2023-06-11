@@ -41,7 +41,7 @@ window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
   const deleteContainer = document.querySelector(".delete-container");
-  const $recommentCount = document.querySelector(".recommend-count");
+  const $recommendCount = document.querySelector(".recommend-count");
   const $cocktailRecipe = document.querySelector(".cocktail-recipe-container");
   if (user && user.isLogin) {
     // 로그인이 된 상태
@@ -113,16 +113,31 @@ window.onload = function () {
             $cocktailIngredientCardContainer.innerHTML = "";
             // 칵테일 재료 카드 생성 후 컨테이너에 추가
             for (let i = 0; i < data.length; i++) {
-              // data크기를 data.length로 변경
               let $cocktailIngredientCard = document.createElement("div");
               $cocktailIngredientCard.classList.add("cocktail-ingredient-card");
+
+              let $cardContent = document.createElement("div"); // 추가된 부분
+              $cardContent.classList.add("card-content"); // 추가된 부분
+
+              let $cocktailIngredientCardImg = document.createElement("img");
+              $cocktailIngredientCardImg.classList.add("recipe-img");
+              $cocktailIngredientCardImg.src = data[i].ingredient_img_url;
+
+              $cardContent.appendChild($cocktailIngredientCardImg); // 변경된 부분
+
               let $recipeDetail = document.createElement("div");
               $recipeDetail.classList.add("recipe-detail");
+              $recipeDetail.textContent = data[i].ingredient_name;
 
-              $recipeDetail.textContent = data[i].ingredient_name; // 재료 이름을 카드에 표시하려는 경우
+              //용량
+              let $recipeRatio = document.createElement("div");
+              $recipeRatio.classList.add("recipe-ratio");
+              $recipeRatio.textContent = data[i].ratio;
 
-              // $ingredientDetail를 $cocktailIngredientCard에 추가
-              $cocktailIngredientCard.appendChild($recipeDetail);
+              $cardContent.appendChild($recipeDetail); // 변경된 부분
+              $cardContent.appendChild($recipeRatio); // 변경된 부분
+
+              $cocktailIngredientCard.appendChild($cardContent); // 추가된 부분
 
               $cocktailIngredientCardContainer.appendChild(
                 $cocktailIngredientCard
@@ -139,7 +154,7 @@ window.onload = function () {
         const $cocktailTitle = document.querySelector(".cocktail-title");
         console.log(data);
         $cocktailTitle.textContent = data[0].recipe_name;
-        $recommentCount.textContent = data[0].good_cnt;
+        $recommendCount.textContent = data[0].good_cnt;
         $cocktailRecipe.innerHTML = data[0].text;
         let snacks = data[0].snack;
         let snackArray = snacks.split(",");
@@ -147,7 +162,8 @@ window.onload = function () {
         let tools = data[0].tool;
         let toolArray = tools.split(",");
         const toolArraySize = toolArray.length;
-
+        const $cocktailImage = document.querySelector(".cocktail-img");
+        $cocktailImage.src = data[0].image;
         // 스낵 카드 컨테이너 찾기
         let $snackContainer = document.querySelector(".snack-container");
         // 이미 존재하는 스낵 카드들을 모두 삭제
@@ -217,13 +233,18 @@ window.onload = function () {
               // data크기를 data.length로 변경
               let $cocktailIngredientCard = document.createElement("div");
               $cocktailIngredientCard.classList.add("cocktail-ingredient-card");
+
               let $recipeDetail = document.createElement("div");
               $recipeDetail.classList.add("recipe-detail");
 
               $recipeDetail.textContent = data[i].ingredient_name; // 재료 이름을 카드에 표시하려는 경우
-
+              //용량
+              let $recipeRatio = document.createElement("div");
+              $recipeRatio.classList.add("recipe-ratio");
+              $recipeRatio.textContent = data[i].ratio;
               // $ingredientDetail를 $cocktailIngredientCard에 추가
               $cocktailIngredientCard.appendChild($recipeDetail);
+              $cocktailIngredientCard.appendChild($recipeRatio);
 
               $cocktailIngredientCardContainer.appendChild(
                 $cocktailIngredientCard
@@ -240,7 +261,7 @@ window.onload = function () {
         const $cocktailTitle = document.querySelector(".cocktail-title");
         console.log(data);
         $cocktailTitle.textContent = data[0].recipe_name;
-        $recommentCount.textContent = data[0].good_cnt;
+        $recommendCount.textContent = data[0].good_cnt;
         $cocktailRecipe.innerHTML = data[0].text;
         let snacks = data[0].snack;
         let snackArray = snacks.split(",");
@@ -417,3 +438,29 @@ function clickgoodbutton(member_id) {
       console.log(error);
     });
 }
+const $recommendButton = document.querySelector(".recommend");
+$recommendButton.addEventListener("click", (event) => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  if (cocktailType == "default") {
+    fetch("/write/good_default_board", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board_id: cocktailId,
+        member_id: user.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error;
+      });
+  } else {
+    console.log("own");
+  }
+});
+

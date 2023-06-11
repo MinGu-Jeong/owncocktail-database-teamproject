@@ -191,9 +191,22 @@ nav > button {
   font-size: 32px;
 }
 .cocktail-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 230px;
   height: 235px;
   border: 10px solid black;
+}
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.recipe-img {
+  width: 200px;
+  height: 200px;
 }
 .writer {
   display: flex;
@@ -256,7 +269,7 @@ nav > button {
 .snack-card,
 .tool-card {
   width: 230px;
-  height: 235px;
+  height: 255px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -267,7 +280,6 @@ nav > button {
 .recipe-detail,
 .snack-detail,
 .tool-detail {
-  margin-top: 350px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;

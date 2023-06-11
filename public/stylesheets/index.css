@@ -208,6 +208,10 @@ nav {
   align-items: center;
   margin-top: 10px;
 }
+.best-cocktail-image > img,
+.best-own-cocktail-image > img {
+  width: 130px;
+}
 .cocktail-summary {
   margin-top: -40px;
 }
