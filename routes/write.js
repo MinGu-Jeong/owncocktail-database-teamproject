@@ -151,7 +151,7 @@ router.post('/my_comment', (req, res) => {
    let minutes = datetime.getMinutes().toString().padStart(2, '0');
    let seconds = datetime.getSeconds().toString().padStart(2, '0');
    let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-   con.query(`INSERT INTO \`My_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`myboard_id\`) VALUE(${req.body.text}, ${req.body.member_id}, ${write_time}, ${req.body.board_id})`, (err, result) =>{
+   con.query(`INSERT INTO \`My_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`myboard_id\`) VALUE('${req.body.text}', '${req.body.member_id}', '${write_time}', ${req.body.board_id})`, (err, result) =>{
       if (err){
          res.json({result: false, error: err})
       }else{
