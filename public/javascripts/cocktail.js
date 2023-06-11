@@ -131,7 +131,13 @@ window.onload = function () {
               $recipeDetail.classList.add("recipe-detail");
               $recipeDetail.textContent = data[i].ingredient_name;
 
+              //용량
+              let $recipeRatio = document.createElement("div");
+              $recipeRatio.classList.add("recipe-ratio");
+              $recipeRatio.textContent = data[i].ratio;
+
               $cardContent.appendChild($recipeDetail); // 변경된 부분
+              $cardContent.appendChild($recipeRatio); // 변경된 부분
 
               $cocktailIngredientCard.appendChild($cardContent); // 추가된 부분
 
@@ -234,9 +240,13 @@ window.onload = function () {
               $recipeDetail.classList.add("recipe-detail");
 
               $recipeDetail.textContent = data[i].ingredient_name; // 재료 이름을 카드에 표시하려는 경우
-
+              //용량
+              let $recipeRatio = document.createElement("div");
+              $recipeRatio.classList.add("recipe-ratio");
+              $recipeRatio.textContent = data[i].ratio;
               // $ingredientDetail를 $cocktailIngredientCard에 추가
               $cocktailIngredientCard.appendChild($recipeDetail);
+              $cocktailIngredientCard.appendChild($recipeRatio);
 
               $cocktailIngredientCardContainer.appendChild(
                 $cocktailIngredientCard

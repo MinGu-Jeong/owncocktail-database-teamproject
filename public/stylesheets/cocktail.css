@@ -269,7 +269,7 @@ nav > button {
 .snack-card,
 .tool-card {
   width: 230px;
-  height: 235px;
+  height: 255px;
   display: flex;
   justify-content: center;
   align-items: center;
