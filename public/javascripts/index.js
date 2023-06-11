@@ -59,9 +59,7 @@ $signupButton.addEventListener("click", () => {
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
-$ownReceipeButton.addEventListener("click", () => {
-  window.location.href = "./mycocktailmain.html";
-});
+
 $ingredientButton.addEventListener("click", () => {
   window.location.href = "./ingredient.html";
 });
@@ -91,7 +89,6 @@ const $ownCocktailId2 = document.querySelector("#own-cocktail-id2");
 const $ownCocktailId3 = document.querySelector("#own-cocktail-id3");
 const $ownCocktailId4 = document.querySelector("#own-cocktail-id4");
 
-
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -100,6 +97,9 @@ window.onload = function () {
 
   if (user && user.isLogin) {
     // 로그인이 된 상태
+    $ownReceipeButton.addEventListener("click", () => {
+      window.location.href = "./mycocktailmain.html";
+    });
     $loginButtonTop.textContent = "로그아웃";
     $loginButtonTop.onclick = function () {
       // 로그아웃 로직 실행

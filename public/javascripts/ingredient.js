@@ -23,9 +23,6 @@ $ingredientButton.addEventListener("click", () => {
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
-$mycocktailmain.addEventListener("click", () => {
-  window.location.href = "./mycocktailmain.html";
-});
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
@@ -55,6 +52,9 @@ window.onload = function () {
   const user = JSON.parse(sessionStorage.getItem("user"));
   if (user && user.isLogin) {
     // 로그인이 된 상태
+    $ownReceipeButton.addEventListener("click", () => {
+      window.location.href = "./mycocktailmain.html";
+    });
     $loginButtonTop.textContent = "로그아웃";
     $loginButtonTop.onclick = function () {
       // 로그아웃 로직 실행
