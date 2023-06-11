@@ -59,18 +59,17 @@ $signupButton.addEventListener("click", () => {
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
-$ownReceipeButton.addEventListener("click", () => {
-  window.location.href = "./mycocktailmain.html";
-});
+
 $ingredientButton.addEventListener("click", () => {
   window.location.href = "./ingredient.html";
 });
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
-$mycocktailmain.addEventListener("click", () => {
-  window.location.href = "./mycocktailmain.html";
-});
+function showLoginAlert() {
+  alert("로그인 시 이용가능");
+}
+$ownReceipeButton.addEventListener("click", showLoginAlert);
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
@@ -90,6 +89,7 @@ const $ownCocktailId1 = document.querySelector("#own-cocktail-id1");
 const $ownCocktailId2 = document.querySelector("#own-cocktail-id2");
 const $ownCocktailId3 = document.querySelector("#own-cocktail-id3");
 const $ownCocktailId4 = document.querySelector("#own-cocktail-id4");
+
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -98,6 +98,10 @@ window.onload = function () {
 
   if (user && user.isLogin) {
     // 로그인이 된 상태
+    $ownReceipeButton.removeEventListener("click", showLoginAlert);
+    $ownReceipeButton.addEventListener("click", () => {
+      window.location.href = "./mycocktailmain.html";
+    });
     $loginButtonTop.textContent = "로그아웃";
     $loginButtonTop.onclick = function () {
       // 로그아웃 로직 실행
@@ -196,5 +200,6 @@ $bestOwnCocktailButtonContainer.addEventListener("click", (event) => {
   const cocktailButton = event.target.closest("button");
   if (!cocktailButton) return;
   const cocktailName = cocktailButton.children[1].textContent;
+  const cocktailId = cocktailButton.children[2].textContent;
   window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
 });

@@ -271,7 +271,7 @@ nav > button {
   cursor: pointer;
 }
 .change-pw:hover,
-.change-info:hover,
+.change-email:hover,
 .withdrawal:hover {
   background-color: #c199c5;
 }
@@ -300,7 +300,7 @@ nav > button {
 
   color: #000000;
 }
-.my-post-count{
+.my-post-count {
   margin-top: 15px;
   display: flex;
   font-family: "Inter";
@@ -339,7 +339,7 @@ nav > button {
 
   color: #000000;
 }
-.my-comment-count{
+.my-comment-count {
   margin-top: 15px;
   display: flex;
   font-family: "Inter";

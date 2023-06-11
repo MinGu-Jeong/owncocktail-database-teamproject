@@ -269,9 +269,10 @@ nav {
   gap: 40px;
 }
 .best-ingredient-button-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
-  gap: 150px;
+  gap: 100px;
   margin-bottom: 10px;
   padding: 20px;
   background-color: #9183a4;
@@ -280,6 +281,7 @@ nav {
 .best-ingredient-button-container > button {
   display: flex;
   justify-content: center;
+  justify-self: center;
   align-items: center;
   width: 220px;
   height: 220px;
@@ -329,7 +331,9 @@ nav {
   align-items: center;
   justify-content: center;
 }
-
+.best-ingredient-image > img {
+  width: 130px;
+}
 .move-page {
   display: flex;
   justify-content: center;
@@ -362,4 +366,8 @@ nav {
 }
 #right-button:hover {
   border-left: 20px solid #3030ac;
+}
+
+.hidden {
+  display: none;
 }

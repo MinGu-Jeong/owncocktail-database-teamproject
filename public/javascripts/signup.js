@@ -23,13 +23,14 @@ $signupButtonTop.addEventListener("click", () => {
 });
 const $id = document.getElementById("id");
 const $idCheck = document.getElementById("id-check");
-const $idCheckView = document.getElementsByClassName("id-check-view");
 
 // 비밀번호 입력, 비번 일치 확인
 const $pw = document.getElementById("pw");
 const $pwCheckView = document.getElementsByClassName("pw-check-view");
 const $signupButton = document.getElementById("signup-button");
 const $pwCheck = document.getElementById("pw-check");
+const $email = document.getElementById("email");
+const $check_email_view = document.getElementsByClassName("email-check-view");
 
 // 비밀번호 일치 확인
 $pwCheck.addEventListener("blur", () => {
@@ -170,6 +171,7 @@ signupBTN.addEventListener("click", () => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      window.location.href = "/login.html";
       alert(data.message);
     })
     .catch((error) => {
@@ -179,7 +181,7 @@ signupBTN.addEventListener("click", () => {
 
 // 아이디 중복 확인 이벤트: 아이디 중복 체크
 const $check_id_view = document.getElementsByClassName("id-check-view");
-$check_id.addEventListener("keyup", (e) => {
+$id.addEventListener("keyup", (e) => {
   const idVal = decodeURIComponent(document.querySelector("#id").value);
   fetch("/users/idCheck", {
     method: "POST",
