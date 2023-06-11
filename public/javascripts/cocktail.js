@@ -279,3 +279,68 @@ window.onload = function () {
       });
   }
 };
+
+function addcomment(member_id, text, datetime, good_cnt) {
+  // Create comment card element
+  const commentCard = document.createElement("div");
+  commentCard.classList.add("comment-card");
+
+  // Create user element
+  const userElement = document.createElement("div");
+  userElement.classList.add("comment-user");
+  userElement.textContent = `작성자 : ${member_id}`;
+
+  // Create comment text element
+  const commentTextElement = document.createElement("div");
+  commentTextElement.classList.add("comment-text");
+  commentTextElement.textContent = text;
+
+  // Create comment date element
+  const commentDateElement = document.createElement("div");
+  commentDateElement.classList.add("comment-date");
+  commentDateElement.textContent = datetime;
+
+  // Create positive button element
+  const positiveButton = document.createElement("button");
+  positiveButton.classList.add("positive");
+  positiveButton.textContent = `${good_cnt} 👍`;
+
+  // Append user, comment text, comment date, and positive button elements to the comment card
+  commentCard.appendChild(userElement);
+  commentCard.appendChild(commentTextElement);
+  commentCard.appendChild(commentDateElement);
+  commentCard.appendChild(positiveButton);
+
+  // Get the comment card container element
+  const $commentCardContainer = document.querySelector(
+    ".comment-card-container"
+  );
+
+  // Append the comment card to the container
+  $commentCardContainer.appendChild(commentCard);
+}
+fetch("/search/default_comment", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    board_id: cocktailId,
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("댓글 불러오기");
+    data.forEach((data) => {
+      console.log("test");
+      addcomment(
+        data.member_id,
+        data.text,
+        data.datetime.slice(0, 10),
+        data.good_cnt
+      );
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
