@@ -278,7 +278,7 @@ router.post("/good_default_board", (req, res) => {
   con.query(
     `SELECT COUNT(*) count FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`,
     (err, result) => {
-      if (result[0].count == 0) {
+      if (result[0].count === 0) {
         con.query(
           `INSERT INTO \`DefaultBoard_Good\` (\`member_id\`, \`board_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`,
           (err, result) => {
