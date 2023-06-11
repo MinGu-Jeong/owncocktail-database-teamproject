@@ -20,9 +20,18 @@ router.post('/default_board', (req, res) => {
 	   return;
 	}
  
-	let datetime = new Date();
-	let write_time = datetime.getFullYear() + '-' + (datetime.getMonth() + 1) + '-' + datetime.getDate() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds();
+	// let datetime = new Date();
+	// let write_time = datetime.getFullYear() + '-' + (datetime.getMonth() + 1) + '-' + datetime.getDate() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds();
  
+	let datetime = new Date();
+	let year = datetime.getFullYear();
+	let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
+	let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
+	let hours = datetime.getHours().toString().padStart(2, '0');
+	let minutes = datetime.getMinutes().toString().padStart(2, '0');
+	let seconds = datetime.getSeconds().toString().padStart(2, '0');
+	let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
 	let ingredients = req.body.board_ingredient.split(',');
  
 	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUES ('${req.body.recipe_name}', null)`, (err, result) => {
@@ -62,9 +71,18 @@ router.post('/default_board', (req, res) => {
 
 router.post('/my_board', (req, res) => {
 
-	let datetime = new Date();
-	let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDate() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds();
+	// let datetime = new Date();
+	// let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDate() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds();
  
+	let datetime = new Date();
+	let year = datetime.getFullYear();
+	let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
+	let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
+	let hours = datetime.getHours().toString().padStart(2, '0');
+	let minutes = datetime.getMinutes().toString().padStart(2, '0');
+	let seconds = datetime.getSeconds().toString().padStart(2, '0');
+	let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
 	let ingredients = req.body.board_ingredient.split(',');
  
 	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUES ('${req.body.recipe_name + '_' + req.body.member_id}', null)`, (err, result) => {
@@ -102,8 +120,18 @@ router.post('/my_board', (req, res) => {
  
 
 router.post('/default_comment', (req, res) =>{
-   let datetime = new Date();
-   let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+//    let datetime = new Date();
+//    let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+
+let datetime = new Date();
+let year = datetime.getFullYear();
+let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
+let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
+let hours = datetime.getHours().toString().padStart(2, '0');
+let minutes = datetime.getMinutes().toString().padStart(2, '0');
+let seconds = datetime.getSeconds().toString().padStart(2, '0');
+let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
    con.query(`INSERT INTO \`Default_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`board_id\`) VALUE(${req.body.text}, ${req.body.member_id}, ${write_time}, ${req.body.board_id})`, (err, result) =>{
       if (err){
          res.json({result: false, error: err})
@@ -116,8 +144,16 @@ router.post('/default_comment', (req, res) =>{
 })
 
 router.post('/my_comment', (req, res) => {
-   let datetime = new Date();
-   let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+//    let datetime = new Date();
+//    let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
+	let datetime = new Date();
+	let year = datetime.getFullYear();
+	let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
+	let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
+	let hours = datetime.getHours().toString().padStart(2, '0');
+	let minutes = datetime.getMinutes().toString().padStart(2, '0');
+	let seconds = datetime.getSeconds().toString().padStart(2, '0');
+	let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
    con.query(`INSERT INTO \`My_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`myboard_id\`) VALUE(${req.body.text}, ${req.body.member_id}, ${write_time}, ${req.body.board_id})`, (err, result) =>{
       if (err){
          res.json({result: false, error: err})
