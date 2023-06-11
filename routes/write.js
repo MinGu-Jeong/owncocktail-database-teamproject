@@ -230,9 +230,9 @@ router.post('/good_default_board', (req, res) => {
 		}
 	})
  });
-
+ 
  router.post('/good_default_board_comment', (req, res) => {
-	con.query(`SELECT COUNT(*) count FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_commend_id\` = '${req.body.board_comment_id}`, (err, result) => {
+	con.query(`SELECT COUNT(*) count FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_comment_id}`, (err, result) => {
 		if(result[0].count == 0){
 			con.query(`INSERT INTO \`DefaultBoardComment_Good\` (\`member_id\`, \`board_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_comment_id}')`, (err, result) => {
 				if (err) {
