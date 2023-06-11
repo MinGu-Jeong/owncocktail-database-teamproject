@@ -399,3 +399,7 @@ nav > button {
   position: absolute;
   right: 0;
 }
+
+.commentid-hidden {
+  display: none;
+}

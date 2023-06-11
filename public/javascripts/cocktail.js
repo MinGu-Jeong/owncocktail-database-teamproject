@@ -43,8 +43,6 @@ window.onload = function () {
   const deleteContainer = document.querySelector(".delete-container");
   const $recommentCount = document.querySelector(".recommend-count");
   const $cocktailRecipe = document.querySelector(".cocktail-recipe-container");
-  const user = JSON.parse(sessionStorage.getItem("user"));
-
   if (user && user.isLogin) {
     // 로그인이 된 상태
     $loginButtonTop.textContent = "로그아웃";
@@ -285,45 +283,56 @@ window.onload = function () {
   }
 };
 
-function addcomment(member_id, text, datetime, good_cnt) {
-  // Create comment card element
+function addcomment(member_id, text, datetime, good_cnt, comment_id) {
+  // 댓글 카드 요소 생성
   const commentCard = document.createElement("div");
   commentCard.classList.add("comment-card");
 
-  // Create user element
+  // 작성자 요소 생성
   const userElement = document.createElement("div");
   userElement.classList.add("comment-user");
-  userElement.textContent = `작성자 : ${member_id}`;
+  userElement.textContent = `작성자: ${member_id}`;
 
-  // Create comment text element
+  // 댓글 내용 요소 생성
   const commentTextElement = document.createElement("div");
   commentTextElement.classList.add("comment-text");
   commentTextElement.textContent = text;
 
-  // Create comment date element
+  // 댓글 날짜 요소 생성
   const commentDateElement = document.createElement("div");
   commentDateElement.classList.add("comment-date");
   commentDateElement.textContent = datetime;
 
-  // Create positive button element
+  // 좋아요 버튼 요소 생성
   const positiveButton = document.createElement("button");
   positiveButton.classList.add("positive");
   positiveButton.textContent = `${good_cnt} 👍`;
 
-  // Append user, comment text, comment date, and positive button elements to the comment card
+  // comment_id를 데이터 속성으로 저장
+  positiveButton.setAttribute("data-comment-id", comment_id);
+
+  // positive 버튼에 이벤트 리스너 추가
+  positiveButton.addEventListener("click", function () {
+    const commentId = this.getAttribute("data-comment-id");
+    console.log("댓글 ID:", commentId);
+    // 댓글 ID를 활용하여 추가 동작 수행
+  });
+
+  // 작성자, 댓글 내용, 댓글 날짜, 좋아요 버튼 요소를 댓글 카드에 추가
   commentCard.appendChild(userElement);
   commentCard.appendChild(commentTextElement);
   commentCard.appendChild(commentDateElement);
   commentCard.appendChild(positiveButton);
 
-  // Get the comment card container element
+  // 댓글 카드 컨테이너 요소 가져오기
   const $commentCardContainer = document.querySelector(
     ".comment-card-container"
   );
 
-  // Append the comment card to the container
+  // 댓글 카드를 컨테이너에 추가
   $commentCardContainer.appendChild(commentCard);
 }
+
 fetch("/search/default_comment", {
   method: "POST",
   headers: {
@@ -336,16 +345,71 @@ fetch("/search/default_comment", {
   .then((response) => response.json())
   .then((data) => {
     console.log("댓글 불러오기");
+    console.log(data);
     data.forEach((data) => {
       console.log("test");
       addcomment(
         data.member_id,
         data.text,
         data.datetime.slice(0, 10),
-        data.good_cnt
+        data.good_cnt,
+        data.board_comment_id
       );
     });
   })
   .catch((error) => {
     console.log(error);
   });
+const $commentInput = document.getElementById("comment-input");
+const $commentInputBTN = document.getElementById("comment-button");
+var inputData = "";
+const user = JSON.parse(sessionStorage.getItem("user"));
+//댓글 작성
+$commentInputBTN.addEventListener("click", function (event) {
+  inputData = $commentInput.value;
+  console.log(inputData);
+  fetch("/write/default_comment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: `${inputData}`,
+      member_id: `${user.id}`,
+      board_id: `${cocktailId}`,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("댓글 불러오기");
+      data.forEach((data) => {
+        console.log("test");
+        addcomment(
+          data.member_id,
+          data.text,
+          data.datetime.slice(0, 10),
+          data.good_cnt
+        );
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+//댓글 좋아요
+function clickgoodbutton(comment_id) {
+  fetch("/write/default_comment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      member_id: `${comment_id}`,
+      board_id: `${cocktailId}`,
+    }),
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.log(error);
+    });
+}
