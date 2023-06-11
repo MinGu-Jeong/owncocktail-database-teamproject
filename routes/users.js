@@ -93,6 +93,17 @@ router.post("/phoneCheck", (req, res) => {
   );
 });
 
+router.post("/email_check", (req, res) => {
+  con.query(`SELECT COUNT(*) AS count FROM \`member\` WHERE \`email\` = '${req.body.email}`, (err, result) => {
+    if(err) throw err;
+    if (result[0].count >= 1){
+      res.json({result: false})
+    }else{
+      res.json({result: true})
+    }
+  })
+})
+
 // 회원가입(추가) api
 router.post("/signup", (req, res) => {
   con.query(
