@@ -231,7 +231,7 @@ router.post("/my_comment", (req, res) => {
     seconds;
   con
     .query(
-      `INSERT INTO \`My_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`myboard_id\`) VALUE(${req.body.text}, ${req.body.member_id}, ${write_time}, ${req.body.board_id})`,
+      `INSERT INTO \`My_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`myboard_id\`) VALUE('${req.body.text}', '${req.body.member_id}', '${write_time}', ${req.body.board_id})`,
       (err, result) => {
         if (err) {
           res.json({ result: false, error: err });
@@ -246,59 +246,59 @@ router.post("/my_comment", (req, res) => {
 });
 
 // 보류
-router.post("/default_delete", (req, res) => {
-  con
-    .query(
-      `DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${
-        req.member_id
-      } AND \`board_id\` = ${req.body.board_id}
-   DELETE FROM \`Default_Board_Comment\` WHERE \`board_id\` = ${
-     req.body.board_id
-   }
-   UPDATE \`ingredient\` SET \`count\` = \`count\` - 1 WHERE \`name\` IN (SELECT \`ingredient\` FROM \`Recipe\` WHERE \`recipe_name\` = ${
-     req.body.board_title + "_" + req.body.member_id
-   })
-   DELETE FROM \`Recipe\` WHERE \`recipe_name\` = ${
-     req.body.board_title + "_" + req.body.member_id
-   }`,
-      (err, result) => {
-        if (err) {
-          res.json({ result: false, error: err });
-        } else {
-          res.json({ result: true });
-        }
-      }
-    )
-    .catch((err) => {
-      res.json({ result: false, error: err });
-    });
-});
+// router.post("/default_delete", (req, res) => {
+//   con
+//     .query(
+//       `DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${
+//         req.member_id
+//       } AND \`board_id\` = ${req.body.board_id}
+//    DELETE FROM \`Default_Board_Comment\` WHERE \`board_id\` = ${
+//      req.body.board_id
+//    }
+//    UPDATE \`ingredient\` SET \`count\` = \`count\` - 1 WHERE \`name\` IN (SELECT \`ingredient\` FROM \`Recipe\` WHERE \`recipe_name\` = ${
+//      req.body.board_title + "_" + req.body.member_id
+//    })
+//    DELETE FROM \`Recipe\` WHERE \`recipe_name\` = ${
+//      req.body.board_title + "_" + req.body.member_id
+//    }`,
+//       (err, result) => {
+//         if (err) {
+//           res.json({ result: false, error: err });
+//         } else {
+//           res.json({ result: true });
+//         }
+//       }
+//     )
+//     .catch((err) => {
+//       res.json({ result: false, error: err });
+//     });
+// });
 
-router.post("/my_delete", (req, res) => {
-  con
-    .query(
-      `DELETE FROM \`My_Board\` WHERE \`member_id\` = '${
-        req.member_id
-      } AND \`board_id\` = ${req.body.board_id}
-   DELETE FROM \`My_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}
-   UPDATE \`ingredient\` SET \`count\` = \`count\` - 1 WHERE \`name\` IN (SELECT \`ingredient\` FROM \`Recipe\` WHERE \`recipe_name\` = ${
-     req.body.board_title + "_" + req.body.member_id
-   })
-   DELETE FROM \`Recipe\` WHERE \`recipe_name\` = ${
-     req.body.board_title + "_" + req.body.member_id
-   }`,
-      (err, result) => {
-        if (err) {
-          res.json({ result: false, error: err });
-        } else {
-          res.json({ result: true });
-        }
-      }
-    )
-    .catch((err) => {
-      res.json({ result: false, error: err });
-    });
-});
+// router.post("/my_delete", (req, res) => {
+//   con
+//     .query(
+//       `DELETE FROM \`My_Board\` WHERE \`member_id\` = '${
+//         req.member_id
+//       } AND \`board_id\` = ${req.body.board_id}
+//    DELETE FROM \`My_Board_Comment\` WHERE \`board_id\` = ${req.body.board_id}
+//    UPDATE \`ingredient\` SET \`count\` = \`count\` - 1 WHERE \`name\` IN (SELECT \`ingredient\` FROM \`Recipe\` WHERE \`recipe_name\` = ${
+//      req.body.board_title + "_" + req.body.member_id
+//    })
+//    DELETE FROM \`Recipe\` WHERE \`recipe_name\` = ${
+//      req.body.board_title + "_" + req.body.member_id
+//    }`,
+//       (err, result) => {
+//         if (err) {
+//           res.json({ result: false, error: err });
+//         } else {
+//           res.json({ result: true });
+//         }
+//       }
+//     )
+//     .catch((err) => {
+//       res.json({ result: false, error: err });
+//     });
+// });
 
 router.post("/good_default_board", (req, res) => {
   con.query(
@@ -400,18 +400,45 @@ router.post("/good_default_board_comment", (req, res) => {
 
 router.post("/good_my_board", (req, res) => {
   con.query(
-    `INSERT INTO \`MyBoard_Good\` (\`member_id\`, \`myboard_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`,
+    `SELECT COUNT(*) count FROM \`MyBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_id\` = '${req.body.board_id}'`,
     (err, result) => {
-      if (err) {
-        res.json({ result: false, error: err });
-      } else {
+      if (result[0].count == 0) {
         con.query(
-          `UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_id\` = '${req.body.board_id}'`,
+          `INSERT INTO \`MyBoard_Good\` (\`member_id\`, \`myboard_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`,
           (err, result) => {
             if (err) {
               res.json({ result: false, error: err });
             } else {
-              res.json({ result: true });
+              con.query(
+                `UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_id\` = '${req.body.board_id}'`,
+                (err, result) => {
+                  if (err) {
+                    res.json({ result: false, error: err });
+                  } else {
+                    res.json({ result: true });
+                  }
+                }
+              );
+            }
+          }
+        );
+      } else {
+        con.query(
+          `DELETE FROM \`MyBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_id\` = '${req.body.board_id}'`,
+          (err, result) => {
+            if (err) {
+              res.json({ result: false, error: err });
+            } else {
+              con.query(
+                `UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_id\` = '${req.body.board_id}'`,
+                (err, result) => {
+                  if (err) {
+                    res.json({ result: false, error: err });
+                  } else {
+                    res.json({ result: true });
+                  }
+                }
+              );
             }
           }
         );
@@ -422,106 +449,45 @@ router.post("/good_my_board", (req, res) => {
 
 router.post("/good_my_board_comment", (req, res) => {
   con.query(
-    `INSERT INTO \`MyBoardComment_Good\` (\`member_id\`, \`myboard_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`,
+    `SELECT COUNT(*) count FROM \`MyBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_comment_id\` = '${req.body.myboard_comment_id}'`,
     (err, result) => {
-      if (err) {
-        res.json({ result: false, error: err });
-      } else {
+      if (result.length > 0 && result[0].count == 0) {
         con.query(
-          `UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_comment_id\` = '${req.body.board_id}'`,
+          `INSERT INTO \`MyBoardComment_Good\` (\`member_id\`, \`myboard_comment_id\`) VALUES ('${req.body.member_id}', '${req.body.myboard_comment_id}')`,
           (err, result) => {
             if (err) {
               res.json({ result: false, error: err });
             } else {
-              res.json({ result: true });
+              con.query(
+                `UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_comment_id\` = '${req.body.myboard_comment_id}'`,
+                (err, result) => {
+                  if (err) {
+                    res.json({ result: false, error: err });
+                  } else {
+                    res.json({ result: true });
+                  }
+                }
+              );
             }
           }
         );
-      }
-    }
-  );
-});
-
-router.post("/good_default_board_cancel", (req, res) => {
-  con.query(
-    `DELETE FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`,
-    (err, result) => {
-      if (err) {
-        res.json({ result: false, error: err });
       } else {
         con.query(
-          `UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = '${req.body.board_id}'`,
+          `DELETE FROM \`MyBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_comment_id\` = '${req.body.myboard_comment_id}'`,
           (err, result) => {
             if (err) {
               res.json({ result: false, error: err });
             } else {
-              res.json({ result: true });
-            }
-          }
-        );
-      }
-    }
-  );
-});
-
-router.post("/good_default_board_comment_cancel", (req, res) => {
-  con.query(
-    `DELETE FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_id}'`,
-    (err, result) => {
-      if (err) {
-        res.json({ result: false, error: err });
-      } else {
-        con.query(
-          `UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_comment_id\` = '${req.body.board_id}'`,
-          (err, result) => {
-            if (err) {
-              res.json({ result: false, error: err });
-            } else {
-              res.json({ result: true });
-            }
-          }
-        );
-      }
-    }
-  );
-});
-
-router.post("/good_my_board_cancel", (req, res) => {
-  con.query(
-    `DELETE FROM \`MyBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_id\` = '${req.body.board_id}'`,
-    (err, result) => {
-      if (err) {
-        res.json({ result: false, error: err });
-      } else {
-        con.query(
-          `UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_id\` = '${req.body.board_id}'`,
-          (err, result) => {
-            if (err) {
-              res.json({ result: false, error: err });
-            } else {
-              res.json({ result: true });
-            }
-          }
-        );
-      }
-    }
-  );
-});
-
-router.post("/good_my_board_comment_cancel", (req, res) => {
-  con.query(
-    `DELETE FROM \`MyBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_comment_id\` = '${req.body.board_id}'`,
-    (err, result) => {
-      if (err) {
-        res.json({ result: false, error: err });
-      } else {
-        con.query(
-          `UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_comment_id\` = '${req.body.board_id}'`,
-          (err, result) => {
-            if (err) {
-              res.json({ result: false, error: err });
-            } else {
-              res.json({ result: true });
+              con.query(
+                `UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_comment_id\` = '${req.body.myboard_comment_id}'`,
+                (err, result) => {
+                  if (err) {
+                    res.json({ result: false, error: err });
+                  } else {
+                    res.json({ result: true });
+                  }
+                }
+              );
             }
           }
         );
