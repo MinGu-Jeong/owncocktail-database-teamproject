@@ -111,13 +111,12 @@ function createItemElement(id, title, memberId, writeTime, goodCount) {
   goCocktailButton.addEventListener("click", () => {
     const cocktailId = id; // 또는 필요한 id 값을 가져와서 할당
     console.log(cocktailId);
-    if (id.startsWith("my")) {
-      window.location.href = `./cocktail.html?id=${cocktailId.slice(
-        2,
-        3
+    if (typeof id === "string" && id.startsWith("my")) {
+      window.location.href = `./cocktail.html?id=${String(id).slice(
+        2
       )}&type=own`;
     } else {
-      window.location.href = `./cocktail.html?id=${cocktailId}&type=default`;
+      window.location.href = `./cocktail.html?id=${String(id)}&type=default`;
     }
   });
   // Append the elements to their respective parents
