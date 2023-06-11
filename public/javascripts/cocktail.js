@@ -20,15 +20,16 @@ $signupButton.addEventListener("click", () => {
 $recipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
-$ownRecipeButton.addEventListener("click", () => {
-  window.location.href = "./mycocktailmain.html";
-});
 $ingredientButton.addEventListener("click", () => {
   window.location.href = "./ingredient.html";
 });
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
+function showLoginAlert() {
+  alert("로그인 시 이용가능");
+}
+$ownRecipeButton.addEventListener("click", showLoginAlert);
 // 칵테일 id 가져오기
 // 칵테일 type (기본칵테일인지 나만의 칵테일인지) 가져오기
 let searchParams = new URLSearchParams(window.location.search);
@@ -45,6 +46,10 @@ window.onload = function () {
   const $cocktailRecipe = document.querySelector(".cocktail-recipe-container");
   if (user && user.isLogin) {
     // 로그인이 된 상태
+    $ownRecipeButton.removeEventListener("click", showLoginAlert);
+    $ownRecipeButton.addEventListener("click", () => {
+      window.location.href = "./mycocktailmain.html";
+    });
     $loginButtonTop.textContent = "로그아웃";
     $loginButtonTop.onclick = function () {
       // 로그아웃 로직 실행
@@ -463,4 +468,3 @@ $recommendButton.addEventListener("click", (event) => {
     console.log("own");
   }
 });
-
