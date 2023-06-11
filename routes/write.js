@@ -15,104 +15,104 @@ con.connect(function(err){
 })
 
 router.post('/default_board', (req, res) => {
-	if (req.body.member_id !== 'admin') {
-	   res.json({ result: false, error: "not admin" });
-	   return;
-	}
+   if (req.body.member_id !== 'admin') {
+      res.json({ result: false, error: "not admin" });
+      return;
+   }
 
-	let datetime = new Date();
-	let year = datetime.getFullYear();
-	let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
-	let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
-	let hours = datetime.getHours().toString().padStart(2, '0');
-	let minutes = datetime.getMinutes().toString().padStart(2, '0');
-	let seconds = datetime.getSeconds().toString().padStart(2, '0');
-	let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+   let datetime = new Date();
+   let year = datetime.getFullYear();
+   let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
+   let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
+   let hours = datetime.getHours().toString().padStart(2, '0');
+   let minutes = datetime.getMinutes().toString().padStart(2, '0');
+   let seconds = datetime.getSeconds().toString().padStart(2, '0');
+   let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
-	let ingredients = req.body.board_ingredient.split(',');
+   let ingredients = req.body.board_ingredient.split(',');
  
-	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUES ('${req.body.recipe_name}', null)`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  for (var i = 0; i < ingredients.length; i = i + 2) {
-			 con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUES ('${req.body.recipe_name}', '${ingredients[i]}', '${ingredients[i + 1]}')`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				}
-			 });
-			 con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE ('${ingredients[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				}
-			 });
-		  }
-		  con.query(`INSERT INTO \`Default_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUES ('${req.body.recipe_name}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${req.body.board_snacks}', '${req.body.board_tool}');`, (err, result) => {
-			if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				con.query(`SELECT \`board_id\` FROM \`Default_Board\` ORDER BY \`board_id\` DESC LIMIT 1`, (err, result) => {
-					if(err){
-						res.json({result: false, error: err});
-					}else{
-						res.json({ result: result });
-					}
-				})
-			 }
-		  });
-	   }
-	});
+   con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUES ('${req.body.recipe_name}', null)`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        for (var i = 0; i < ingredients.length; i = i + 2) {
+          con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUES ('${req.body.recipe_name}', '${ingredients[i]}', '${ingredients[i + 1]}')`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            }
+          });
+          con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE ('${ingredients[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            }
+          });
+        }
+        con.query(`INSERT INTO \`Default_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUES ('${req.body.recipe_name}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${req.body.board_snacks}', '${req.body.board_tool}');`, (err, result) => {
+         if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            con.query(`SELECT \`board_id\` FROM \`Default_Board\` ORDER BY \`board_id\` DESC LIMIT 1`, (err, result) => {
+               if(err){
+                  res.json({result: false, error: err});
+               }else{
+                  res.json({ result: result });
+               }
+            })
+          }
+        });
+      }
+   });
  });
  
 
 
 router.post('/my_board', (req, res) => {
 
-	// let datetime = new Date();
-	// let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDate() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds();
+   // let datetime = new Date();
+   // let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDate() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds();
  
-	let datetime = new Date();
-	let year = datetime.getFullYear();
-	let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
-	let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
-	let hours = datetime.getHours().toString().padStart(2, '0');
-	let minutes = datetime.getMinutes().toString().padStart(2, '0');
-	let seconds = datetime.getSeconds().toString().padStart(2, '0');
-	let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+   let datetime = new Date();
+   let year = datetime.getFullYear();
+   let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
+   let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
+   let hours = datetime.getHours().toString().padStart(2, '0');
+   let minutes = datetime.getMinutes().toString().padStart(2, '0');
+   let seconds = datetime.getSeconds().toString().padStart(2, '0');
+   let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
-	let ingredients = req.body.board_ingredient.split(',');
+   let ingredients = req.body.board_ingredient.split(',');
  
-	con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUES ('${req.body.recipe_name + '_' + req.body.member_id}', null)`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  for (var i = 0; i < ingredients.length; i = i + 2) {
-			 con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUES ('${req.body.recipe_name + '_' + req.body.member_id}', '${ingredients[i]}', ${ingredients[i + 1]})`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				}
-			 });
-			 con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE ('${ingredients[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				}
-			 });
-		  }
-		  con.query(`INSERT INTO \`My_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUES ('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${req.body.board_snack}', '${req.body.board_tool}');`, (err, result) => {
-			 if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				con.query(`SELECT \`myboard_id\` FROM \`My_Board\` ORDER BY \`myboard_id\` DESC LIMIT 1`, (err, result) => {
-					if(err){
-						res.json({result: false, error: err});
-					}else{
-						res.json({ result: result });
-					}
-				})
-			 }
-		  });
-	   }
-	});
+   con.query(`INSERT INTO \`Recipe\` (\`recipe_name\`, \`img_url\`) VALUES ('${req.body.recipe_name + '_' + req.body.member_id}', null)`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        for (var i = 0; i < ingredients.length; i = i + 2) {
+          con.query(`INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUES ('${req.body.recipe_name + '_' + req.body.member_id}', '${ingredients[i]}', ${ingredients[i + 1]})`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            }
+          });
+          con.query(`INSERT INTO \`Ingredient\` (\`ingredient_name\`, \`count\`, \`ingredient_img_url\`) VALUE ('${ingredients[i]}', 1, null) ON DUPLICATE KEY UPDATE \`count\` = \`count\` + 1;`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            }
+          });
+        }
+        con.query(`INSERT INTO \`My_Board\` (\`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`snack\`, \`tool\`) VALUES ('${req.body.recipe_name + '_' + req.body.member_id}', '${req.body.member_id}', '${write_time}', '${req.body.board_text}', '${req.body.board_snack}', '${req.body.board_tool}');`, (err, result) => {
+          if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            con.query(`SELECT \`myboard_id\` FROM \`My_Board\` ORDER BY \`myboard_id\` DESC LIMIT 1`, (err, result) => {
+               if(err){
+                  res.json({result: false, error: err});
+               }else{
+                  res.json({ result: result });
+               }
+            })
+          }
+        });
+      }
+   });
  });
  
 
@@ -143,14 +143,14 @@ let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + 
 router.post('/my_comment', (req, res) => {
 //    let datetime = new Date();
 //    let write_time = datetime.getFullYear() + '-' + datetime.getMonth() + '-' + datetime.getDay() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds()
-	let datetime = new Date();
-	let year = datetime.getFullYear();
-	let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
-	let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
-	let hours = datetime.getHours().toString().padStart(2, '0');
-	let minutes = datetime.getMinutes().toString().padStart(2, '0');
-	let seconds = datetime.getSeconds().toString().padStart(2, '0');
-	let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+   let datetime = new Date();
+   let year = datetime.getFullYear();
+   let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
+   let day = datetime.getDate().toString().padStart(2, '0'); // 일(day) 값을 가져오고, 2자리로 표시하도록 패딩을 추가합니다.
+   let hours = datetime.getHours().toString().padStart(2, '0');
+   let minutes = datetime.getMinutes().toString().padStart(2, '0');
+   let seconds = datetime.getSeconds().toString().padStart(2, '0');
+   let write_time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
    con.query(`INSERT INTO \`My_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`myboard_id\`) VALUE(${req.body.text}, ${req.body.member_id}, ${write_time}, ${req.body.board_id})`, (err, result) =>{
       if (err){
          res.json({result: false, error: err})
@@ -195,170 +195,169 @@ router.post('/my_delete', (req, res) => {
 
 router.post('/good_default_board', (req, res) => {
 
-	con.query(`SELECT COUNT(*) count FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-		if(result[0].count == 0){
-			con.query(`INSERT INTO \`DefaultBoard_Good\` (\`member_id\`, \`board_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				} else {
-				   con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-					  if (err) {
-						 res.json({ result: false, error: err });
-					  } else {
-						 res.json({ result: true });
-					  }
-				   });
-				}
-			 });
-		}else{
-			con.query(`DELETE FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				} else {
-				   con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-					  if (err) {
-						 res.json({ result: false, error: err });
-					  } else {
-						 res.json({ result: true });
-					  }
-				   });
-				}
-			 });
-		}
-	})
+   con.query(`SELECT COUNT(*) count FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
+      if(result[0].count == 0){
+         con.query(`INSERT INTO \`DefaultBoard_Good\` (\`member_id\`, \`board_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            } else {
+               con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
+                 if (err) {
+                   res.json({ result: false, error: err });
+                 } else {
+                   res.json({ result: true });
+                 }
+               });
+            }
+          });
+      }else{
+         con.query(`DELETE FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            } else {
+               con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
+                 if (err) {
+                   res.json({ result: false, error: err });
+                 } else {
+                   res.json({ result: true });
+                 }
+               });
+            }
+          });
+      }
+   })
  });
 
  router.post('/good_default_board_comment', (req, res) => {
-	con.query(`SELECT COUNT(*) count FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_comment_id}`, (err, result) => {
-		if(result[0].count == 0){
-			con.query(`INSERT INTO \`DefaultBoardComment_Good\` (\`member_id\`, \`board_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_comment_id}')`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				} else {
-				   con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`board_comment_id\` = '${req.body.board_comment_id}'`, (err, result) => {
-					  if (err) {
-						 res.json({ result: false, error: err });
-					  } else {
-						 res.json({ result: true });
-					  }
-				   });
-				}
-			 });
-		}else{
-			con.query(`DELETE FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_comment_id}'`, (err, result) => {
-				if (err) {
-				   res.json({ result: false, error: err });
-				} else {
-				   con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_comment_id\` = '${req.body.board_comment_id}'`, (err, result) => {
-					  if (err) {
-						 res.json({ result: false, error: err });
-					  } else {
-						 res.json({ result: true });
-					  }
-				   });
-				}
-			 });
-		}
-	})
-	
+   con.query(`SELECT COUNT(*) count FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_comment_id}`, (err, result) => {
+      if(result[0].count == 0){
+         con.query(`INSERT INTO \`DefaultBoardComment_Good\` (\`member_id\`, \`board_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_comment_id}')`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            } else {
+               con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`board_comment_id\` = '${req.body.board_comment_id}'`, (err, result) => {
+                 if (err) {
+                   res.json({ result: false, error: err });
+                 } else {
+                   res.json({ result: true });
+                 }
+               });
+            }
+          });
+      }else{
+         con.query(`DELETE FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_comment_id}'`, (err, result) => {
+            if (err) {
+               res.json({ result: false, error: err });
+            } else {
+               con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_comment_id\` = '${req.body.board_comment_id}'`, (err, result) => {
+                 if (err) {
+                   res.json({ result: false, error: err });
+                 } else {
+                   res.json({ result: true });
+                 }
+               });
+            }
+          });
+      }
+   })
+   
  });
 
- 
- 
+
  router.post('/good_my_board', (req, res) => {
-	con.query(`INSERT INTO \`MyBoard_Good\` (\`member_id\`, \`myboard_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  con.query(`UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
-			 if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				res.json({ result: true });
-			 }
-		  });
-	   }
-	});
+   con.query(`INSERT INTO \`MyBoard_Good\` (\`member_id\`, \`myboard_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        con.query(`UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
+          if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            res.json({ result: true });
+          }
+        });
+      }
+   });
  });
  
  router.post('/good_my_board_comment', (req, res) => {
-	con.query(`INSERT INTO \`MyBoardComment_Good\` (\`member_id\`, \`myboard_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  con.query(`UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_comment_id\` = '${req.body.board_id}'`, (err, result) => {
-			 if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				res.json({ result: true });
-			 }
-		  });
-	   }
-	});
+   con.query(`INSERT INTO \`MyBoardComment_Good\` (\`member_id\`, \`myboard_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        con.query(`UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`myboard_comment_id\` = '${req.body.board_id}'`, (err, result) => {
+          if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            res.json({ result: true });
+          }
+        });
+      }
+   });
  });
  
  router.post('/good_default_board_cancel', (req, res) => {
-	con.query(`DELETE FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-			 if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				res.json({ result: true });
-			 }
-		  });
-	   }
-	});
+   con.query(`DELETE FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
+          if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            res.json({ result: true });
+          }
+        });
+      }
+   });
  });
  
  router.post('/good_default_board_comment_cancel', (req, res) => {
-	con.query(`DELETE FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_id}'`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_comment_id\` = '${req.body.board_id}'`, (err, result) => {
-			 if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				res.json({ result: true });
-			 }
-		  });
-	   }
-	});
+   con.query(`DELETE FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_id}'`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_comment_id\` = '${req.body.board_id}'`, (err, result) => {
+          if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            res.json({ result: true });
+          }
+        });
+      }
+   });
  });
  
  router.post('/good_my_board_cancel', (req, res) => {
-	con.query(`DELETE FROM \`MyBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  con.query(`UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
-			 if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				res.json({ result: true });
-			 }
-		  });
-	   }
-	});
+   con.query(`DELETE FROM \`MyBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        con.query(`UPDATE \`My_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
+          if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            res.json({ result: true });
+          }
+        });
+      }
+   });
  });
  
  router.post('/good_my_board_comment_cancel', (req, res) => {
-	con.query(`DELETE FROM \`MyBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_comment_id\` = '${req.body.board_id}'`, (err, result) => {
-	   if (err) {
-		  res.json({ result: false, error: err });
-	   } else {
-		  con.query(`UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_comment_id\` = '${req.body.board_id}'`, (err, result) => {
-			 if (err) {
-				res.json({ result: false, error: err });
-			 } else {
-				res.json({ result: true });
-			 }
-		  });
-	   }
-	});
+   con.query(`DELETE FROM \`MyBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`myboard_comment_id\` = '${req.body.board_id}'`, (err, result) => {
+      if (err) {
+        res.json({ result: false, error: err });
+      } else {
+        con.query(`UPDATE \`My_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`myboard_comment_id\` = '${req.body.board_id}'`, (err, result) => {
+          if (err) {
+            res.json({ result: false, error: err });
+          } else {
+            res.json({ result: true });
+          }
+        });
+      }
+   });
  });
  
 
