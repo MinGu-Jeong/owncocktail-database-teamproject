@@ -25,17 +25,22 @@ $ingredientButton.addEventListener("click", () => {
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
-$mycocktailmain.addEventListener("click", () => {
-  window.location.href = "./mycocktailmain.html";
-});
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
+function showLoginAlert() {
+  alert("로그인 시 이용가능");
+}
+$mycocktailmain.addEventListener("click", showLoginAlert);
 const $loginButtonTop = document.querySelector("#login-button");
 const $signupButtonTop = document.querySelector("#signup-button");
 const user = JSON.parse(sessionStorage.getItem("user"));
 if (user && user.isLogin) {
   // 로그인이 된 상태
+  $mycocktailmain.removeEventListener("click", showLoginAlert);
+  $mycocktailmain.addEventListener("click", () => {
+    window.location.href = "./mycocktailmain.html";
+  });
   $loginButtonTop.textContent = "로그아웃";
   $loginButtonTop.onclick = function () {
     // 로그아웃 로직 실행
