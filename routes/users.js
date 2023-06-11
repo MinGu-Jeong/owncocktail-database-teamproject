@@ -59,10 +59,10 @@ router.post("/idCheck", (req, res) => {
   );
 });
 
- // ID 삭제 api
+// ID 삭제 api
 router.post("/deletemember", (req, res) => {
   con.query(
-    `DELETE FROM \`member\` WHERE \`member_id\` = '${req.body.member_id}'`
+    `DELETE FROM \`member\` WHERE \`member_id\` = '${req.body.member_id}'`,
     // DELETE FROM \`My_Board\` WHERE \`member_id\` = '${req.body.member_id}'
     // DELETE FROM \`My_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
     // DELETE FROM \`My_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
@@ -71,13 +71,12 @@ router.post("/deletemember", (req, res) => {
     // DELETE FROM \`Default_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
     // DELETE FROM \`Default_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
     // DELETE FROM \`Default_Board_Comment_Good\` WHERE \`member_id\` = '${req.body.member_id}'
-    
-,(err, result) => {
-      res.json({ result: true, id: req.body.member_id});
+
+    (err, result) => {
+      res.json({ result: true, id: req.body.member_id });
     }
   );
 });
-
 
 // 전화번호 중복 확인 api
 router.post("/phoneCheck", (req, res) => {
@@ -94,15 +93,18 @@ router.post("/phoneCheck", (req, res) => {
 });
 
 router.post("/email_check", (req, res) => {
-  con.query(`SELECT COUNT(*) AS count FROM \`member\` WHERE \`email\` = '${req.body.email}`, (err, result) => {
-    if(err) throw err;
-    if (result[0].count >= 1){
-      res.json({result: false})
-    }else{
-      res.json({result: true})
+  con.query(
+    `SELECT COUNT(*) AS count FROM \`member\` WHERE \`email\` = '${req.body.email}'`,
+    (err, result) => {
+      if (err) throw err;
+      if (result[0].count >= 1) {
+        res.json({ result: false });
+      } else {
+        res.json({ result: true });
+      }
     }
-  })
-})
+  );
+});
 
 // 회원가입(추가) api
 router.post("/signup", (req, res) => {
@@ -127,52 +129,66 @@ router.post("/signup", (req, res) => {
 });
 
 // 마이페이지 정보 반환
-router.post("/mypage_info", (req, res) =>{
-  con.query(`SELECT * FROM member WHERE member_id = \'${req.body.member_id}\'`, (err, result) =>{
-    res.json(result);
-  })
-})
+router.post("/mypage_info", (req, res) => {
+  con.query(
+    `SELECT * FROM member WHERE member_id = \'${req.body.member_id}\'`,
+    (err, result) => {
+      res.json(result);
+    }
+  );
+});
 
 //게시글 수 정보 반환
 router.post("/myboard_count", (req, res) => {
-con.query(
-  `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`, 
-(err, result) => {
-    if (err) throw err;
-    res.json(result);
-});
+  con.query(
+    `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`,
+    (err, result) => {
+      if (err) throw err;
+      res.json(result);
+    }
+  );
 });
 
 //댓글 수 정보 반환
 router.post("/mycomment_count", (req, res) => {
   const member_id = req.body.member_id;
-  
-  con.query(`SELECT COUNT(*) AS count FROM My_Board_Comment WHERE member_id = '${member_id}'`, 
-  (err, result1) => {
+
+  con.query(
+    `SELECT COUNT(*) AS count FROM My_Board_Comment WHERE member_id = '${member_id}'`,
+    (err, result1) => {
       if (err) throw err;
 
-      con.query(`SELECT COUNT(*) AS count FROM Default_Board_Comment WHERE member_id = '${member_id}'`,
-      (err, result2) => {
+      con.query(
+        `SELECT COUNT(*) AS count FROM Default_Board_Comment WHERE member_id = '${member_id}'`,
+        (err, result2) => {
           if (err) throw err;
 
           const total = result1[0].count + result2[0].count;
           res.json({ total_comments: total });
-      });
-  });
+        }
+      );
+    }
+  );
 });
 
 // 비밀번호 변경
 router.post("/passwd_update", (req, res) => {
-  con.query(`UPDATE \`member\` SET \`passwd\` = '${req.body.passwd}' WHERE \`member_id\` = '${req.body.member_id}'`, (err, result) =>{
-    res.json({result: true})
-  })
-})
+  con.query(
+    `UPDATE \`member\` SET \`passwd\` = '${req.body.passwd}' WHERE \`member_id\` = '${req.body.member_id}'`,
+    (err, result) => {
+      res.json({ result: true });
+    }
+  );
+});
 
 // 이메일 변경
 router.post("/email_update", (req, res) => {
-  con.query(`UPDATE \`member\` SET \`email\` = \'${req.body.email}\' WHERE \`member_id\` = \'${req.body.member_id}\'`, (err, result) =>{
-    res.json({result: true})
-  })
-})
+  con.query(
+    `UPDATE \`member\` SET \`email\` = \'${req.body.email}\' WHERE \`member_id\` = \'${req.body.member_id}\'`,
+    (err, result) => {
+      res.json({ result: true });
+    }
+  );
+});
 
 module.exports = router;

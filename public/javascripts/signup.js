@@ -24,17 +24,29 @@ const $pw = document.getElementById("pw");
 const $pwCheckView = document.getElementsByClassName("pw-check-view");
 const $signupButton = document.getElementById("signup-button");
 const $pwCheck = document.getElementById("pw-check");
+const $email = document.getElementById("email");
+const $check_email_view = document.getElementsByClassName("email-check-view");
 
 // 비밀번호 일치 확인
-$pwCheck.addEventListener("blur", () => {
+$pwCheck.addEventListener("keyup", () => {
   if ($pw.value !== $pwCheck.value) {
     $pwCheckView[0].style.display = "block";
-    if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+    if (
+      $check_id_view[0].style.display == "block" ||
+      $check_phone_view[0].style.display == "block" ||
+      $pwCheckView[0].style.display == "block" ||
+      $check_email_view[0].style.display == "block"
+    ) {
       $signupButton.disabled = true;
     }
   } else {
     $pwCheckView[0].style.display = "none";
-    if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+    if (
+      $check_id_view[0].style.display == "none" &&
+      $check_phone_view[0].style.display == "none" &&
+      $pwCheckView[0].style.display == "none" &&
+      $check_email_view[0].style.display == "none"
+    ) {
       $signupButton.disabled = false;
     }
   }
@@ -100,14 +112,63 @@ $phoneNumber.addEventListener("keyup", (e) => {
         console.log("전화번호 사용 가능!");
         // alert("아이디 사용 가능!")
         $check_phone_view[0].style.display = "none";
-        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+        if (
+          $check_id_view[0].style.display == "none" &&
+          $check_phone_view[0].style.display == "none" &&
+          $pwCheckView[0].style.display == "none"
+        ) {
           $signupButton.disabled = false;
         }
       } else {
         console.log("전화번호 사용 불가능!");
         // alert("아이디 사용 불가능!")
         $check_phone_view[0].style.display = "block";
-        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+        if (
+          $check_id_view[0].style.display == "block" ||
+          $check_phone_view[0].style.display == "block" ||
+          $pwCheckView[0].style.display == "block"
+        ) {
+          $signupButton.disabled = true;
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+//이메일 중복 확인 및 이메일 형식 확인(@필수)
+$email.addEventListener("keyup", (e) => {
+  fetch("/users/email_check", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      email: $email.value,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.result == true) {
+        console.log("이메일 사용 가능!");
+        $check_email_view[0].style.display = "none";
+        if (
+          $check_email_view[0].style.display == "none" &&
+          $check_id_view[0].style.display == "none" &&
+          $check_phone_view[0].style.display == "none" &&
+          $pwCheckView[0].style.display == "none"
+        ) {
+          $signupButton.disabled = false;
+        }
+      } else {
+        console.log("이메일 사용 불가능!");
+        $check_email_view[0].style.display = "block";
+        if (
+          $check_id_view[0].style.display == "block" ||
+          $check_phone_view[0].style.display == "block" ||
+          $pwCheckView[0].style.display == "block" ||
+          $check_email_view[0].style.display == "block"
+        ) {
           $signupButton.disabled = true;
         }
       }
@@ -123,9 +184,13 @@ signupBTN.addEventListener("click", () => {
   const idval = decodeURIComponent(document.querySelector("#id").value);
   const pwval = decodeURIComponent(document.querySelector("#pw").value);
   const nameval = decodeURIComponent(document.querySelector("#name").value);
-  const birthdateval = decodeURIComponent(document.querySelector("#birthdate").value);
+  const birthdateval = decodeURIComponent(
+    document.querySelector("#birthdate").value
+  );
   const emailval = decodeURIComponent(document.querySelector("#email").value);
-  const phoneval = decodeURIComponent(document.querySelector("#phone-number").value);
+  const phoneval = decodeURIComponent(
+    document.querySelector("#phone-number").value
+  );
 
   fetch("/users/signup", {
     method: "POST",
@@ -149,11 +214,12 @@ signupBTN.addEventListener("click", () => {
     .catch((error) => {
       console.error(error);
     });
+  window.location.href = "/login";
 });
 
 // 아이디 중복 확인 이벤트: 아이디 중복 체크
 const $check_id_view = document.getElementsByClassName("id-check-view");
-$check_id.addEventListener("keyup", (e) => {
+$id.addEventListener("keyup", (e) => {
   const idVal = decodeURIComponent(document.querySelector("#id").value);
   fetch("/users/idCheck", {
     method: "POST",
@@ -170,14 +236,22 @@ $check_id.addEventListener("keyup", (e) => {
       if (data.message) {
         console.log("아이디 사용 가능!");
         $check_id_view[0].style.display = "none";
-        if($check_id_view[0].style.display == "none" && $check_phone_view[0].style.display == "none" && $pwCheckView[0].style.display == "none"){
+        if (
+          $check_id_view[0].style.display == "none" &&
+          $check_phone_view[0].style.display == "none" &&
+          $pwCheckView[0].style.display == "none"
+        ) {
           $signupButton.disabled = false;
         }
         // alert("아이디 사용 가능!")
       } else {
         console.log("아이디 사용 불가능!");
         $check_id_view[0].style.display = "block";
-        if($check_id_view[0].style.display == "block" || $check_phone_view[0].style.display == "block" || $pwCheckView[0].style.display == "block"){
+        if (
+          $check_id_view[0].style.display == "block" ||
+          $check_phone_view[0].style.display == "block" ||
+          $pwCheckView[0].style.display == "block"
+        ) {
           $signupButton.disabled = true;
         }
         // alert("아이디 사용 불가능!")
