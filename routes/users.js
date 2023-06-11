@@ -100,7 +100,7 @@ router.post("/signup", (req, res) => {
     (err, result) => {
       if (result.length == 0) {
         con.query(
-          `INSERT INTO member VALUES(\'${req.body.name}\', \'${req.body.phone}\', \'${req.body.id}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`
+          `INSERT INTO member VALUES(\'${req.body.id}\', \'${req.body.name}\', \'${req.body.phone}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`
         );
         res.json({ message: "가입 성공" });
       } else {
