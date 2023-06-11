@@ -174,7 +174,7 @@ router.post("/my_board", (req, res) => {
   );
 });
 
-router.post("/write/default_comment", (req, res) => {
+router.post("/default_comment", (req, res) => {
   let datetime = new Date();
   let year = datetime.getFullYear();
   let month = (datetime.getMonth() + 1).toString().padStart(2, "0");
@@ -196,7 +196,7 @@ router.post("/write/default_comment", (req, res) => {
     seconds;
 
   con.query(
-    `INSERT INTO \`Default_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`board_id\`) VALUES ('${req.body.text}', ${req.body.member_id}, '${write_time}', ${req.body.board_id})`,
+    `INSERT INTO \`Default_Board_Comment\` (\`text\`, \`member_id\`, \`datetime\`, \`board_id\`) VALUES ('${req.body.text}', '${req.body.member_id}', '${write_time}', ${req.body.board_id})`,
     (err, result) => {
       if (err) {
         res.json({ result: false, error: err });

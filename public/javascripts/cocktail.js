@@ -446,6 +446,7 @@ $commentInputBTN.addEventListener("click", function (event) {
     .then((data) => {
       console.log("댓글 작성");
       console.log(data);
+      window.location.reload();
       //새 댓글도 추가
       // addcomment(
       //   data.member_id,
