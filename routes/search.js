@@ -294,4 +294,22 @@ router.post("/my_comment", (req, res) => {
   );
 });
 
+router.post("/default_board_find_ID", (req, res) => {
+  const recipeName = req.body.recipe_name;
+  const query =
+    "SELECT `board_id` FROM `Default_Board` WHERE `recipe_name` = ?";
+  con.query(query, [recipeName], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    if (result.length === 0) {
+      res.json(null);
+    } else {
+      res.json(result);
+    }
+  });
+});
+
 module.exports = router;

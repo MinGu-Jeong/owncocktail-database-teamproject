@@ -37,7 +37,7 @@ const cocktailId = searchParams.get("id");
 const cocktailType = searchParams.get("type");
 //console.log(searchParams.get("id"));
 //console.log(searchParams.get("type"));
-
+const user = JSON.parse(sessionStorage.getItem("user"));
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
@@ -335,14 +335,20 @@ function addcomment(member_id, text, datetime, good_cnt, comment_id) {
   positiveButton.textContent = `${good_cnt} 👍`;
 
   // comment_id를 데이터 속성으로 저장
-  positiveButton.setAttribute("data-comment-member", comment_id);
-
+  positiveButton.setAttribute("data-comment-id", comment_id);
+  //댓글 순서
+  const currentOrder = document.querySelectorAll(".comment-card").length;
+  positiveButton.setAttribute("data-order", currentOrder);
   // positive 버튼에 이벤트 리스너 추가
   positiveButton.addEventListener("click", function () {
-    clickgoodbutton();
-    // 댓글 ID를 활용하여 추가 동작 수행
+    const board_comment_id = this.getAttribute("data-comment-id");
+    if (cocktailType == "default") {
+      clickgoodbuttonDefault(board_comment_id);
+    } else {
+      clickgoodbuttonMY(board_comment_id);
+    }
+    window.location.reload();
   });
-
   // 작성자, 댓글 내용, 댓글 날짜, 좋아요 버튼 요소를 댓글 카드에 추가
   commentCard.appendChild(userElement);
   commentCard.appendChild(commentTextElement);
@@ -358,71 +364,103 @@ function addcomment(member_id, text, datetime, good_cnt, comment_id) {
   $commentCardContainer.appendChild(commentCard);
 }
 
-fetch("/search/default_comment", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    board_id: cocktailId,
-  }),
-})
-  .then((response) => response.json())
-  .then((data) => {
-    console.log("댓글 불러오기");
-    console.log(data);
-    data.forEach((data) => {
-      console.log("test");
-      addcomment(
-        data.member_id,
-        data.text,
-        data.datetime.slice(0, 10),
-        data.good_cnt,
-        data.board_comment_id
-      );
-    });
+if (cocktailType == "default") {
+  fetch("/search/default_comment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      board_id: cocktailId,
+    }),
   })
-  .catch((error) => {
-    console.log(error);
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("댓글 불러오기");
+      console.log(data);
+      data.forEach((data) => {
+        console.log("test");
+        addcomment(
+          data.member_id,
+          data.text,
+          data.datetime.slice(0, 10),
+          data.good_cnt,
+          data.board_comment_id
+        );
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+} else {
+  fetch("/search/my_comment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      myboard_id: cocktailId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("댓글 불러오기");
+      console.log(data);
+      data.forEach((data) => {
+        console.log("나만의 댓글");
+        console.log(data);
+        addcomment(
+          data.member_id,
+          data.text,
+          data.datetime.slice(0, 10),
+          data.good_cnt,
+          data.board_comment_id
+        );
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 const $commentInput = document.getElementById("comment-input");
 const $commentInputBTN = document.getElementById("comment-button");
 var inputData = "";
-const user = JSON.parse(sessionStorage.getItem("user"));
 //댓글 작성
-// $commentInputBTN.addEventListener("click", function (event) {
-//   inputData = $commentInput.value;
-//   console.log(inputData);
-//   fetch("/write/default_comment", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       text: `${inputData}`,
-//       member_id: `${user.id}`,
-//       board_id: `${cocktailId}`,
-//     }),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log("댓글 불러오기");
-//       data.forEach((data) => {
-//         console.log("test");
-//         addcomment(
-//           data.member_id,
-//           data.text,
-//           data.datetime.slice(0, 10),
-//           data.good_cnt
-//         );
-//       });
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// });
+$commentInputBTN.addEventListener("click", function (event) {
+  inputData = $commentInput.value;
+  console.log(inputData);
+  console.log(user.id);
+  console.log(cocktailId);
+  fetch("/write/default_comment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: inputData,
+      member_id: user.id,
+      board_id: cocktailId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("댓글 작성");
+      console.log(data);
+      //새 댓글도 추가
+      // addcomment(
+      //   data.member_id,
+      //   data.text,
+      //   data.datetime.slice(0, 10),
+      //   data.good_cnt
+      // );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 //댓글 좋아요
-function clickgoodbutton() {
+function clickgoodbuttonDefault(board_comment_id) {
   fetch("/write/good_default_board_comment", {
     method: "POST",
     headers: {
@@ -430,7 +468,27 @@ function clickgoodbutton() {
     },
     body: JSON.stringify({
       member_id: `${user.id}`,
-      board_comment_id: `${cocktailId}`,
+      board_comment_id: `${board_comment_id}`,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+function clickgoodbuttonMY(board_comment_id) {
+  console.log(user.id);
+  fetch("/write/good_my_board", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      member_id: `${user.id}`,
+      board_comment_id: `${board_comment_id}`, //수정해야함
     }),
   })
     .then((response) => response.json())
