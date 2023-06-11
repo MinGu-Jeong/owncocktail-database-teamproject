@@ -443,6 +443,7 @@ function clickgoodbutton(member_id) {
       console.log(error);
     });
 }
+//게시글 추천 기능
 const $recommendButton = document.querySelector(".recommend");
 $recommendButton.addEventListener("click", (event) => {
   const user = JSON.parse(sessionStorage.getItem("user"));
