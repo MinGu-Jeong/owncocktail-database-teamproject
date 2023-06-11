@@ -269,7 +269,7 @@ nav > button {
 .snack-card,
 .tool-card {
   width: 230px;
-  height: 235px;
+  height: 255px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -393,4 +393,25 @@ nav > button {
 #delete-button:hover {
   background-color: red;
   color: white;
+}
+
+.comment-card {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.comment-user {
+  position: absolute;
+  left: 0px;
+}
+.positive {
+  position: absolute;
+  right: 0;
+}
+
+.commentid-hidden {
+  display: none;
 }
