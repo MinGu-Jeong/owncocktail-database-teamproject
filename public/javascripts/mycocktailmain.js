@@ -90,7 +90,7 @@ window.onload = function () {
       allPage = Math.ceil(data[0].count / 8);
       console.log(data[0].count);
       const maxId = data[0].count || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
-      $pageText.textContent = `1 / ${Math.floor(maxId / 8)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
+      $pageText.textContent = `1 / ${Math.floor(maxId / 8+1)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
     })
     .catch((error) => {
       console.error;
