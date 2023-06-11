@@ -194,9 +194,22 @@ $pageRightButton.addEventListener("click", () => {
 
 const $randomButton = document.getElementById("random-button");
 $randomButton.addEventListener("click", () => {
-  window.location.href = "./cocktail.html";
+  fetch("/search/random_my", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      window.location.href = "./cocktail.html?id=" + data.result + "&type=own";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
-
 const $bestCocktailButtonContainer = document.querySelector(
   ".best-cocktail-button-container"
 );

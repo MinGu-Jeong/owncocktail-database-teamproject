@@ -66,9 +66,10 @@ $ingredientButton.addEventListener("click", () => {
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
-$mycocktailmain.addEventListener("click", () => {
-  window.location.href = "./mycocktailmain.html";
-});
+function showLoginAlert() {
+  alert("로그인 시 이용가능");
+}
+$ownReceipeButton.addEventListener("click", showLoginAlert);
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
@@ -97,6 +98,7 @@ window.onload = function () {
 
   if (user && user.isLogin) {
     // 로그인이 된 상태
+    $ownReceipeButton.removeEventListener("click", showLoginAlert);
     $ownReceipeButton.addEventListener("click", () => {
       window.location.href = "./mycocktailmain.html";
     });

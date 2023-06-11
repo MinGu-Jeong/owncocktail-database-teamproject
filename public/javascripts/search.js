@@ -26,6 +26,10 @@ $searchButton.addEventListener("click", () => {
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
+function showLoginAlert() {
+  alert("로그인 시 이용가능");
+}
+$mycocktailmain.addEventListener("click", showLoginAlert);
 
 //로그인 성공 시 기능
 window.onload = function () {
@@ -36,7 +40,8 @@ window.onload = function () {
 
   if (user && user.isLogin) {
     // 로그인이 된 상태
-    $ownReceipeButton.addEventListener("click", () => {
+    $mycocktailmain.removeEventListener("click", showLoginAlert);
+    $mycocktailmain.addEventListener("click", () => {
       window.location.href = "./mycocktailmain.html";
     });
     $loginButtonTop.textContent = "로그아웃";

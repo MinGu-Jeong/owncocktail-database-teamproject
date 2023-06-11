@@ -23,6 +23,10 @@ $ingredientButton.addEventListener("click", () => {
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
+function showLoginAlert() {
+  alert("로그인 시 이용가능");
+}
+$mycocktailmain.addEventListener("click", showLoginAlert);
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
@@ -52,7 +56,8 @@ window.onload = function () {
   const user = JSON.parse(sessionStorage.getItem("user"));
   if (user && user.isLogin) {
     // 로그인이 된 상태
-    $ownReceipeButton.addEventListener("click", () => {
+    $mycocktailmain.removeEventListener("click", showLoginAlert);
+    $mycocktailmain.addEventListener("click", () => {
       window.location.href = "./mycocktailmain.html";
     });
     $loginButtonTop.textContent = "로그아웃";
@@ -130,10 +135,6 @@ function changeSort(sortType, thispage) {
   } else if (sortType === "이름순") {
     draw("name", thispage);
   }
-
-  // 드롭다운 숨기기
-  var dropdownContent = document.getElementById("dropdown-content");
-  dropdownContent.classList.remove("active");
 }
 function draw(path, thispage) {
   fetch(`/search/${path}_ingredient`, {
@@ -148,6 +149,7 @@ function draw(path, thispage) {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       $ingredientName1.textContent = data[0].ingredient_name;
       $ingredientName2.textContent = data[1].ingredient_name;
       $ingredientName3.textContent = data[2].ingredient_name;

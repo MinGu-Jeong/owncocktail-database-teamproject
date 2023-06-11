@@ -24,6 +24,10 @@ $ingredientButton.addEventListener("click", () => {
 $searchButton.addEventListener("click", () => {
   window.location.href = "./search.html";
 });
+function showLoginAlert() {
+  alert("로그인 시 이용가능");
+}
+$mycocktailmain.addEventListener("click", showLoginAlert);
 $receipeButton.addEventListener("click", () => {
   window.location.href = "./cocktailmain.html";
 });
@@ -46,10 +50,11 @@ window.onload = function () {
     if (user.id == "admin") {
       $newReceipeButton.style.display = "block";
     }
-    $ownReceipeButton.addEventListener("click", () => {
+    $loginButtonTop.textContent = "로그아웃";
+    $mycocktailmain.removeEventListener("click", showLoginAlert);
+    $mycocktailmain.addEventListener("click", () => {
       window.location.href = "./mycocktailmain.html";
     });
-    $loginButtonTop.textContent = "로그아웃";
     $loginButtonTop.onclick = function () {
       // 로그아웃 로직 실행
       sessionStorage.removeItem("user"); // 세션스토리지에서 사용자 정보 삭제
