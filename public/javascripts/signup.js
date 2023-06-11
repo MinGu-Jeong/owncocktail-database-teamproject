@@ -212,12 +212,12 @@ signupBTN.addEventListener("click", () => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      window.location.href = "/login.html";
       alert(data.message);
     })
     .catch((error) => {
       console.error(error);
     });
-  window.location.href = "/login";
 });
 
 // 아이디 중복 확인 이벤트: 아이디 중복 체크
