@@ -17,7 +17,6 @@ $signupButtonTop.addEventListener("click", () => {
 });
 const $id = document.getElementById("id");
 const $idCheck = document.getElementById("id-check");
-const $idCheckView = document.getElementsByClassName("id-check-view");
 
 // 비밀번호 입력, 비번 일치 확인
 const $pw = document.getElementById("pw");
@@ -28,7 +27,7 @@ const $email = document.getElementById("email");
 const $check_email_view = document.getElementsByClassName("email-check-view");
 
 // 비밀번호 일치 확인
-$pwCheck.addEventListener("keyup", () => {
+$pwCheck.addEventListener("blur", () => {
   if ($pw.value !== $pwCheck.value) {
     $pwCheckView[0].style.display = "block";
     if (
@@ -42,10 +41,14 @@ $pwCheck.addEventListener("keyup", () => {
   } else {
     $pwCheckView[0].style.display = "none";
     if (
-      $check_id_view[0].style.display == "none" &&
-      $check_phone_view[0].style.display == "none" &&
-      $pwCheckView[0].style.display == "none" &&
-      $check_email_view[0].style.display == "none"
+      ($check_id_view[0].style.display == "none" ||
+        $check_id_view[0].style.display == "") &&
+      ($check_phone_view[0].style.display == "none" ||
+        $check_phone_view[0].style.display == "") &&
+      ($pwCheckView[0].style.display == "none" ||
+        $pwCheckView[0].style.display == "") &&
+      ($check_email_view[0].style.display == "none" ||
+        $check_email_view[0].style.display == "")
     ) {
       $signupButton.disabled = false;
     }
@@ -150,7 +153,7 @@ $email.addEventListener("keyup", (e) => {
     .then((response) => response.json())
     .then((data) => {
       if (data.result == true) {
-        console.log("이메일 사용 가능!");
+        // console.log("이메일 사용 가능!");
         $check_email_view[0].style.display = "none";
         if (
           $check_email_view[0].style.display == "none" &&
@@ -161,7 +164,7 @@ $email.addEventListener("keyup", (e) => {
           $signupButton.disabled = false;
         }
       } else {
-        console.log("이메일 사용 불가능!");
+        // console.log("이메일 사용 불가능!");
         $check_email_view[0].style.display = "block";
         if (
           $check_id_view[0].style.display == "block" ||
@@ -237,9 +240,14 @@ $id.addEventListener("keyup", (e) => {
         console.log("아이디 사용 가능!");
         $check_id_view[0].style.display = "none";
         if (
-          $check_id_view[0].style.display == "none" &&
-          $check_phone_view[0].style.display == "none" &&
-          $pwCheckView[0].style.display == "none"
+          ($check_id_view[0].style.display == "none" ||
+            $check_id_view[0].style.display == "") &&
+          ($check_phone_view[0].style.display == "none" ||
+            $check_phone_view[0].style.display == "") &&
+          ($pwCheckView[0].style.display == "none" ||
+            $pwCheckView[0].style.display == "") &&
+          ($check_email_view[0].style.display == "none" ||
+            $check_email_view[0].style.display == "")
         ) {
           $signupButton.disabled = false;
         }
@@ -250,7 +258,8 @@ $id.addEventListener("keyup", (e) => {
         if (
           $check_id_view[0].style.display == "block" ||
           $check_phone_view[0].style.display == "block" ||
-          $pwCheckView[0].style.display == "block"
+          $pwCheckView[0].style.display == "block" ||
+          $check_email_view[0].style.display == "block"
         ) {
           $signupButton.disabled = true;
         }
