@@ -335,13 +335,11 @@ function addcomment(member_id, text, datetime, good_cnt, comment_id) {
   positiveButton.textContent = `${good_cnt} 👍`;
 
   // comment_id를 데이터 속성으로 저장
-  positiveButton.setAttribute("data-comment-member", member_id);
+  positiveButton.setAttribute("data-comment-member", comment_id);
 
   // positive 버튼에 이벤트 리스너 추가
   positiveButton.addEventListener("click", function () {
-    const memberID = this.getAttribute("data-comment-member");
-    console.log(memberID);
-    clickgoodbutton(memberID);
+    clickgoodbutton();
     // 댓글 ID를 활용하여 추가 동작 수행
   });
 
@@ -392,46 +390,46 @@ const $commentInputBTN = document.getElementById("comment-button");
 var inputData = "";
 const user = JSON.parse(sessionStorage.getItem("user"));
 //댓글 작성
-$commentInputBTN.addEventListener("click", function (event) {
-  inputData = $commentInput.value;
-  console.log(inputData);
-  fetch("/write/default_comment", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      text: `${inputData}`,
-      member_id: `${user.id}`,
-      board_id: `${cocktailId}`,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("댓글 불러오기");
-      data.forEach((data) => {
-        console.log("test");
-        addcomment(
-          data.member_id,
-          data.text,
-          data.datetime.slice(0, 10),
-          data.good_cnt
-        );
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
+// $commentInputBTN.addEventListener("click", function (event) {
+//   inputData = $commentInput.value;
+//   console.log(inputData);
+//   fetch("/write/default_comment", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       text: `${inputData}`,
+//       member_id: `${user.id}`,
+//       board_id: `${cocktailId}`,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log("댓글 불러오기");
+//       data.forEach((data) => {
+//         console.log("test");
+//         addcomment(
+//           data.member_id,
+//           data.text,
+//           data.datetime.slice(0, 10),
+//           data.good_cnt
+//         );
+//       });
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// });
 //댓글 좋아요
-function clickgoodbutton(member_id) {
+function clickgoodbutton() {
   fetch("/write/good_default_board_comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      member_id: `${member_id}`,
+      member_id: `${user.id}`,
       board_comment_id: `${cocktailId}`,
     }),
   })

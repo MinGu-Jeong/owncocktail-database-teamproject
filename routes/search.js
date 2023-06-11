@@ -128,7 +128,7 @@ router.post("/name_default_board", (req, res) => {
 
 router.post("/date_default_board", (req, res) => {
   con.query(
-    `SELECR \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${
+    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num};`,
     (err, result) => {
@@ -161,7 +161,7 @@ router.post("/name_my_board", (req, res) => {
 
 router.post("/date_my_board", (req, res) => {
   con.query(
-    `SELECR \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num};`,
     (err, result) => {
