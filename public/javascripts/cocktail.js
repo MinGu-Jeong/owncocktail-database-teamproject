@@ -106,7 +106,6 @@ window.onload = function () {
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-
             // 칵테일 재료 카드 컨테이너 찾기
             let $cocktailIngredientCardContainer = document.querySelector(
               ".cocktail-ingredient-card-container"
@@ -136,6 +135,9 @@ window.onload = function () {
             console.error;
           });
         // 재료 api 끝
+        //작성자
+        $writerValue = document.querySelector("#writer-value");
+        $writerValue.textContent = data[0].member_id;
         const $cocktailTitle = document.querySelector(".cocktail-title");
         console.log(data);
         $cocktailTitle.textContent = data[0].recipe_name;
@@ -234,6 +236,9 @@ window.onload = function () {
             console.error;
           });
         // 재료 api 끝
+        //작성자
+        $writerValue = document.querySelector("#writer-value");
+        $writerValue.textContent = data[0].member_id;
         const $cocktailTitle = document.querySelector(".cocktail-title");
         console.log(data);
         $cocktailTitle.textContent = data[0].recipe_name;
