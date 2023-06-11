@@ -93,6 +93,17 @@ router.post("/phoneCheck", (req, res) => {
   );
 });
 
+router.post("/email_check", (req, res) => {
+  con.query(`SELECT COUNT(*) AS count FROM \`member\` WHERE \`email\` = '${req.body.email}`, (err, result) => {
+    if(err) throw err;
+    if (result[0].count >= 1){
+      res.json({result: false})
+    }else{
+      res.json({result: true})
+    }
+  })
+})
+
 // 회원가입(추가) api
 router.post("/signup", (req, res) => {
   con.query(
@@ -100,7 +111,7 @@ router.post("/signup", (req, res) => {
     (err, result) => {
       if (result.length == 0) {
         con.query(
-          `INSERT INTO member VALUES(\'${req.body.name}\', \'${req.body.phone}\', \'${req.body.id}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`
+          `INSERT INTO member VALUES(\'${req.body.id}\', \'${req.body.name}\', \'${req.body.phone}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`
         );
         res.json({ message: "가입 성공" });
       } else {
