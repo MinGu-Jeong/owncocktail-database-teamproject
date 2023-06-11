@@ -178,11 +178,11 @@ router.post('/good_default_board', (req, res) => {
 				}
 			 });
 		}else{
-			con.query(`INSERT INTO \`DefaultBoardComment_Good\` (\`member_id\`, \`board_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
+			con.query(`DELETE FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
 				if (err) {
 				   res.json({ result: false, error: err });
 				} else {
-				   con.query(`UPDATE \`Default_Board_Comment\` SET \`good_cnt\` = \`good_cnt\` + 1 WHERE \`board_comment_id\` = '${req.body.board_id}'`, (err, result) => {
+				   con.query(`UPDATE \`Default_Board\` SET \`good_cnt\` = \`good_cnt\` - 1 WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
 					  if (err) {
 						 res.json({ result: false, error: err });
 					  } else {
