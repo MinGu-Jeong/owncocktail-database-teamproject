@@ -97,7 +97,6 @@ router.post("/default_board", (req, res) => {
 
 router.post("/ingredient_board", (req, res) => {
   con.query(
-
     `SELECT DISTINCT \`recipe_name\` FROM \`Recipe_Ingredient\` WHERE \`ingredient\` = '${req.body.name}'`,
     (err, result) => {
       res.json(result);
@@ -128,10 +127,15 @@ router.post("/name_default_board", (req, res) => {
 });
 
 router.post("/date_default_board", (req, res) => {
-  con.query(`SELECR \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num};`, (err, result) => {
-      res.json(result)
-  })
-})
+  con.query(
+    `SELECR \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
+    }, ${req.body.num};`,
+    (err, result) => {
+      res.json(result);
+    }
+  );
+});
 
 router.post("/popular_my_board", (req, res) => {
   con.query(
@@ -156,10 +160,15 @@ router.post("/name_my_board", (req, res) => {
 });
 
 router.post("/date_my_board", (req, res) => {
-  con.query(`SELECR \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num};`, (err, result) => {
-      res.json(result)
-  })
-})
+  con.query(
+    `SELECR \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${
+      (req.body.page - 1) * req.body.num
+    }, ${req.body.num};`,
+    (err, result) => {
+      res.json(result);
+    }
+  );
+});
 
 router.post("/popular_ingredient", (req, res) => {
   con.query(
@@ -174,7 +183,7 @@ router.post("/popular_ingredient", (req, res) => {
 
 router.post("/name_ingredient", (req, res) => {
   con.query(
-    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` DESC LIMIT ${
+    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -237,7 +246,7 @@ router.post("/my_board_search", (req, res) => {
 
 router.post("/ingredient_count", (req, res) => {
   con.query(`SELECT COUNT(*) AS count FROM \`ingredient\``, (err, result) => {
-    if(err) throw err;
+    if (err) throw err;
 
     res.json(result);
   });
