@@ -365,7 +365,10 @@ nav {
   align-items: center;
   justify-content: center;
 }
-
+.best-cocktail-image > img,
+.best-own-cocktail-image > img {
+  width: 130px;
+}
 .move-page {
   display: flex;
   justify-content: center;
