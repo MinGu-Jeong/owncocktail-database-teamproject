@@ -3,13 +3,12 @@ const $titleLogo = document.querySelector(".title-logo");
 $titleLogo.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
-let receipeCount = 1;
-let snackCount = 1;
-let toolCount = 1;
+let receipeCount = 0;
+let snackCount = 0;
+let toolCount = 0;
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
@@ -38,6 +37,9 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
+  //작성자
+  $writerValue = document.querySelector("#writer-value");
+  $writerValue.textContent = user.id;
 };
 const $receipeAddButton = document.querySelector(".receipe-add-button");
 const $snackAddButton = document.querySelector(".snack-add-button");
@@ -85,7 +87,14 @@ $receipeAddButton.addEventListener("click", () => {
   $cardFlexColumn.appendChild($receipeDetailTitle);
 
   $receipeCard.appendChild($cardFlexColumn);
-  receipeCount++;
+  $receipeInput1.addEventListener("input", (e) => {
+    receipeArray[receipeCount] = e.target.value; // 배열에 해당 요소의 값을 저장
+  });
+  $receipeInput2.addEventListener("input", (e) => {
+    receipeArray[receipeCount + 1] = e.target.value; // 배열에 해당 요소의 값을 저장
+  });
+  console.log(receipeArray);
+  receipeCount = receipeCount + 2;
 });
 
 const $snackCardContainer = document.querySelector(".snack-container"); // 선택자 수정
@@ -112,7 +121,7 @@ $snackAddButton.addEventListener("click", () => {
   $snackDetailTitle.classList.add("receipe-detail-title");
 
   const $snackInput1 = document.createElement("input");
-  $snackInput1.classList.add("receipe-input");
+  $snackInput1.classList.add("snack-input");
   $snackInput1.setAttribute("type", "text");
   $snackInput1.setAttribute("placeholder", "안주 입력");
 
@@ -120,6 +129,9 @@ $snackAddButton.addEventListener("click", () => {
   $cardFlexColumn.appendChild($snackDetailTitle);
 
   $snackCardContainer.appendChild($cardFlexColumn); // 수정된 변수명 사용
+  $snackInput1.addEventListener("input", (e) => {
+    snackArray[snackCount] = e.target.value; // 배열에 해당 요소의 값을 저장
+  });
   snackCount++;
 });
 
@@ -147,7 +159,7 @@ $toolAddButton.addEventListener("click", () => {
   $toolDetailTitle.classList.add("receipe-detail-title");
 
   const $toolInput1 = document.createElement("input");
-  $toolInput1.classList.add("receipe-input");
+  $toolInput1.classList.add("tool-input");
   $toolInput1.setAttribute("type", "text");
   $toolInput1.setAttribute("placeholder", "도구 입력");
 
@@ -155,6 +167,9 @@ $toolAddButton.addEventListener("click", () => {
   $cardFlexColumn.appendChild($toolDetailTitle);
 
   $toolCardContainer.appendChild($cardFlexColumn); // 수정된 변수명 사용
+  $toolInput1.addEventListener("input", (e) => {
+    toolArray[toolCount] = e.target.value; // 배열에 해당 요소의 값을 저장
+  });
   toolCount++;
 });
 const $loginButton = document.getElementById("login-button");
@@ -186,24 +201,16 @@ $receipeButton.addEventListener("click", () => {
 
 const $submitButton = document.querySelector("#submit-button");
 const $cocktailName = document.querySelector("#cocktail-name");
-const receipeArray = [];
-const snackArray = [];
-const toolArray = [];
+let receipeArray = [];
+let snackArray = [];
+let toolArray = [];
 const $receipeText = document.querySelector("#receipe-textarea");
 const user = JSON.parse(sessionStorage.getItem("user"));
-for (let i = 0; i < receipeCount; i++) {
-  const $receipeInput = document.querySelectorAll(".receipe-input")[i];
-  receipeArray.push($receipeInput);
-}
-for (let i = 0; i < snackCount; i++) {
-  const $snackInput = document.querySelectorAll(".receipe-input")[i];
-  snackArray.push($snackInput);
-}
-for (let i = 0; i < toolCount; i++) {
-  const $toolInput = document.querySelectorAll(".receipe-input")[i];
-  toolArray.push($toolInput);
-}
 $submitButton.addEventListener("click", () => {
+  let receipeString = receipeArray.slice(2).join(",");
+  let snackString = snackArray.slice(1).join(", ");
+  let toolString = toolArray.slice(1).join(", ");
+  const user = JSON.parse(sessionStorage.getItem("user"));
   fetch("/write/my_board", {
     method: "POST",
     headers: {
@@ -212,15 +219,18 @@ $submitButton.addEventListener("click", () => {
     body: JSON.stringify({
       recipe_name: $cocktailName.value,
       member_id: user.id,
-      board_ingredient: receipeArray.map((receipe) => receipe.value),
-      board_snack: snackArray.map((snack) => snack.value),
-      board_tool: toolArray.map((tool) => tool.value),
+      board_ingredient: receipeString,
+      board_snack: snackString,
+      board_tool: toolString,
       board_text: $receipeText.value,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      console.log(data.result[0].myboard_id);
+      window.location.href =
+        "./cocktail.html?id=" + data.result[0].myboard_id + "&type=own";
     })
     .catch((error) => {
       console.error;

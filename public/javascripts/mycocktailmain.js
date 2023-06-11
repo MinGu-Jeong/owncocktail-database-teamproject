@@ -33,10 +33,13 @@ $receipeButton.addEventListener("click", () => {
 $newReceipeButton.addEventListener("click", () => {
   window.location.href = "./new-receipe.html";
 });
+var pageCount = 1;
+var allPage = 20;
+const options = document.getElementsByClassName("option");
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-
+  const $pagetext = document.querySelector("#page-text");
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
@@ -68,12 +71,30 @@ window.onload = function () {
   document.querySelector(".dropbtn_click").onclick = () => {
     dropdown();
   };
-  const options = document.getElementsByClassName("option");
   for (let i = 0; i < options.length; i++) {
     options[i].onclick = () => {
       showMenu(options[i].innerText);
     };
   }
+  draw("popular", pageCount);
+  // myboard 게시글 수 카운트
+  fetch("/search/myboard_count", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      allPage = Math.ceil(data[0].count / 8);
+      console.log(data[0].count);
+      const maxId = data[0].count || 0; // 만약 게시글이 없다면 0을 기본값으로 사용
+      $pageText.textContent = `1 / ${Math.floor(maxId / 8)}`; // 가장 큰 게시글 번호를 페이지 텍스트로 설정
+    })
+    .catch((error) => {
+      console.error;
+    });
 };
 function dropdown() {
   var v = document.querySelector(".dropdown-content");
@@ -82,21 +103,55 @@ function dropdown() {
   dropbtn.style.borderColor = "rgb(94, 94, 94)";
 }
 
+function draw(path, thispage) {
+  fetch(`/search/${path}_my_board`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      page: thispage,
+      num: 8,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        const cocktailNameElement = document.querySelector(
+          `#owncocktail-name${i + 1}`
+        );
+        const cocktailIdElement = document.querySelector(
+          `#owncocktail-id${i + 1}`
+        );
+        cocktailNameElement.textContent = data[i].recipe_name;
+        cocktailIdElement.textContent = data[i].myboard_id;
+      }
+      if (data.length < 8) {
+        for (let i = data.length; i < 8; i++) {
+          cocktailNameElements[i].textContent = "로딩중";
+          cocktailIdElements[i].textContent = "로딩중";
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
 function showMenu(value) {
   dropbtn_content.innerText = value;
   dropbtn_content.style.color = "#252525";
   dropbtn.style.borderColor = "#3992a8";
-  changeSort(value);
+  changeSort(value, pageCount);
 }
-function changeSort(sortType) {
+function changeSort(sortType, thispage) {
   // 선택된 정렬 방식에 따라 필요한 작업 수행
   if (sortType === "인기순") {
+    draw("popular", thispage);
   } else if (sortType === "이름순") {
+    draw("name", thispage);
   }
-
-  // 드롭다운 숨기기
-  var dropdownContent = document.getElementById("dropdown-content");
-  dropdownContent.classList.remove("active");
 }
 var dropbtn_icon = document.querySelector(".dropbtn_icon");
 var dropbtn_content = document.querySelector(".dropbtn_content");
@@ -117,25 +172,52 @@ window.onclick = (e) => {
   }
 };
 
-$pageText = document.getElementById("page-text");
-$pageLeftButton = document.getElementById("left-button");
-$pageRightButton = document.getElementById("right-button");
-var pageCount = 1;
-var allPage = 20;
+const $pageText = document.getElementById("page-text");
+const $pageLeftButton = document.getElementById("left-button");
+const $pageRightButton = document.getElementById("right-button");
+
 $pageLeftButton.addEventListener("click", () => {
   if (pageCount > 1) {
     pageCount -= 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
+    changeSort(dropbtn_content.innerText, pageCount);
   }
 });
 $pageRightButton.addEventListener("click", () => {
+  console.log(`${pageCount},${allPage}`);
   if (pageCount < allPage) {
     pageCount += 1;
     $pageText.innerText = `${pageCount} / ${allPage}`;
+    changeSort(dropbtn_content.innerText, pageCount);
   }
 });
 
 const $randomButton = document.getElementById("random-button");
 $randomButton.addEventListener("click", () => {
-  window.location.href = "./cocktail.html";
+  fetch("/search/random_my", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      window.location.href = "./cocktail.html?id=" + data.result + "&type=own";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+const $bestCocktailButtonContainer = document.querySelector(
+  ".best-cocktail-button-container"
+);
+$bestCocktailButtonContainer.addEventListener("click", (event) => {
+  const cocktailButton = event.target.closest("button");
+  if (!cocktailButton) return;
+  const cocktailId = cocktailButton.children[2].textContent;
+  console.log("cocktailtest");
+  console.log(cocktailId);
+  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
 });

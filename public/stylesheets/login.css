@@ -40,7 +40,6 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  left: 35%;
   margin-top: 50px;
   color: white;
   font-family: "Inter";
@@ -48,6 +47,11 @@ nav {
   font-weight: 700;
   font-size: 30px;
   line-height: 44px;
+}
+#login-form-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 .login-button {
   display: flex;
