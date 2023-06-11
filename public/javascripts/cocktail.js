@@ -309,12 +309,13 @@ function addcomment(member_id, text, datetime, good_cnt, comment_id) {
   positiveButton.textContent = `${good_cnt} 👍`;
 
   // comment_id를 데이터 속성으로 저장
-  positiveButton.setAttribute("data-comment-id", comment_id);
+  positiveButton.setAttribute("data-comment-member", member_id);
 
   // positive 버튼에 이벤트 리스너 추가
   positiveButton.addEventListener("click", function () {
-    const commentId = this.getAttribute("data-comment-id");
-    console.log("댓글 ID:", commentId);
+    const memberID = this.getAttribute("data-comment-member");
+    console.log(memberID);
+    clickgoodbutton(memberID);
     // 댓글 ID를 활용하여 추가 동작 수행
   });
 
@@ -397,18 +398,21 @@ $commentInputBTN.addEventListener("click", function (event) {
     });
 });
 //댓글 좋아요
-function clickgoodbutton(comment_id) {
-  fetch("/write/default_comment", {
+function clickgoodbutton(member_id) {
+  fetch("/write/good_default_board_comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      member_id: `${comment_id}`,
-      board_id: `${cocktailId}`,
+      member_id: `${member_id}`,
+      board_comment_id: `${cocktailId}`,
     }),
   })
     .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
     .catch((error) => {
       console.log(error);
     });
