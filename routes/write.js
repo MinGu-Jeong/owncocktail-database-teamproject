@@ -162,7 +162,7 @@ router.post('/my_delete', (req, res) => {
 
 router.post('/good_default_board', (req, res) => {
 
-	con.query(`SELECT COUNT(*) count FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`baord_id\` = '${req.body.board_id}'`, (err, result) => {
+	con.query(`SELECT COUNT(*) count FROM \`DefaultBoard_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_id\` = '${req.body.board_id}'`, (err, result) => {
 		if(result[0].count === 0){
 			con.query(`INSERT INTO \`DefaultBoard_Good\` (\`member_id\`, \`board_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
 				if (err) {
@@ -194,7 +194,7 @@ router.post('/good_default_board', (req, res) => {
 		}
 	})
  });
- 
+
  router.post('/good_default_board_comment', (req, res) => {
 	con.query(`INSERT INTO \`DefaultBoardComment_Good\` (\`member_id\`, \`board_comment_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
 	   if (err) {
@@ -210,6 +210,8 @@ router.post('/good_default_board', (req, res) => {
 	   }
 	});
  });
+
+ 
  
  router.post('/good_my_board', (req, res) => {
 	con.query(`INSERT INTO \`MyBoard_Good\` (\`member_id\`, \`myboard_id\`) VALUE('${req.body.member_id}', '${req.body.board_id}')`, (err, result) => {
