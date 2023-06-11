@@ -19,10 +19,7 @@ router.post('/default_board', (req, res) => {
 	   res.json({ result: false, error: "not admin" });
 	   return;
 	}
- 
-	// let datetime = new Date();
-	// let write_time = datetime.getFullYear() + '-' + (datetime.getMonth() + 1) + '-' + datetime.getDate() + '-' + datetime.getHours() + '-' + datetime.getMinutes() + '-' + datetime.getSeconds();
- 
+
 	let datetime = new Date();
 	let year = datetime.getFullYear();
 	let month = (datetime.getMonth() + 1).toString().padStart(2, '0'); // 월 값은 0부터 시작하므로 1을 더하고, 2자리로 표시하도록 패딩을 추가합니다.
@@ -230,7 +227,7 @@ router.post('/good_default_board', (req, res) => {
 		}
 	})
  });
- 
+
  router.post('/good_default_board_comment', (req, res) => {
 	con.query(`SELECT COUNT(*) count FROM \`DefaultBoardComment_Good\` WHERE \`member_id\` = '${req.body.member_id}' AND \`board_comment_id\` = '${req.body.board_comment_id}`, (err, result) => {
 		if(result[0].count == 0){
