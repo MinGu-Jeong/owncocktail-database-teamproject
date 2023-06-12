@@ -150,11 +150,11 @@ insert into Recipe(recipe_name, img_url) values
 ("카지노","./images/mojito.png"),
 ("사제락","./images/mojito.png"),
 ("메가 멘하탄_admin","./images/mojito.png"),
-("약한 미모사_admin_admin","./images/mojito.png"),
-("상큼한 아일리쉬 커피","./images/mojito.png"),
+("약한 미모사_admin","./images/mojito.png"),
+("엄청난 아일리쉬 커피_admin","./images/mojito.png"),
 ("약한 카지노_admin","./images/mojito.png"),
 ("뉴 사제락_admin","./images/mojito.png"),
-("데빌  페이스_admin_admin","./images/mojito.png"),
+("데빌  페이스_admin","./images/mojito.png"),
 ("실버 드림_admin","./images/mojito.png"),
 ("더 진한 올드 패션드_admin","./images/mojito.png");
 

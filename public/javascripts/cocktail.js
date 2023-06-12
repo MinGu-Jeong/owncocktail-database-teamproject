@@ -98,7 +98,7 @@ window.onload = function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data[0].member_id == user.id) {
+        if (user && data[0].member_id == user.id) {
           deleteContainer.style.display = "block";
         } else {
           deleteContainer.style.display = "none";
