@@ -332,7 +332,8 @@ nav {
   justify-content: center;
 }
 .best-ingredient-image > img {
-  width: 130px;
+  height: 110px;
+  width: auto;
 }
 .move-page {
   display: flex;

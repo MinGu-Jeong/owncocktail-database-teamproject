@@ -89,12 +89,10 @@ const $ownCocktailId1 = document.querySelector("#own-cocktail-id1");
 const $ownCocktailId2 = document.querySelector("#own-cocktail-id2");
 const $ownCocktailId3 = document.querySelector("#own-cocktail-id3");
 const $ownCocktailId4 = document.querySelector("#own-cocktail-id4");
-
+const user = JSON.parse(sessionStorage.getItem("user"));
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-
-  const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
     // 로그인이 된 상태
@@ -126,7 +124,6 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
-
   //db연결
   //기본칵테일 4개 불러오기
   fetch("/search/popular_default_board", {
@@ -201,5 +198,7 @@ $bestOwnCocktailButtonContainer.addEventListener("click", (event) => {
   if (!cocktailButton) return;
   const cocktailName = cocktailButton.children[1].textContent;
   const cocktailId = cocktailButton.children[2].textContent;
-  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
+  if (user && user.isLogin) {
+    window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
+  }
 });
