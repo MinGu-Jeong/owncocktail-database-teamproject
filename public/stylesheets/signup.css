@@ -72,7 +72,8 @@ nav {
 }
 .id-check-view,
 .pw-check-view,
-.phone-check-view {
+.phone-check-view,
+.email-check-view {
   display: none;
   color: red;
 }

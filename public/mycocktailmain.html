@@ -5,6 +5,139 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mycocktailmain</title>
+    <link rel="stylesheet" href="./stylesheets/mycocktailmain.css" />
   </head>
-  <body></body>
+
+  <body>
+    <header>
+      <div class="title-logo">
+        <img src="./images/title-logo.png" width="300px" />
+      </div>
+      <nav>
+        <button id="nav-cocktail-receipe">칵테일 레시피</button>
+        <button id="nav-own-cocktail">나만의 칵테일</button>
+        <button id="nav-ingredient">재료</button>
+        <button id="nav-search">검색</button>
+      </nav>
+      <div class="login-signup">
+        <button id="login-button">로그인</button>
+        <button id="signup-button">회원가입</button>
+      </div>
+    </header>
+    <div class="cocktail-container">
+      <div class="container-header">
+        <div class="header1">
+          <div id="cocktail-text-box">
+            <p id="cocktail-text">나만의 칵테일 레시피</p>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <span class="dropbtn_content">인기순</span>
+              <span
+                class="dropbtn_click"
+                style="
+                  font-family: Material Icons;
+                  font-size: 16px;
+                  color: #3b3b3b;
+                  float: right;
+                "
+                onclick="dropdown()"
+                >arrow_drop_down</span
+              >
+            </button>
+            <div class="dropdown-content">
+              <div></div>
+              <div class="option" onclick="showMenu(this.innerText)">
+                인기순
+              </div>
+              <div class="option" onclick="showMenu(this.innerText)">
+                이름순
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="header2">
+          <button id="writeBTN">글쓰기</button>
+        </div>
+      </div>
+      <div class="best-cocktail-button-container">
+        <button id="best-cocktail-1" style="background-color: #880000">
+          <div class="best-cocktail-image">
+            <img id="my-image-id1" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name1">제목</div>
+          <div class="hidden" id="owncocktail-id1"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+        <button id="best-cocktail-2" style="background-color: #020da3">
+          <div class="best-cocktail-image">
+            <img id="my-image-id2" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name2">제목</div>
+          <div class="hidden" id="owncocktail-id2"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+        <button id="best-cocktail-3" style="background-color: #02895c">
+          <div class="best-cocktail-image">
+            <img id="my-image-id3" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name3">제목</div>
+          <div class="hidden" id="owncocktail-id3"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+        <button id="best-cocktail-4" style="background-color: #a35302">
+          <div class="best-cocktail-image">
+            <img id="my-image-id4" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name4">제목</div>
+          <div class="hidden" id="owncocktail-id4"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+        <button id="best-cocktail-5" style="background-color: #a30285">
+          <div class="best-cocktail-image">
+            <img id="my-image-id5" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name5">제목</div>
+          <div class="hidden" id="owncocktail-id5"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+        <button id="best-cocktail-6" style="background-color: #0293a3">
+          <div class="best-cocktail-image">
+            <img id="my-image-id6" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name6">제목</div>
+          <div class="hidden" id="owncocktail-id6"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+        <button id="best-cocktail-7" style="background-color: #022da3">
+          <div class="best-cocktail-image">
+            <img id="my-image-id7" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name7">제목</div>
+          <div class="hidden" id="owncocktail-id7"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+        <button id="best-cocktail-8" style="background-color: #48a302">
+          <div class="best-cocktail-image">
+            <img id="my-image-id8" src="./images/non-img.png" />
+          </div>
+          <div class="cocktail-name" id="owncocktail-name8">제목</div>
+          <div class="hidden" id="owncocktail-id8"></div>
+          <div class="cocktail-summary">설명</div>
+        </button>
+      </div>
+      <div class="move-page">
+        <div id="left-button"></div>
+        <p id="page-text">1 / 20</p>
+        <div id="right-button"></div>
+      </div>
+    </div>
+    <div class="random-receipe">
+      <button id="random-button">
+        <img id="random-img" src="./images/무작위화살표.png" />
+        <p id="random-text">무작위 레시피</p>
+      </button>
+    </div>
+    <script src="./javascripts/mycocktailmain.js"></script>
+  </body>
 </html>

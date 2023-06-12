@@ -6,6 +6,9 @@
   background-color: #230649;
   min-height: 110vh;
 }
+.hidden {
+  display: none;
+}
 header {
   display: flex;
   justify-content: space-between;
@@ -204,6 +207,11 @@ nav {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+}
+.best-cocktail-image > img,
+.best-own-cocktail-image > img {
+  height: 120px;
+  width: auto;
 }
 .cocktail-summary {
   margin-top: -40px;

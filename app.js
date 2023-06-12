@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var favicon = require('serve-favicon'); 
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
@@ -17,34 +18,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const usersRouter = require('./routes/users');
-const toolsRouter = require('./routes/tools');
-const syrupRouter = require('./routes/syrup');
-const snackRouter = require('./routes/snack');
-const recipeRouter = require('./routes/recipe');
-const myboardRouter = require('./routes/my_board');
-const myboardcommentRouter = require('./routes/my_board_comment');
-const liquorRouter = require('./routes/liquor');
-const garnishRouter = require('./routes/garnish');
-const frequencyRouter = require('./routes/frequency');
-const defaultboardRouter = require('./routes/default_board');
-const defaultboardcommentRouter = require('./routes/default_board_comment');
-const beveridgeRouter = require('./routes/beveridge');
+const searchRouter = require('./routes/search');
+const writeRouter = require('./routes/write');
 
 app.use('/users', usersRouter);
-app.use('/tools', toolsRouter);
-app.use('/syrup', syrupRouter);
-app.use('/snack', snackRouter);
-app.use('/recipe', recipeRouter);
-app.use('/my_board', myboardRouter);
-app.use('/my_board_comment', myboardcommentRouter);
-app.use('/liquor', liquorRouter);
-app.use('/garnish', garnishRouter);
-app.use('/frequency', frequencyRouter);
-app.use('/default_board', defaultboardRouter);
-app.use('/default_board_comment', defaultboardcommentRouter);
-app.use('/beveridge', beveridgeRouter);
+app.use('/search', searchRouter);
+app.use('/write', writeRouter)
 
-
+app.use(favicon(path.join(__dirname, 'public',  'favicon.ico')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

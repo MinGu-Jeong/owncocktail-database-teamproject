@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 body {
   background: #230649;
 }
@@ -188,4 +190,185 @@ nav {
   text-align: center;
 
   color: #000000;
+}
+
+.dropdown-label {
+  font-size: 12px;
+  margin: 10px;
+  font-weight: bold;
+  color: rgb(50, 50, 50);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn_icon {
+  font-family: "Material Icons";
+}
+.dropbtn_content {
+  margin-left: 8px;
+}
+.dropbtn {
+  display: block;
+  border: 0;
+  background: rgba(210, 205, 218);
+  border-radius: 10px;
+  font-weight: 400;
+  color: black;
+  padding: 12px;
+  width: 100px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 12px;
+  z-index: 1;
+  position: relative;
+}
+.dropdown-content {
+  position: absolute;
+  top: 13px;
+  display: none;
+  background-color: rgba(210, 205, 218);
+  width: 100px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
+  cursor: pointer;
+}
+.option {
+  cursor: pointer;
+}
+.dropdown-content::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+.dropdown-content::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: rgb(194, 194, 194);
+}
+
+.dropdown-content div {
+  display: block;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  font-size: 12px;
+  padding: 12px 20px;
+}
+.dropdown-content div:hover {
+  background-color: rgba(210, 205, 218);
+  border-radius: 10px;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.container-header {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.best-ingredient-button-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  gap: 100px;
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: #9183a4;
+  flex-wrap: wrap;
+}
+.best-ingredient-button-container > button {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  border: 0;
+  border-radius: 20px;
+  gap: 40px;
+  margin-right: 10px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: white;
+}
+.best-ingredient-image {
+  display: flex;
+  width: 160px;
+  height: 130px;
+  border-radius: 10px;
+  background-color: #363333;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.ingredient-summary {
+  margin-top: -40px;
+}
+.ingredient-name {
+  margin-top: -40px;
+  font-size: 20px;
+}
+
+#best-own-ingredient-title {
+  margin-left: 20px;
+  display: inline-block;
+  background-color: #dbd3dd;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px 15px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  text-align: center;
+}
+#best-cocktail-1-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.best-ingredient-image > img {
+  height: 110px;
+  width: auto;
+}
+.move-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#left-button {
+  width: 0;
+  height: 0;
+  border-bottom: 18px solid transparent;
+  border-top: 18px solid transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid #d9d9d9;
+  cursor: pointer;
+}
+#left-button:hover {
+  border-right: 20px solid #3030ac;
+}
+#page-text {
+  font-size: 20px;
+}
+#right-button {
+  width: 0;
+  height: 0;
+  border-bottom: 18px solid transparent;
+  border-top: 18px solid transparent;
+  border-left: 20px solid #d9d9d9;
+  border-right: 20px solid transparent;
+  cursor: pointer;
+}
+#right-button:hover {
+  border-left: 20px solid #3030ac;
+}
+
+.hidden {
+  display: none;
 }

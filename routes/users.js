@@ -14,12 +14,6 @@ con.connect(function (err) {
   console.log("Connected");
 });
 
-// 엔드포인트 설정
-// 아마 fetch에서 배개변수 넘겨주면 req에 들어가는듯?
-// -> "req.query.변수이름"으로 접근 가능 -> 파이썬의 딕셔너리처럼 인덱스 번호 접근이 아니라 변수 이름으로!!
-// C++에서는 아마 해시맵? 일듯?
-
-/* GET users listing. */
 router.get("/", (req, res) => {
   con.query(
     `SELECT * FROM member WHERE member_id = \'${req.query.id}\'`,
@@ -32,7 +26,7 @@ router.get("/", (req, res) => {
 // 로그인 api
 router.post("/login", (req, res) => {
   con.query(
-    `SELECT * FROM member WHERE member_id = \'${req.body.id}\'`,
+    `SELECT * FROM member WHERE member_id = '${req.body.id}'`,
     (err, result) => {
       if (result.length == 0 || result[0].passwd != req.body.passwd) {
         res.status(401);
@@ -65,6 +59,25 @@ router.post("/idCheck", (req, res) => {
   );
 });
 
+// ID 삭제 api
+router.post("/deletemember", (req, res) => {
+  con.query(
+    `DELETE FROM \`member\` WHERE \`member_id\` = '${req.body.member_id}'`,
+    // DELETE FROM \`My_Board\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`My_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`My_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`My_Board_Comment_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board_Comment\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+    // DELETE FROM \`Default_Board_Comment_Good\` WHERE \`member_id\` = '${req.body.member_id}'
+
+    (err, result) => {
+      res.json({ result: true, id: req.body.member_id });
+    }
+  );
+});
+
 // 전화번호 중복 확인 api
 router.post("/phoneCheck", (req, res) => {
   con.query(
@@ -79,6 +92,20 @@ router.post("/phoneCheck", (req, res) => {
   );
 });
 
+router.post("/email_check", (req, res) => {
+  con.query(
+    `SELECT COUNT(*) AS count FROM \`member\` WHERE \`email\` = '${req.body.email}'`,
+    (err, result) => {
+      if (err) throw err;
+      if (result[0].count >= 1) {
+        res.json({ result: false });
+      } else {
+        res.json({ result: true });
+      }
+    }
+  );
+});
+
 // 회원가입(추가) api
 router.post("/signup", (req, res) => {
   con.query(
@@ -86,7 +113,7 @@ router.post("/signup", (req, res) => {
     (err, result) => {
       if (result.length == 0) {
         con.query(
-          `INSERT INTO member VALUES(\'${req.body.name}\', \'${req.body.phone}\', \'${req.body.id}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`
+          `INSERT INTO member VALUES(\'${req.body.id}\', \'${req.body.name}\', \'${req.body.phone}\', \'${req.body.passwd}\', \'${req.body.birthdate}\', \'${req.body.email}\')`
         );
         res.json({ message: "가입 성공" });
       } else {
@@ -101,12 +128,67 @@ router.post("/signup", (req, res) => {
   );
 });
 
-router.put("/", (req, res) => {});
+// 마이페이지 정보 반환
+router.post("/mypage_info", (req, res) => {
+  con.query(
+    `SELECT * FROM member WHERE member_id = \'${req.body.member_id}\'`,
+    (err, result) => {
+      res.json(result);
+    }
+  );
+});
 
-router.delete("/", (req, res) => {});
+//게시글 수 정보 반환
+router.post("/myboard_count", (req, res) => {
+  con.query(
+    `SELECT COUNT(*) AS count FROM My_Board WHERE member_id = '${req.body.member_id}'`,
+    (err, result) => {
+      if (err) throw err;
+      res.json(result);
+    }
+  );
+});
 
-// con.query(`SELECT * FROM member WHERE member_id = \'whqudgk\'`, (err, result) =>{
-//   console.log(result[0].passwd)
-// })
+//댓글 수 정보 반환
+router.post("/mycomment_count", (req, res) => {
+  const member_id = req.body.member_id;
+
+  con.query(
+    `SELECT COUNT(*) AS count FROM My_Board_Comment WHERE member_id = '${member_id}'`,
+    (err, result1) => {
+      if (err) throw err;
+
+      con.query(
+        `SELECT COUNT(*) AS count FROM Default_Board_Comment WHERE member_id = '${member_id}'`,
+        (err, result2) => {
+          if (err) throw err;
+
+          const total = result1[0].count + result2[0].count;
+          res.json({ total_comments: total });
+        }
+      );
+    }
+  );
+});
+
+// 비밀번호 변경
+router.post("/passwd_update", (req, res) => {
+  con.query(
+    `UPDATE \`member\` SET \`passwd\` = '${req.body.passwd}' WHERE \`member_id\` = '${req.body.member_id}'`,
+    (err, result) => {
+      res.json({ result: true });
+    }
+  );
+});
+
+// 이메일 변경
+router.post("/email_update", (req, res) => {
+  con.query(
+    `UPDATE \`member\` SET \`email\` = \'${req.body.email}\' WHERE \`member_id\` = \'${req.body.member_id}\'`,
+    (err, result) => {
+      res.json({ result: true });
+    }
+  );
+});
 
 module.exports = router;
