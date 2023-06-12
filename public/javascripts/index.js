@@ -141,7 +141,7 @@ window.onload = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      //console.log(data);
+      console.log(data);
       $cocktailName1.textContent = data[0].recipe_name;
       $cocktailName2.textContent = data[1].recipe_name;
       $cocktailName3.textContent = data[2].recipe_name;
