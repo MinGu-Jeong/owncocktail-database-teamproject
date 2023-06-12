@@ -132,3 +132,5 @@ $useRecipe.addEventListener("click", (event) => {
     goBoard(recipeName);
   }
 });
+
+const ingredientImg = document.getElementById("ingredient-image");

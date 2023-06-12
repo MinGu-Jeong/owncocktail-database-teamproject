@@ -115,12 +115,16 @@ router.post("/popular_default_board", (req, res) => {
   );
 });
 
-router.post("/popular_default_recipe", (req, res) => {
-  con.query(`SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\` WHERE \`recipe_name\` IN (SELECT \`recipe_name\` FROM \`Default_Board\` ORDER BY \`good_cnt\` DESC, \`recipe_name\` ASC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num}`, (err, result) => {
-    if(err) throw err
-    res.json(result);
-  })
-})
+// 레시피 이미지 싹다 긁어오기
+router.post("/get_recipe_img", (req, res) => {
+  con.query(
+    `SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\``,
+    (err, result) => {
+      if (err) throw err;
+      res.json(result);
+    }
+  );
+});
 
 router.post("/name_default_board", (req, res) => {
   con.query(
@@ -133,13 +137,6 @@ router.post("/name_default_board", (req, res) => {
   );
 });
 
-router.post("/name_default_recipe", (req, res) => {
-  con.query(`SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\` WHERE \`recipe_name\` IN (SELECT \`recipe_name\` FROM \`Default_Board\` ORDER BY \`recipe_name\` LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num}`, (err, result) => {
-    if(err) throw err
-    res.json(result);
-  })
-})
-
 router.post("/date_default_board", (req, res) => {
   con.query(
     `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${
@@ -151,16 +148,9 @@ router.post("/date_default_board", (req, res) => {
   );
 });
 
-router.post("/date_default_recipe", (req, res) => {
-  con.query(`SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\` WHERE \`recipe_name\` IN (SELECT \`recipe_name\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num}`, (err, result) => {
-    if(err) throw err
-    res.json(result);
-  })
-})
-
 router.post("/popular_my_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` DESC, ORDER BY \`recipe_name\` ASC LIMIT ${
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` DESC, \`recipe_name\` ASC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -168,13 +158,6 @@ router.post("/popular_my_board", (req, res) => {
     }
   );
 });
-
-router.post("/popular_my_recipe", (req, res) => {
-  con.query(`SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\` WHERE \`recipe_name\` IN (SELECT \`recipe_name\` FROM \`My_Board\` ORDER BY \`good_cnt\` DESC, \`recipe_name\` ASC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num}`, (err, result) => {
-    if(err) throw err
-    res.json(result);
-  })
-})
 
 router.post("/name_my_board", (req, res) => {
   con.query(
@@ -187,13 +170,6 @@ router.post("/name_my_board", (req, res) => {
   );
 });
 
-router.post("/name_my_recipe", (req, res) => {
-  con.query(`SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\` WHERE \`recipe_name\` IN (SELECT \`recipe_name\` FROM \`My_Board\` ORDER BY \`recipe_name\` LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num}`, (err, result) => {
-    if(err) throw err
-    res.json(result);
-  })
-})
-
 router.post("/date_my_board", (req, res) => {
   con.query(
     `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${
@@ -204,13 +180,6 @@ router.post("/date_my_board", (req, res) => {
     }
   );
 });
-
-router.post("/date_my_recipe", (req, res) => {
-  con.query(`SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\` WHERE \`recipe_name\` IN (SELECT \`recipe_name\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${(req.body.page - 1) * req.body.num}, ${req.body.num}`, (err, result) => {
-    if(err) throw err
-    res.json(result);
-  })
-})
 
 router.post("/popular_ingredient", (req, res) => {
   con.query(

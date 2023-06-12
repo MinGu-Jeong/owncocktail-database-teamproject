@@ -130,7 +130,7 @@ router.post("/my_board", (req, res) => {
           con.query(
             `INSERT INTO \`Recipe_Ingredient\` (\`recipe_name\`, \`ingredient\`, \`ratio\`) VALUES ('${
               req.body.recipe_name + "_" + req.body.member_id
-            }', '${ingredients[i]}', ${ingredients[i + 1]})`,
+            }', '${ingredients[i]}', '${ingredients[i + 1]}')`,
             (err, result) => {
               if (err) {
                 res.json({ result: false, error: err });
@@ -246,94 +246,156 @@ router.post("/my_comment", (req, res) => {
 });
 
 router.post("/default_delete", (req, res) => {
-  con.query(`SELECT \`member_id\` FROM \`Default_Board\` WHERE \`board_id\` = '${req.body.board_id}';`, (err, result) => {
-    if (result[0].member_id == req.body.member_id){
-      con.query(`UPDATE \`Ingredient\` SET \`count\` = \`count\` - 1 WHERE \`ingredient_name\` IN (SELECT DISTINCT \`ingredient\` FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}')`, (err, result) => {
-        if (err) throw err
-        else{
-          con.query(`DELETE FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`, (err, result) => {
-            if(err) throw err
-            else{
-              con.query(`DELETE FROM \`DefaultBoardComment_Good\` WHERE \`board_comment_id\` IN (SELECT \`board_comment_id\` FROM \`Default_Board_Comment\` WHERE \`board_id\` = '${req.body.board_id}')`, (err, result) => {
-                if (err) throw err
-                else{
-                  con.query(`DELETE FROM \`DefaultBoard_Good\` WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-                    if (err) throw err
-                    else{
-                      con.query(`DELETE FROM \`Default_Board_Comment\` WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-                        if(err) throw err
-                        else{
-                          con.query(`DELETE FROM \`Default_Board\` WHERE \`board_id\` = '${req.body.board_id}'`, (err, result) => {
-                            if(err) throw err
-                            else{
-                              con.query(`DELETE FROM \`Recipe\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`, (err, result) => {
-                                if(err) throw err
-                                else{
-                                  res.json({result: true, message: "게시글이 삭제되었습니다."})
-                                }
-                              })
+  con.query(
+    `SELECT \`member_id\` FROM \`Default_Board\` WHERE \`board_id\` = '${req.body.board_id}';`,
+    (err, result) => {
+      if (result[0].member_id == req.body.member_id) {
+        con.query(
+          `UPDATE \`Ingredient\` SET \`count\` = \`count\` - 1 WHERE \`ingredient_name\` IN (SELECT DISTINCT \`ingredient\` FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}')`,
+          (err, result) => {
+            if (err) throw err;
+            else {
+              con.query(
+                `DELETE FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`,
+                (err, result) => {
+                  if (err) throw err;
+                  else {
+                    con.query(
+                      `DELETE FROM \`DefaultBoardComment_Good\` WHERE \`board_comment_id\` IN (SELECT \`board_comment_id\` FROM \`Default_Board_Comment\` WHERE \`board_id\` = '${req.body.board_id}')`,
+                      (err, result) => {
+                        if (err) throw err;
+                        else {
+                          con.query(
+                            `DELETE FROM \`DefaultBoard_Good\` WHERE \`board_id\` = '${req.body.board_id}'`,
+                            (err, result) => {
+                              if (err) throw err;
+                              else {
+                                con.query(
+                                  `DELETE FROM \`Default_Board_Comment\` WHERE \`board_id\` = '${req.body.board_id}'`,
+                                  (err, result) => {
+                                    if (err) throw err;
+                                    else {
+                                      con.query(
+                                        `DELETE FROM \`Default_Board\` WHERE \`board_id\` = '${req.body.board_id}'`,
+                                        (err, result) => {
+                                          if (err) throw err;
+                                          else {
+                                            con.query(
+                                              `DELETE FROM \`Recipe\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`,
+                                              (err, result) => {
+                                                if (err) throw err;
+                                                else {
+                                                  res.json({
+                                                    result: true,
+                                                    message:
+                                                      "게시글이 삭제되었습니다.",
+                                                  });
+                                                }
+                                              }
+                                            );
+                                          }
+                                        }
+                                      );
+                                    }
+                                  }
+                                );
+                              }
                             }
-                          })
+                          );
                         }
-                      })
-                    }
-                  })
+                      }
+                    );
+                  }
                 }
-              })
+              );
             }
-          })
-        }
-      })
-    }else{
-      res.json({result: false, message: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다."})
+          }
+        );
+      } else {
+        res.json({
+          result: false,
+          message: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다.",
+        });
+      }
     }
-  })
-})
+  );
+});
 
 router.post("/my_delete", (req, res) => {
-  con.query(`SELECT \`member_id\` FROM \`My_Board\` WHERE \`myboard_id\` = '${req.body.board_id}';`, (err, result) => {
-    if (result[0].member_id == req.body.member_id){
-      con.query(`UPDATE \`Ingredient\` SET \`count\` = \`count\` - 1 WHERE \`ingredient_name\` IN (SELECT DISTINCT \`ingredient\` FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}')`, (err, result) => {
-        if (err) throw err
-        else{
-          con.query(`DELETE FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`, (err, result) => {
-            if(err) throw err
-            else{
-              con.query(`DELETE FROM \`MyBoardComment_Good\` WHERE \`myboard_comment_id\` IN (SELECT \`myboard_comment_id\` FROM \`My_Board_Comment\` WHERE \`myboard_id\` = '${req.body.board_id}')`, (err, result) => {
-                if (err) throw err
-                else{
-                  con.query(`DELETE FROM \`MyBoard_Good\` WHERE \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
-                    if (err) throw err
-                    else{
-                      con.query(`DELETE FROM \`My_Board_Comment\` WHERE \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
-                        if(err) throw err
-                        else{
-                          con.query(`DELETE FROM \`My_Board\` WHERE \`myboard_id\` = '${req.body.board_id}'`, (err, result) => {
-                            if(err) throw err
-                            else{
-                              con.query(`DELETE FROM \`Recipe\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`, (err, result) => {
-                                if(err) throw err
-                                else{
-                                  res.json({result: true, message: "게시글이 삭제되었습니다."})
-                                }
-                              })
+  con.query(
+    `SELECT \`member_id\` FROM \`My_Board\` WHERE \`myboard_id\` = '${req.body.board_id}';`,
+    (err, result) => {
+      if (result[0].member_id == req.body.member_id) {
+        con.query(
+          `UPDATE \`Ingredient\` SET \`count\` = \`count\` - 1 WHERE \`ingredient_name\` IN (SELECT DISTINCT \`ingredient\` FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}')`,
+          (err, result) => {
+            if (err) throw err;
+            else {
+              con.query(
+                `DELETE FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`,
+                (err, result) => {
+                  if (err) throw err;
+                  else {
+                    con.query(
+                      `DELETE FROM \`MyBoardComment_Good\` WHERE \`myboard_comment_id\` IN (SELECT \`myboard_comment_id\` FROM \`My_Board_Comment\` WHERE \`myboard_id\` = '${req.body.board_id}')`,
+                      (err, result) => {
+                        if (err) throw err;
+                        else {
+                          con.query(
+                            `DELETE FROM \`MyBoard_Good\` WHERE \`myboard_id\` = '${req.body.board_id}'`,
+                            (err, result) => {
+                              if (err) throw err;
+                              else {
+                                con.query(
+                                  `DELETE FROM \`My_Board_Comment\` WHERE \`myboard_id\` = '${req.body.board_id}'`,
+                                  (err, result) => {
+                                    if (err) throw err;
+                                    else {
+                                      con.query(
+                                        `DELETE FROM \`My_Board\` WHERE \`myboard_id\` = '${req.body.board_id}'`,
+                                        (err, result) => {
+                                          if (err) throw err;
+                                          else {
+                                            con.query(
+                                              `DELETE FROM \`Recipe\` WHERE \`recipe_name\` = '${req.body.recipe_name}'`,
+                                              (err, result) => {
+                                                if (err) throw err;
+                                                else {
+                                                  res.json({
+                                                    result: true,
+                                                    message:
+                                                      "게시글이 삭제되었습니다.",
+                                                  });
+                                                }
+                                              }
+                                            );
+                                          }
+                                        }
+                                      );
+                                    }
+                                  }
+                                );
+                              }
                             }
-                          })
+                          );
                         }
-                      })
-                    }
-                  })
+                      }
+                    );
+                  }
                 }
-              })
+              );
             }
-          })
-        }
-      })
-    }else{
-      res.json({result: false, message: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다."})
+          }
+        );
+      } else {
+        res.json({
+          result: false,
+          message: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다.",
+        });
+      }
     }
-  })
-})
+  );
+});
 
 // 보류
 // router.post("/default_delete", (req, res) => {

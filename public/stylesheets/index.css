@@ -210,7 +210,8 @@ nav {
 }
 .best-cocktail-image > img,
 .best-own-cocktail-image > img {
-  width: 130px;
+  height: 120px;
+  width: auto;
 }
 .cocktail-summary {
   margin-top: -40px;

@@ -151,7 +151,11 @@ function draw(path, thispage) {
           "ingredient-img-id" + (i + 1)
         );
         ingredientName.textContent = data[i].ingredient_name;
-        ingredientImgID.src = data[i].ingredient_img_url;
+        if (data[i].ingredient_img_url != "NULL") {
+          ingredientImgID.src = data[i].ingredient_img_url;
+        } else {
+          ingredientImgID.src = "./images/non-img.png";
+        }
       }
     })
     .catch((error) => {
