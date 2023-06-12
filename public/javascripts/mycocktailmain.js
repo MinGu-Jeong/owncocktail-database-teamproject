@@ -124,8 +124,12 @@ function draw(path, thispage) {
         const cocktailIdElement = document.querySelector(
           `#owncocktail-id${i + 1}`
         );
+        const cocktailIMGElement = document.querySelector(
+          `#my-image-id${i + 1}`
+        );
         cocktailNameElement.textContent = data[i].recipe_name;
         cocktailIdElement.textContent = data[i].myboard_id;
+        findIMG(cocktailIMGElement, cocktailNameElement);
       }
       if (data.length < 8) {
         for (let i = data.length; i < 8; i++) {
@@ -221,3 +225,25 @@ $bestCocktailButtonContainer.addEventListener("click", (event) => {
   console.log(cocktailId);
   window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
 });
+
+function findIMG(recipe_IMG, recipe) {
+  fetch("/search/get_recipe_img", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((data) => {
+        if (data.recipe_name == recipe.textContent) {
+          recipe_IMG.src = data.img_url;
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

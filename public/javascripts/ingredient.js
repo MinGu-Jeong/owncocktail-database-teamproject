@@ -114,14 +114,7 @@ window.onload = function () {
       console.error;
     });
 };
-const $ingredientName1 = document.querySelector("#ingredient-name1");
-const $ingredientName2 = document.querySelector("#ingredient-name2");
-const $ingredientName3 = document.querySelector("#ingredient-name3");
-const $ingredientName4 = document.querySelector("#ingredient-name4");
-const $ingredientName5 = document.querySelector("#ingredient-name5");
-const $ingredientName6 = document.querySelector("#ingredient-name6");
-const $ingredientName7 = document.querySelector("#ingredient-name7");
-const $ingredientName8 = document.querySelector("#ingredient-name8");
+
 function showMenu(value) {
   dropbtn_content.innerText = value;
   dropbtn_content.style.color = "#252525";
@@ -150,14 +143,20 @@ function draw(path, thispage) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      $ingredientName1.textContent = data[0].ingredient_name;
-      $ingredientName2.textContent = data[1].ingredient_name;
-      $ingredientName3.textContent = data[2].ingredient_name;
-      $ingredientName4.textContent = data[3].ingredient_name;
-      $ingredientName5.textContent = data[4].ingredient_name;
-      $ingredientName6.textContent = data[5].ingredient_name;
-      $ingredientName7.textContent = data[6].ingredient_name;
-      $ingredientName8.textContent = data[7].ingredient_name;
+      for (var i = 0; i < data.length; i++) {
+        var ingredientName = document.getElementById(
+          "ingredient-name" + (i + 1)
+        );
+        var ingredientImgID = document.getElementById(
+          "ingredient-img-id" + (i + 1)
+        );
+        ingredientName.textContent = data[i].ingredient_name;
+        if (data[i].ingredient_img_url != "NULL") {
+          ingredientImgID.src = data[i].ingredient_img_url;
+        } else {
+          ingredientImgID.src = "./images/non-img.png";
+        }
+      }
     })
     .catch((error) => {
       console.log(error);

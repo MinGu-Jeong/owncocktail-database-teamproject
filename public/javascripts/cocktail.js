@@ -9,7 +9,9 @@ const $recipeButton = document.getElementById("nav-cocktail-recipe");
 const $ownRecipeButton = document.getElementById("nav-own-cocktail");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
-
+const $cocktailImage = document.querySelector(".cocktail-img");
+const $cocktailTitle = document.querySelector(".cocktail-title");
+const $cocktailImageID = document.getElementById("cocktail-img1");
 $loginButton.addEventListener("click", () => {
   window.location.href = "./login.html";
 });
@@ -75,12 +77,12 @@ window.onload = function () {
     };
   }
 
-  if (user && user.id === "admin") {
-    deleteContainer.style.display = "block";
-  } else {
-    // 그렇지 않으면 delete-container를 숨깁니다.
-    deleteContainer.style.display = "none";
-  }
+  // if (user && user.id === "admin") {
+  //   deleteContainer.style.display = "block";
+  // } else {
+  //   // 그렇지 않으면 delete-container를 숨깁니다.
+  //   deleteContainer.style.display = "none";
+  // }
 
   //db호출 부분
   //기본칵테일인경우
@@ -96,6 +98,11 @@ window.onload = function () {
     })
       .then((response) => response.json())
       .then((data) => {
+        if (data[0].member_id == user.id) {
+          deleteContainer.style.display = "block";
+        } else {
+          deleteContainer.style.display = "none";
+        }
         // 재료 api 시작
         fetch("/search/search_recipe", {
           method: "POST",
@@ -167,8 +174,6 @@ window.onload = function () {
         let tools = data[0].tool;
         let toolArray = tools.split(",");
         const toolArraySize = toolArray.length;
-        const $cocktailImage = document.querySelector(".cocktail-img");
-        $cocktailImage.src = data[0].image;
         // 스낵 카드 컨테이너 찾기
         let $snackContainer = document.querySelector(".snack-container");
         // 이미 존재하는 스낵 카드들을 모두 삭제
@@ -263,7 +268,7 @@ window.onload = function () {
         //작성자
         $writerValue = document.querySelector("#writer-value");
         $writerValue.textContent = data[0].member_id;
-        const $cocktailTitle = document.querySelector(".cocktail-title");
+
         console.log(data);
         $cocktailTitle.textContent = data[0].recipe_name;
         $recommendCount.textContent = data[0].good_cnt;
@@ -274,7 +279,8 @@ window.onload = function () {
         let tools = data[0].tool;
         let toolArray = tools.split(",");
         const toolArraySize = toolArray.length;
-
+        console.log($cocktailTitle.textContent);
+        findIMG($cocktailTitle);
         // 스낵 카드 컨테이너 찾기
         let $snackContainer = document.querySelector(".snack-container");
         // 이미 존재하는 스낵 카드들을 모두 삭제
@@ -308,6 +314,54 @@ window.onload = function () {
       });
   }
 };
+
+const $deleteBtn = document.getElementById("delete-button");
+$deleteBtn.addEventListener("click", function (event) {
+  const $cocktailTitle = document.querySelector(".cocktail-title");
+  if (cocktailType == "default") {
+    fetch("/write/default_delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board_id: cocktailId,
+        member_id: user.id,
+        recipe_name: $cocktailTitle.textContent,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.result == false) {
+          alert(data.message);
+        } else {
+          window.location.href = "./index.html";
+        }
+      });
+  } else {
+    fetch("/write/my_delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board_id: cocktailId,
+        member_id: user.id,
+        recipe_name: $cocktailTitle.textContent,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.result == false) {
+          alert(data.message);
+        } else {
+          window.location.href = "./index.html";
+        }
+      });
+  }
+});
 
 function addcomment(member_id, text, datetime, good_cnt, comment_id) {
   // 댓글 카드 요소 생성
@@ -446,6 +500,7 @@ $commentInputBTN.addEventListener("click", function (event) {
     .then((data) => {
       console.log("댓글 작성");
       console.log(data);
+      window.location.reload();
       //새 댓글도 추가
       // addcomment(
       //   data.member_id,
@@ -525,3 +580,25 @@ $recommendButton.addEventListener("click", (event) => {
     console.log("own");
   }
 });
+
+function findIMG(receipe) {
+  fetch("/search/get_recipe_img", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((data) => {
+        if (data.recipe_name == receipe.textContent) {
+          $cocktailImageID.src = data.img_url;
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
