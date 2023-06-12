@@ -415,3 +415,8 @@ nav > button {
 .commentid-hidden {
   display: none;
 }
+
+#cocktail-img1 {
+  height: 210px;
+  width: auto;
+}
