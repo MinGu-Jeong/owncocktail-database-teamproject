@@ -75,12 +75,12 @@ window.onload = function () {
     };
   }
 
-  if (user && user.id === "admin") {
-    deleteContainer.style.display = "block";
-  } else {
-    // 그렇지 않으면 delete-container를 숨깁니다.
-    deleteContainer.style.display = "none";
-  }
+  // if (user && user.id === "admin") {
+  //   deleteContainer.style.display = "block";
+  // } else {
+  //   // 그렇지 않으면 delete-container를 숨깁니다.
+  //   deleteContainer.style.display = "none";
+  // }
 
   //db호출 부분
   //기본칵테일인경우
@@ -96,6 +96,11 @@ window.onload = function () {
     })
       .then((response) => response.json())
       .then((data) => {
+        if(data[0].member_id == user.id){
+          deleteContainer.style.display = "block"
+        }else{
+          deleteContainer.style.display = "none"
+        }
         // 재료 api 시작
         fetch("/search/search_recipe", {
           method: "POST",
@@ -308,6 +313,56 @@ window.onload = function () {
       });
   }
 };
+
+
+const $deleteBtn = document.getElementById("delete-button")
+$deleteBtn.addEventListener("click", function(event) {
+  const $cocktailTitle = document.querySelector(".cocktail-title");
+  if(cocktailType == "default"){
+    fetch('/write/default_delete', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        board_id: cocktailId,
+        member_id: user.id,
+        recipe_name: $cocktailTitle.textContent
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+       console.log(data)
+       if (data.result == false){
+        alert(data.message)
+       }else{
+        window.location.href = "./index.html";
+       }
+      })
+    }else{
+      fetch('/write/my_delete', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          board_id: cocktailId,
+          member_id: user.id,
+          recipe_name: $cocktailTitle.textContent
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+         console.log(data)
+         if (data.result == false){
+          alert(data.message)
+         }else{
+          window.location.href = "./index.html";
+         }
+        })
+    }
+  }
+)
 
 function addcomment(member_id, text, datetime, good_cnt, comment_id) {
   // 댓글 카드 요소 생성

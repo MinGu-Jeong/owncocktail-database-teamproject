@@ -247,7 +247,7 @@ router.post("/my_comment", (req, res) => {
 
 router.post("/default_delete", (req, res) => {
   con.query(`SELECT \`member_id\` FROM \`Default_Board\` WHERE \`board_id\` = '${req.body.board_id}';`, (err, result) => {
-    if (result[0].member_id == member_id){
+    if (result[0].member_id == req.body.member_id){
       con.query(`UPDATE \`Ingredient\` SET \`count\` = \`count\` - 1 WHERE \`ingredient_name\` IN (SELECT DISTINCT \`ingredient\` FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}')`, (err, result) => {
         if (err) throw err
         else{
@@ -285,14 +285,14 @@ router.post("/default_delete", (req, res) => {
         }
       })
     }else{
-      res.json({result: false, error: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다."})
+      res.json({result: false, message: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다."})
     }
   })
 })
 
 router.post("/my_delete", (req, res) => {
   con.query(`SELECT \`member_id\` FROM \`My_Board\` WHERE \`myboard_id\` = '${req.body.board_id}';`, (err, result) => {
-    if (result[0].member_id == member_id){
+    if (result[0].member_id == req.body.member_id){
       con.query(`UPDATE \`Ingredient\` SET \`count\` = \`count\` - 1 WHERE \`ingredient_name\` IN (SELECT DISTINCT \`ingredient\` FROM \`Recipe_Ingredient\` WHERE \`recipe_name\` = '${req.body.recipe_name}')`, (err, result) => {
         if (err) throw err
         else{
@@ -330,7 +330,7 @@ router.post("/my_delete", (req, res) => {
         }
       })
     }else{
-      res.json({result: false, error: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다."})
+      res.json({result: false, message: "해당 회원이 작성한 게시물이 아닙니다. 삭제가 불가능합니다."})
     }
   })
 })
