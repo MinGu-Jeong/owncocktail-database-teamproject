@@ -9,6 +9,7 @@ const $loginButtonTop = document.querySelector("#login-button");
 const $signupButtonTop = document.querySelector("#signup-button");
 const $ingredientName = document.querySelector("#ingredient-name1");
 const $recipeNames = document.querySelectorAll(".recipe-name");
+const $recipeImg = document.querySelectorAll(".recipe-image");
 const $useRecipe = document.querySelector(".use-recipe");
 const user = JSON.parse(sessionStorage.getItem("user"));
 const ingredientId = new URLSearchParams(window.location.search).get("id");
@@ -81,7 +82,7 @@ window.onload = function () {
 };
 
 console.log(ingredientId);
-
+findIngredientImg(ingredientId);
 fetch(`/search/ingredient_board`, {
   method: "POST",
   headers: {
@@ -95,6 +96,7 @@ fetch(`/search/ingredient_board`, {
     $recipeNames.forEach(($recipeName, index) => {
       if (data[index]) {
         $recipeName.textContent = data[index].recipe_name;
+        findIMG(data[index].recipe_name, index);
       }
     });
   })
@@ -133,4 +135,51 @@ $useRecipe.addEventListener("click", (event) => {
   }
 });
 
-const ingredientImg = document.getElementById("ingredient-image");
+function findIMG(receipe, index) {
+  fetch("/search/get_recipe_img", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((data) => {
+        if (data.recipe_name == receipe) {
+          $recipeImg[index].src = data.img_url;
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+const $ingredientImgID = document.getElementById("ingredient-img");
+function findIngredientImg(ingredientName) {
+  fetch(`/search/find_ingredient_img`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ingredientName: ingredientName,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log($ingredientImgID.src);
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].ingredient_img_url != "NULL") {
+          $ingredientImgID.src = data[i].ingredient_img_url;
+        } else {
+          $ingredientImgID.src = "./images/non-img.png";
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
