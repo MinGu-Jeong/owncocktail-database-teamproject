@@ -98,7 +98,11 @@ window.onload = function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data[0].member_id == user.id) {
+        console.log("이름");
+        findIMG(data[0].recipe_name);
+        console.log(data[0].recipe_name);
+        console.log($cocktailImageID.src);
+        if (user && data[0].member_id == user.id) {
           deleteContainer.style.display = "block";
         } else {
           deleteContainer.style.display = "none";
@@ -280,7 +284,7 @@ window.onload = function () {
         let toolArray = tools.split(",");
         const toolArraySize = toolArray.length;
         console.log($cocktailTitle.textContent);
-        findIMG($cocktailTitle);
+
         // 스낵 카드 컨테이너 찾기
         let $snackContainer = document.querySelector(".snack-container");
         // 이미 존재하는 스낵 카드들을 모두 삭제
@@ -593,7 +597,7 @@ function findIMG(receipe) {
     .then((data) => {
       console.log(data);
       data.forEach((data) => {
-        if (data.recipe_name == receipe.textContent) {
+        if (data.recipe_name == receipe) {
           $cocktailImageID.src = data.img_url;
         }
       });
