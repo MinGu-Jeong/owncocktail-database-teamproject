@@ -322,5 +322,13 @@ router.post("/default_board_find_ID", (req, res) => {
     }
   });
 });
-
+router.post("/find_ingredient_img", (req, res) => {
+  con.query(
+    "SELECT `ingredient_img_url` FROM `Ingredient` WHERE `ingredient_name` = ?",
+    [req.body.ingredientName],
+    (err, result) => {
+      res.json(result);
+    }
+  );
+});
 module.exports = router;
