@@ -89,12 +89,18 @@ const $ownCocktailId1 = document.querySelector("#own-cocktail-id1");
 const $ownCocktailId2 = document.querySelector("#own-cocktail-id2");
 const $ownCocktailId3 = document.querySelector("#own-cocktail-id3");
 const $ownCocktailId4 = document.querySelector("#own-cocktail-id4");
-
+const $ownCocktailimg1 = document.querySelector("#my-image-id1");
+const $ownCocktailimg2 = document.querySelector("#my-image-id2");
+const $ownCocktailimg3 = document.querySelector("#my-image-id3");
+const $ownCocktailimg4 = document.querySelector("#my-image-id4");
+const $defaultCocktailimg1 = document.querySelector("#default-image-id1");
+const $defaultCocktailimg2 = document.querySelector("#default-image-id2");
+const $defaultCocktailimg3 = document.querySelector("#default-image-id3");
+const $defaultCocktailimg4 = document.querySelector("#default-image-id4");
+const user = JSON.parse(sessionStorage.getItem("user"));
 window.onload = function () {
   const $loginButtonTop = document.querySelector("#login-button");
   const $signupButtonTop = document.querySelector("#signup-button");
-
-  const user = JSON.parse(sessionStorage.getItem("user"));
 
   if (user && user.isLogin) {
     // 로그인이 된 상태
@@ -126,7 +132,6 @@ window.onload = function () {
       window.location.href = "./signup.html";
     };
   }
-
   //db연결
   //기본칵테일 4개 불러오기
   fetch("/search/popular_default_board", {
@@ -141,7 +146,7 @@ window.onload = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      //console.log(data);
+      console.log(data);
       $cocktailName1.textContent = data[0].recipe_name;
       $cocktailName2.textContent = data[1].recipe_name;
       $cocktailName3.textContent = data[2].recipe_name;
@@ -150,6 +155,12 @@ window.onload = function () {
       $cocktailId2.textContent = data[1].board_id;
       $cocktailId3.textContent = data[2].board_id;
       $cocktailId4.textContent = data[3].board_id;
+      findIMG([
+        [$defaultCocktailimg1, $cocktailName1],
+        [$defaultCocktailimg2, $cocktailName2],
+        [$defaultCocktailimg3, $cocktailName3],
+        [$defaultCocktailimg4, $cocktailName4],
+      ]);
     })
     .catch((error) => {
       console.log(error);
@@ -176,6 +187,12 @@ window.onload = function () {
       $ownCocktailId2.textContent = data[1].myboard_id;
       $ownCocktailId3.textContent = data[2].myboard_id;
       $ownCocktailId4.textContent = data[3].myboard_id;
+      findIMG([
+        [$ownCocktailimg1, $ownCocktailName1],
+        [$ownCocktailimg2, $ownCocktailName2],
+        [$ownCocktailimg3, $ownCocktailName3],
+        [$ownCocktailimg4, $ownCocktailName4],
+      ]);
     })
     .catch((error) => {
       console.log(error);
@@ -201,5 +218,30 @@ $bestOwnCocktailButtonContainer.addEventListener("click", (event) => {
   if (!cocktailButton) return;
   const cocktailName = cocktailButton.children[1].textContent;
   const cocktailId = cocktailButton.children[2].textContent;
-  window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
+  if (user && user.isLogin) {
+    window.location.href = "./cocktail.html?id=" + cocktailId + "&type=own";
+  }
 });
+function findIMG(recipe) {
+  fetch("/search/get_recipe_img", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((data) => {
+        recipe.forEach((recipe_info) => {
+          if (data.recipe_name == recipe_info[1].textContent) {
+            recipe_info[0].src = data.img_url;
+          }
+        });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

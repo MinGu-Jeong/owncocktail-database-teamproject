@@ -367,7 +367,8 @@ nav {
 }
 .best-cocktail-image > img,
 .best-own-cocktail-image > img {
-  width: 130px;
+  height: 120px;
+  width: auto;
 }
 .move-page {
   display: flex;

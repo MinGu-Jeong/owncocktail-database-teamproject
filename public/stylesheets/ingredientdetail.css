@@ -297,3 +297,24 @@ nav {
 .hidden {
   display: none;
 }
+
+.ingredient-image {
+  display: flex;
+  width: 160px;
+  height: 170px;
+  border-radius: 10px;
+  background-color: #363333;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.recipe-image {
+  display: flex;
+  width: 160px;
+  height: 140px;
+  border-radius: 10px;
+  background-color: #363333;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}

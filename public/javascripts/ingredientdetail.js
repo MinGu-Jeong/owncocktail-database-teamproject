@@ -1,127 +1,185 @@
-var searchParams = new URLSearchParams(window.location.search);
-const ingredientId = searchParams.get("id");
 const $loginButton = document.getElementById("login-button");
 const $signupButton = document.getElementById("signup-button");
 const $receipeButton = document.getElementById("nav-cocktail-receipe");
 const $ingredientButton = document.getElementById("nav-ingredient");
 const $searchButton = document.getElementById("nav-search");
 const $mycocktailmain = document.getElementById("nav-own-cocktail");
-
 const $titleLogo = document.querySelector(".title-logo");
-$titleLogo.addEventListener("click", () => {
-  window.location.href = "./index.html";
-});
-$loginButton.addEventListener("click", () => {
-  window.location.href = "./login.html";
-});
+const $loginButtonTop = document.querySelector("#login-button");
+const $signupButtonTop = document.querySelector("#signup-button");
+const $ingredientName = document.querySelector("#ingredient-name1");
+const $recipeNames = document.querySelectorAll(".recipe-name");
+const $recipeImg = document.querySelectorAll(".recipe-image");
+const $useRecipe = document.querySelector(".use-recipe");
+const user = JSON.parse(sessionStorage.getItem("user"));
+const ingredientId = new URLSearchParams(window.location.search).get("id");
 
-$signupButton.addEventListener("click", () => {
-  window.location.href = "./signup.html";
-});
+function redirectTo(path) {
+  window.location.href = path;
+}
 
-$ingredientButton.addEventListener("click", () => {
-  window.location.href = "./ingredient.html";
-});
-$searchButton.addEventListener("click", () => {
-  window.location.href = "./search.html";
-});
-$receipeButton.addEventListener("click", () => {
-  window.location.href = "./cocktailmain.html";
-});
 function showLoginAlert() {
   alert("로그인 시 이용가능");
 }
-$mycocktailmain.addEventListener("click", showLoginAlert);
-const $loginButtonTop = document.querySelector("#login-button");
-const $signupButtonTop = document.querySelector("#signup-button");
-const user = JSON.parse(sessionStorage.getItem("user"));
-if (user && user.isLogin) {
-  // 로그인이 된 상태
-  $mycocktailmain.removeEventListener("click", showLoginAlert);
-  $mycocktailmain.addEventListener("click", () => {
-    window.location.href = "./mycocktailmain.html";
-  });
-  $loginButtonTop.textContent = "로그아웃";
-  $loginButtonTop.onclick = function () {
-    // 로그아웃 로직 실행
-    sessionStorage.removeItem("user"); // 세션스토리지에서 사용자 정보 삭제
-    window.location.reload(); // 페이지 새로고침
-  };
 
-  $signupButtonTop.textContent = "마이페이지";
-  $signupButtonTop.onclick = function () {
-    // 마이페이지로 이동
-    window.location.href = "./mypage.html";
-  };
-} else {
-  // 로그인이 되지 않은 상태
-  $loginButtonTop.onclick = function () {
-    // 로그인 페이지로 이동
-    window.location.href = "./login.html";
-  };
-
-  $signupButtonTop.onclick = function () {
-    // 회원가입 페이지로 이동
-    window.location.href = "./signup.html";
-  };
+function handleLogout() {
+  sessionStorage.removeItem("user");
+  window.location.reload();
 }
-const $ingredientName = document.querySelector("#ingredient-name1");
-const $recipeName1 = document.querySelector("#recipe-name1");
-const $recipeName2 = document.querySelector("#recipe-name2");
-const $recipeName3 = document.querySelector("#recipe-name3");
-const $recipeName4 = document.querySelector("#recipe-name4");
-const $recipeName5 = document.querySelector("#recipe-name5");
+
+function handleLogin() {
+  redirectTo("./login.html");
+}
+
+function handleSignup() {
+  redirectTo("./signup.html");
+}
+
+function handleMyCocktail() {
+  redirectTo(user && user.isLogin ? "./mycocktailmain.html" : "./login.html");
+}
+
+function handleMypage() {
+  redirectTo("./mypage.html");
+}
+
+$titleLogo.addEventListener("click", () => redirectTo("./index.html"));
+$loginButton.addEventListener("click", handleLogin);
+$signupButton.addEventListener("click", handleSignup);
+$ingredientButton.addEventListener("click", () =>
+  redirectTo("./ingredient.html")
+);
+$searchButton.addEventListener("click", () => redirectTo("./search.html"));
+$receipeButton.addEventListener("click", () =>
+  redirectTo("./cocktailmain.html")
+);
+$mycocktailmain.addEventListener("click", showLoginAlert);
+
+if (user && user.isLogin) {
+  $mycocktailmain.removeEventListener("click", showLoginAlert);
+  $mycocktailmain.addEventListener("click", handleMyCocktail);
+  $loginButtonTop.textContent = "로그아웃";
+  $loginButtonTop.addEventListener("click", handleLogout);
+  $signupButtonTop.textContent = "마이페이지";
+  $signupButtonTop.addEventListener("click", handleMypage);
+} else {
+  $loginButtonTop.addEventListener("click", handleLogin);
+  $signupButtonTop.addEventListener("click", handleSignup);
+}
+
 $ingredientName.textContent = ingredientId;
+
 window.onload = function () {
-  const $loginButtonTop = document.querySelector("#login-button");
-  const $signupButtonTop = document.querySelector("#signup-button");
-  const user = JSON.parse(sessionStorage.getItem("user"));
   if (user && user.isLogin) {
-    // 로그인이 된 상태
     $loginButtonTop.textContent = "로그아웃";
-    $loginButtonTop.onclick = function () {
-      // 로그아웃 로직 실행
-      sessionStorage.removeItem("user"); // 세션스토리지에서 사용자 정보 삭제
-      window.location.reload(); // 페이지 새로고침
-    };
-
+    $loginButtonTop.addEventListener("click", handleLogout);
     $signupButtonTop.textContent = "마이페이지";
-    $signupButtonTop.onclick = function () {
-      // 마이페이지로 이동
-      window.location.href = "./mypage.html";
-    };
+    $signupButtonTop.addEventListener("click", handleMypage);
   } else {
-    // 로그인이 되지 않은 상태
-    $loginButtonTop.onclick = function () {
-      // 로그인 페이지로 이동
-      window.location.href = "./login.html";
-    };
-
-    $signupButtonTop.onclick = function () {
-      // 회원가입 페이지로 이동
-      window.location.href = "./signup.html";
-    };
+    $loginButtonTop.addEventListener("click", handleLogin);
+    $signupButtonTop.addEventListener("click", handleSignup);
   }
 };
+
 console.log(ingredientId);
+findIngredientImg(ingredientId);
 fetch(`/search/ingredient_board`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
   },
-  body: JSON.stringify({
-    name: `${ingredientId}`,
-  }),
+  body: JSON.stringify({ name: ingredientId }),
 })
   .then((response) => response.json())
   .then((data) => {
     console.log(data);
-    $recipeName1.textContent = data[0].recipe_name;
-    $recipeName2.textContent = data[1].recipe_name;
-    $recipeName3.textContent = data[2].recipe_name;
-    $recipeName4.textContent = data[3].recipe_name;
-    $recipeName5.textContent = data[4].recipe_name;
+    $recipeNames.forEach(($recipeName, index) => {
+      if (data[index]) {
+        $recipeName.textContent = data[index].recipe_name;
+        findIMG(data[index].recipe_name, index);
+      }
+    });
   })
   .catch((error) => {
     console.log(error);
   });
+
+function goBoard(recipeName) {
+  fetch(`/search/default_board_find_ID`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ recipe_name: `${recipeName}` }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data == null) {
+        console.log("없음");
+      } else {
+        window.location.href =
+          "./cocktail.html?id=" + data[0].board_id + "&type=default";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+$useRecipe.addEventListener("click", (event) => {
+  const clickedButton = event.target.closest(".recipe-button");
+  if (clickedButton) {
+    const recipeName = clickedButton.querySelector(".recipe-name").textContent;
+    goBoard(recipeName);
+  }
+});
+
+function findIMG(receipe, index) {
+  fetch("/search/get_recipe_img", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((data) => {
+        if (data.recipe_name == receipe) {
+          $recipeImg[index].src = data.img_url;
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+const $ingredientImgID = document.getElementById("ingredient-img");
+function findIngredientImg(ingredientName) {
+  fetch(`/search/find_ingredient_img`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ingredientName: ingredientName,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log($ingredientImgID.src);
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].ingredient_img_url != "NULL") {
+          $ingredientImgID.src = data[i].ingredient_img_url;
+        } else {
+          $ingredientImgID.src = "./images/non-img.png";
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

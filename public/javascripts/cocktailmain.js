@@ -116,7 +116,9 @@ function dropdown() {
 }
 const cocktailNameElements = document.querySelectorAll("[id^='cocktail-name']");
 const cocktailIdElements = document.querySelectorAll("[id^='cocktail-id']");
-
+const defaultImageElements = document.querySelectorAll(
+  "[id^='default-image-id']"
+);
 function draw(path, thispage) {
   fetch(`/search/${path}_default_board`, {
     method: "POST",
@@ -134,6 +136,7 @@ function draw(path, thispage) {
       for (let i = 0; i < data.length; i++) {
         cocktailNameElements[i].textContent = data[i].recipe_name;
         cocktailIdElements[i].textContent = data[i].board_id;
+        findIMG(defaultImageElements[i], cocktailNameElements[i]);
       }
       if (data.length < 8) {
         for (let i = data.length; i < 8; i++) {
@@ -235,3 +238,25 @@ $bestCocktailButtonContainer.addEventListener("click", (event) => {
   console.log("test");
   window.location.href = "./cocktail.html?id=" + cocktailId + "&type=default";
 });
+
+function findIMG(recipe_IMG, recipe) {
+  fetch("/search/get_recipe_img", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((data) => {
+        if (data.recipe_name == recipe.textContent) {
+          recipe_IMG.src = data.img_url;
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

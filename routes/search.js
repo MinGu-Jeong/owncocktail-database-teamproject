@@ -106,10 +106,21 @@ router.post("/ingredient_board", (req, res) => {
 
 router.post("/popular_default_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`good_cnt\` DESC LIMIT ${
+    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`good_cnt\` DESC, \`recipe_name\` ASC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
+      res.json(result);
+    }
+  );
+});
+
+// 레시피 이미지 싹다 긁어오기
+router.post("/get_recipe_img", (req, res) => {
+  con.query(
+    `SELECT \`recipe_name\`, \`img_url\` FROM \`Recipe\``,
+    (err, result) => {
+      if (err) throw err;
       res.json(result);
     }
   );
@@ -128,7 +139,7 @@ router.post("/name_default_board", (req, res) => {
 
 router.post("/date_default_board", (req, res) => {
   con.query(
-    `SELECR \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${
+    `SELECT \`recipe_name\`, \`board_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`Default_Board\` ORDER BY \`write_time\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num};`,
     (err, result) => {
@@ -139,7 +150,7 @@ router.post("/date_default_board", (req, res) => {
 
 router.post("/popular_my_board", (req, res) => {
   con.query(
-    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` DESC LIMIT ${
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`good_cnt\` DESC, \`recipe_name\` ASC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -161,7 +172,7 @@ router.post("/name_my_board", (req, res) => {
 
 router.post("/date_my_board", (req, res) => {
   con.query(
-    `SELECR \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${
+    `SELECT \`recipe_name\`, \`myboard_id\`, \`member_id\`, \`write_time\`, \`good_cnt\` FROM \`My_Board\` ORDER BY \`write_time\` DESC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num};`,
     (err, result) => {
@@ -172,7 +183,7 @@ router.post("/date_my_board", (req, res) => {
 
 router.post("/popular_ingredient", (req, res) => {
   con.query(
-    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`count\` DESC LIMIT ${
+    `SELECT \`ingredient_name\`, \`ingredient_img_url\` FROM \`Ingredient\` ORDER BY \`count\` DESC, \`ingredient_name\` ASC LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -183,7 +194,7 @@ router.post("/popular_ingredient", (req, res) => {
 
 router.post("/name_ingredient", (req, res) => {
   con.query(
-    `SELECT \`ingredient_name\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` LIMIT ${
+    `SELECT \`ingredient_name\`, \`ingredient_img_url\` FROM \`Ingredient\` ORDER BY \`ingredient_name\` LIMIT ${
       (req.body.page - 1) * req.body.num
     }, ${req.body.num}`,
     (err, result) => {
@@ -294,4 +305,30 @@ router.post("/my_comment", (req, res) => {
   );
 });
 
+router.post("/default_board_find_ID", (req, res) => {
+  const recipeName = req.body.recipe_name;
+  const query =
+    "SELECT `board_id` FROM `Default_Board` WHERE `recipe_name` = ?";
+  con.query(query, [recipeName], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    if (result.length === 0) {
+      res.json(null);
+    } else {
+      res.json(result);
+    }
+  });
+});
+router.post("/find_ingredient_img", (req, res) => {
+  con.query(
+    "SELECT `ingredient_img_url` FROM `Ingredient` WHERE `ingredient_name` = ?",
+    [req.body.ingredientName],
+    (err, result) => {
+      res.json(result);
+    }
+  );
+});
 module.exports = router;
