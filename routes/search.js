@@ -46,107 +46,53 @@ router.post("/random_my", (req, res) => {
 });
 
 router.post("/search_recipe", (req, res) => {
-  con.beginTransaction(function(err) {
-    if (err) { throw err; }
-    con.query(`SELECT \`recipe_name\` FROM \`Default_Board\` WHERE \`board_id\` = ${req.body.board_id}`, function (error, results, fields) {
-      if (error) {
-        return con.rollback(function() {
-          throw error;
-        });
-      }
-  
-      const recipe_name = results[0].recipe_name;
-  
-      con.query(`SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${recipe_name}';`, function (error, results, fields) {
-        if (error) {
-          return con.rollback(function() {
-            throw error;
-          });
-        }  
-        con.commit(function(err) {
-          if (err) {
-            return con.rollback(function() {
-              throw err;
-            });
-          }
-          res.json(results);
-        });
-      });
-    });
-  });
+  let recipe_name;
+  con.query(
+    `SELECT \`recipe_name\` FROM \`Default_Board\` WHERE \`board_id\` = ${req.body.board_id}`,
+    (err, result) => {
+      recipe_name = result[0].recipe_name;
+      con.query(
+        `SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${recipe_name}';`,
+        (err, result) => {
+          res.json(result);
+        }
+      );
+    }
+  );
 });
 
 router.post("/search_my_recipe", (req, res) => {
-  con.beginTransaction(function(err) {
-    if (err) { throw err; }
-    con.query(`SELECT \`recipe_name\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.myboard_id}`, function (error, results, fields) {
-      if (error) {
-        return con.rollback(function() {
-          throw error;
-        });
-      }
-  
-      const recipe_name = results[0].recipe_name;
-  
-      con.query(`SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${recipe_name}';`, function (error, results, fields) {
-        if (error) {
-          return con.rollback(function() {
-            throw error;
-          });
-        }  
-        con.commit(function(err) {
-          if (err) {
-            return con.rollback(function() {
-              throw err;
-            });
-          }
-          res.json(results);
-        });
-      });
-    });
-  });
+  let recipe_name;
+  con.query(
+    `SELECT \`recipe_name\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.myboard_id}`,
+    (err, result) => {
+      recipe_name = result[0].recipe_name;
+      con.query(
+        `SELECT i.ingredient_name, ri.ratio, i.ingredient_img_url FROM (Recipe_Ingredient ri JOIN Ingredient i ON ri.ingredient = i.ingredient_name) WHERE ri.recipe_name = '${recipe_name}';`,
+        (err, result) => {
+          res.json(result);
+        }
+      );
+    }
+  );
 });
 
 router.post("/my_board", (req, res) => {
-  con.beginTransaction(function(err) {
-    if (err) { throw err; }
-    con.query(`SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.myboard_id}`, function (error, results, fields) {
-      if (error) {
-        return con.rollback(function() {
-          throw error;
-        });
-      }
-      con.commit(function(err) {
-        if (err) {
-          return con.rollback(function() {
-              throw err;
-          });
-        }
-        res.json(results);
-      });
-    });
-  });
+  con.query(
+    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`My_Board\` WHERE \`myboard_id\` = ${req.body.board_id}`,
+    (err, result) => {
+      res.json(result);
+    }
+  );
 });
 
 router.post("/default_board", (req, res) => {
-  con.beginTransaction(function(err) {
-    if (err) { throw err; }
-    con.query(`SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${req.body.board_id}`, function (error, results, fields) {
-      if (error) {
-        return con.rollback(function() {
-          throw error;
-        });
-      }
-      con.commit(function(err) {
-        if (err) {
-          return con.rollback(function() {
-            throw err;
-          });
-        }
-        res.json(results);
-      });
-    });
-  });
+  con.query(
+    `SELECT \`recipe_name\`, \`member_id\`, \`write_time\`, \`text\`, \`good_cnt\`, \`snack\`, \`tool\` FROM \`Default_Board\` WHERE \`board_id\` = ${req.body.board_id}`,
+    (err, result) => {
+      res.json(result);
+    }
+  );
 });
 
 router.post("/ingredient_board", (req, res) => {
