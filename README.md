@@ -20,4 +20,15 @@
 ### Back-End
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
 
+## 사용법
+### 사전 필수 환경
+* Node.js 설치 및 환경변수 설정
+* MySQL 설치
+### 실행 순서
+1. ``` gh repo clone MinGu-Jeong/owncocktail-database-teamproject ```
+2. ``` cd (clone한 폴더 위치) ```
+3. create_DB.txt 파일 내용을 MySQL에서 실행
+4. ``` npm start app.js ```
+5. 웹 브라우저를 실행 후 주소창에 ``` localhost:3000 ``` 입력
+
 ## 화면 구성
