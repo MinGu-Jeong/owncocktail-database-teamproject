@@ -91,7 +91,7 @@ fetch(`/search/ingredient_board`, {
   body: JSON.stringify({ name: ingredientId }),
 })
   .then((response) => response.json())
-  .then((data) => {
+  .thqen((data) => {
     console.log(data);
     $recipeNames.forEach(($recipeName, index) => {
       if (data[index]) {
