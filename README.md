@@ -7,7 +7,7 @@
 > 
 > 2023학년도 1학기
 
-## Contributors
+## 팀원
 |정민구|최정훈|조병하|김형정|김형구|정민서
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |[MinGu-Jeong](https://github.com/MinGu-Jeong)|[hoooooony](https://github.com/hoooooony)|[cux-maks](https://github.com/cux-maks)|[jingjing2222](https://github.com/jingjing2222)|[gudrn4616](https://github.com/gudrn4616)|[minseo0810](https://github.com/minseo0810)|
